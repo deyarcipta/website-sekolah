@@ -22,6 +22,7 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/frontend-style.css') }}">
+  @stack('styles')
 </head>
 
 <body>
