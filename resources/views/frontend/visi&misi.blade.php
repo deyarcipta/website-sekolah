@@ -125,38 +125,6 @@
 {{-- CSS khusus (letakkan di head/global CSS kalau mau) --}}
 @push('styles')
 <style>
-
-  /* Setting Star Garis */
-
-.line-with-star {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25px !important;
-}
-
-.line-with-star::before,
-.line-with-star::after {
-    content: "";
-    display: inline-block;
-    width: 50px;
-    /* lebar garis */
-    height: 4px;
-    /* ketebalan garis */
-    background-color: #6b21a8;
-    /* warna garis */
-}
-
-.line-with-star span {
-    color: #6b21a8;
-    /* warna bintang */
-    margin: 0 10px;
-    /* jarak kiri kanan bintang */
-    font-size: 22px;
-}
-
-/* Akhir Setting Star Garis */
-
 /* === CARD STYLE === */
 
 /* card container umum */

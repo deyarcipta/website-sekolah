@@ -25,7 +25,8 @@
             <ul class="dropdown-menu" aria-labelledby="profileDropdown">
               <li><a class="dropdown-item" href="/sambutan">Sambutan Kepala Sekolah</a></li>
               <li><a class="dropdown-item" href="/visi-misi">Visi & Misi</a></li>
-              <li><a class="dropdown-item" href="/sejarah">Sejarah Singkat</a></li>
+              <li><a class="dropdown-item" href="/sarpras">Sarana Prasarana</a></li>
+              <li><a class="dropdown-item" href="/gurustaff">Guru & Staff</a></li>
             </ul>
           </li>
 
