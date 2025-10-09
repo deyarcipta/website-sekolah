@@ -9,6 +9,9 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Frontend\VisiMisiController;
 use App\Http\Controllers\Frontend\SarprasController;
 use App\Http\Controllers\Frontend\GuruStaffController;
+use App\Http\Controllers\Frontend\TKJController;
+use App\Http\Controllers\Frontend\PerhotelanController;
+use App\Http\Controllers\Frontend\KulinerController;
 
 // Halaman depan website sekolah
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -16,6 +19,11 @@ Route::get('/sambutan', [SambutanController::class, 'index'])->name('frontend.sa
 Route::get('/visi-misi', [VisiMisiController::class, 'index'])->name('frontend.visi-misi');
 Route::get('/sarpras', [SarprasController::class, 'index'])->name('frontend.sarpras');
 Route::get('/gurustaff', [GuruStaffController::class, 'index'])->name('frontend.gurustaff');
+
+// Halaman program keahlian
+Route::get('/tkj', [TKJController::class, 'index'])->name('frontend.tkj');
+Route::get('/perhotelan', [PerhotelanController::class, 'index'])->name('frontend.perhotelan');
+Route::get('/kuliner', [KulinerController::class, 'index'])->name('frontend.kuliner');
 
 // Halaman login CMS (akses melalui /w1s4t4)
 Route::get('/test', function () {

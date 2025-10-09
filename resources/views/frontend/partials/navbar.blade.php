@@ -36,9 +36,9 @@
               Program
             </a>
             <ul class="dropdown-menu" aria-labelledby="programDropdown">
-              <li><a class="dropdown-item" href="#">Perhotelan</a></li>
-              <li><a class="dropdown-item" href="#">Kuliner</a></li>
-              <li><a class="dropdown-item" href="#">TKJ</a></li>
+              <li><a class="dropdown-item" href="/perhotelan">Perhotelan</a></li>
+              <li><a class="dropdown-item" href="/kuliner">Kuliner</a></li>
+              <li><a class="dropdown-item" href="/tkj">TKJ</a></li>
             </ul>
           </li>
 

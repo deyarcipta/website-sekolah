@@ -62,7 +62,6 @@
 </section>
 
 <section class="container my-5 py-3">
-
   {{-- ===== VISI KAMI ===== --}}
   <div class="row align-items-center mb-5">
     {{-- FOTO (KIRI) --}}
