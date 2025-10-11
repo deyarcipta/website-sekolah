@@ -4,7 +4,7 @@
     @else navbar-purple 
     @endif">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/">
         <img src="{{ asset('assets/img/logowi.png') }}" alt="Logo" height="50">
         <span class="ms-2">SMK WISATA INDONESIA</span>
       </a>
@@ -43,7 +43,7 @@
           </li>
 
           <li class="nav-item"><a class="nav-link" href="#">Informasi</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Hubungi Kami</a></li>
+          <li class="nav-item"><a class="nav-link" href="/kontak">Hubungi Kami</a></li>
           <li class="nav-item"><a class="nav-link" href="#">PPDB</a></li>
         </ul>
 
