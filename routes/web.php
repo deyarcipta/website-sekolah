@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\TKJController;
 use App\Http\Controllers\Frontend\PerhotelanController;
 use App\Http\Controllers\Frontend\KulinerController;
 use App\Http\Controllers\Frontend\KontakController;
+use App\Http\Controllers\Frontend\InformasiController;
 
 // Halaman depan website sekolah
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -21,6 +22,7 @@ Route::get('/visi-misi', [VisiMisiController::class, 'index'])->name('frontend.v
 Route::get('/sarpras', [SarprasController::class, 'index'])->name('frontend.sarpras');
 Route::get('/gurustaff', [GuruStaffController::class, 'index'])->name('frontend.gurustaff');
 Route::get('/kontak', [KontakController::class, 'index'])->name('frontend.kontak');
+Route::get('/informasi', [InformasiController::class, 'index'])->name('frontend.informasi');
 
 // Halaman program keahlian
 Route::get('/tkj', [TKJController::class, 'index'])->name('frontend.tkj');

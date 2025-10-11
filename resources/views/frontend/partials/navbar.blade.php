@@ -42,7 +42,7 @@
             </ul>
           </li>
 
-          <li class="nav-item"><a class="nav-link" href="#">Informasi</a></li>
+          <li class="nav-item"><a class="nav-link" href="/informasi">Informasi</a></li>
           <li class="nav-item"><a class="nav-link" href="/kontak">Hubungi Kami</a></li>
           <li class="nav-item"><a class="nav-link" href="#">PPDB</a></li>
         </ul>
