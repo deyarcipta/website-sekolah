@@ -32,7 +32,7 @@
                 Serah terima aplikasi karya mahasiswa Universitas Bina Sarana Informatika, resmi dilaksanakan pada Kamis, 27 Juni 2024 Pukul 08.00 WIB.
                 Aplikasi Sistem Informasi Akademik SMK Wisata Indonesia...
               </p>
-              <a href="#" class="read-more">Read More >></a>
+              <a href="/detail-informasi" class="read-more">Read More >></a>
               <div class="news-footer">
                 <small class="text-muted">June 27, 2024 · No Comments</small>
               </div>

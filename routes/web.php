@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\PerhotelanController;
 use App\Http\Controllers\Frontend\KulinerController;
 use App\Http\Controllers\Frontend\KontakController;
 use App\Http\Controllers\Frontend\InformasiController;
+use App\Http\Controllers\Frontend\DetailInformasiController;
 
 // Halaman depan website sekolah
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -23,6 +24,7 @@ Route::get('/sarpras', [SarprasController::class, 'index'])->name('frontend.sarp
 Route::get('/gurustaff', [GuruStaffController::class, 'index'])->name('frontend.gurustaff');
 Route::get('/kontak', [KontakController::class, 'index'])->name('frontend.kontak');
 Route::get('/informasi', [InformasiController::class, 'index'])->name('frontend.informasi');
+Route::get('/detail-informasi', [DetailInformasiController::class, 'index'])->name('frontend.detail-informasi');
 
 // Halaman program keahlian
 Route::get('/tkj', [TKJController::class, 'index'])->name('frontend.tkj');
