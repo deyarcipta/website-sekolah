@@ -24,7 +24,7 @@
 
     {{-- TEKS (KIRI) --}}
     <div class="col-lg-6" style="padding: 0px 30px;">
-      <h1 class="fw-bold text-purple mb-2">Kuliner</h1>
+      <h1 class="fw-bold text-purple mb-2">Teknik Jaringan Komputer & Telekomunikasi</h1>
       <p class="mb-2 fw-semibold">
         Teknik Jaringan Komputer dan Telekomunikasi merupakan kompetensi keahlian yang berfokus pada jaringan, komputer, dan server.
       </p>
@@ -214,7 +214,7 @@
 
 {{-- === Bagian Pembelajaran === --}}
 <section class="container">
-  <div class="row align-items-center flex-row-reverse mb-5 py-5">
+  <div class="row align-items-center flex-row-reverse mb-5 py-5 pembelajaran">
 
     {{-- TEKS (KANAN) --}}
     <div class="col-lg-6" style="padding: 0px 30px;">
@@ -455,6 +455,22 @@
 
   .kepala-card img {
     height: 200px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .card-square,
+  .card-rect {
+    width: 100%;
+    height: 200px;
+  }
+
+  .photo-wrapper {
+    margin-bottom: 20px; /* ✅ tambahan jarak bawah di versi mobile */
+  }
+
+  .pembelajaran .photo-down {
+    margin-top: 20px; /* hilangkan margin top di versi mobile */
   }
 }
 </style>

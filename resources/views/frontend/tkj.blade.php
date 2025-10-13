@@ -130,7 +130,7 @@
   <div class="row flex-row-reverse mb-5">
 
     {{-- FOTO (KANAN) --}}
-    <div class="col-lg-6">
+    <div class="col-lg-6 d-flex justify-content-center position-relative">
       <div class="photo-wrapper photo-down">
         <img src="/assets/img/praktek.png" alt="Praktek" class="img-fluid rounded custom-img-quote">
         <p class="text-quote">Karakter utama dari orang yang sukses adalah keberanian dan komitmen mereka untuk terus maju tanpa takut halangan. Tidak ada jaminan sebuah kesuksesan bagi seorang yang tidak keluar dari zona nyamannya dan takut mengambil risiko.</p>
@@ -214,7 +214,7 @@
 
 {{-- === Bagian Pembelajaran === --}}
 <section class="container">
-  <div class="row align-items-center flex-row-reverse mb-5 py-5">
+  <div class="row align-items-center flex-row-reverse mb-5 py-5 pembelajaran">
 
     {{-- TEKS (KANAN) --}}
     <div class="col-lg-6" style="padding: 0px 30px;">
@@ -455,6 +455,28 @@
 
   .kepala-card img {
     height: 200px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .card-square,
+  .card-rect {
+    width: 100%;
+    height: 200px;
+  }
+
+  .photo-wrapper {
+    margin-bottom: 20px; /* ✅ tambahan jarak bawah di versi mobile */
+    width: 85%;
+  }
+
+  .custom-img-quote {
+    display: block;
+    margin: 0 auto; /* membuat gambar berada di tengah */
+  }
+
+  .pembelajaran .photo-down {
+    margin-top: 20px; /* hilangkan margin top di versi mobile */
   }
 }
 </style>

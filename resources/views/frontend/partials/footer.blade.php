@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="footer-section text-center py-3 mt-5">
+<footer class="footer-section text-center py-3">
   <div class="container">
     <span>
       &copy; {{ date('Y') }} <strong>SMK Wisata Indonesia</strong> |

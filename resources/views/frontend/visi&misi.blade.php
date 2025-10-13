@@ -116,41 +116,32 @@
       </ul>
     </div>
   </div>
-
 </section>
 
 @endsection
 
-{{-- CSS khusus (letakkan di head/global CSS kalau mau) --}}
 @push('styles')
 <style>
 /* === CARD STYLE === */
-
-/* card container umum */
 .image-card {
   position: relative;
   background-size: cover;
   background-position: center;
-  /* border-radius: 12px; */
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  /* border: 2px solid #6B02B1; */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* persegi */
 .card-square {
   width: 250px;
   height: 250px;
 }
 
-/* persegi panjang */
 .card-rect {
   width: 510px;
   height: 250px;
 }
 
-/* overlay ungu 50% */
 .overlay {
   position: absolute;
   inset: 0;
@@ -161,7 +152,6 @@
   transition: background 0.2s ease;
 }
 
-/* teks */
 .card-label {
   color: #fff;
   font-weight: 600;
@@ -169,7 +159,6 @@
   font-size: 20px;
 }
 
-/* efek hover */
 .image-card:hover {
   transform: scale(1.02);
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
@@ -220,7 +209,6 @@
   z-index: 2;
 }
 
-/* Posisi naik-turun agar tidak sejajar */
 .photo-up {
   transform: translateY(-25px);
 }
@@ -229,7 +217,6 @@
   transform: translateY(25px);
 }
 
-/* List teks */
 ul {
   padding-left: 20px;
 }
@@ -242,8 +229,8 @@ ul li {
 @media (max-width: 991.98px) {
   .card-square,
   .card-rect {
-    width: 48%;     /* dua kolom di tablet */
-    height: 250px;  /* sedikit lebih pendek */
+    width: 48%;
+    height: 250px;
   }
 
   .row.align-items-center {
@@ -253,7 +240,7 @@ ul li {
   .photo-wrapper {
     width: 85%;
     height: auto;
-    border: 2px solid #6b02b1;
+    /* border: 2px solid #6b02b1; */
   }
 
   .photo-up,
@@ -270,10 +257,19 @@ ul li {
 @media (max-width: 575.98px) {
   .card-square,
   .card-rect {
-    width: 100%;    /* full lebar */
-    height: 200px;  /* tinggi otomatis lebih kecil */
+    width: 100%;
+    height: 200px;
+  }
+
+  /* === PERBAIKAN KHUSUS MOBILE === */
+  .photo-wrapper {
+    margin-bottom: 20px; /* ✅ Jarak bawah hanya di mobile */
+  }
+
+  .row.align-items-center ul {
+    text-align: left !important; /* ✅ List tetap rata kiri */
+    margin: 0 auto;
   }
 }
-
 </style>
 @endpush

@@ -122,7 +122,7 @@
 
 <section class="section-bg-overlay">
   <div class="container">
-    <h1 class="fw-bold text-center mb-3">Let's get Social</h1>
+    <h1 class="fw-bold text-center mb-3 social">Let's get Social</h1>
     <p class="text-center mb-4" style="padding: 0px 25px; font-size: 20px;">
       We'd love to hear from you on our social networks.<br>
       Morbi volutpat justo sed efficitur cursus fringilla quam vitae lacinia viverra.
@@ -335,6 +335,11 @@
 }
 
 @media (max-width: 768px) {
+  .kontak-sekolah h5{
+    font-size: 16px;
+    font-weight: 500 !important;
+  }
+
   .maps-kontak {
     width: 80%;
     height: 400px;
@@ -346,9 +351,24 @@
     height: auto;
   }
 
+    .row.g-5 {
+    justify-content: center !important;
+  }
+
   .kepala-card {
-    width: 90%;
+    width: 85%;
     height: auto;
+    margin: 0 auto; /* Tengah horizontal */
+  }
+
+  .social P{
+    font-size: 16px; /* Ukuran font lebih kecil di versi mobile */
+  }
+
+  .social-links a {
+    font-size: 30px;                 /* Ukuran ikon lebih kecil di versi mobile */
+    width: 60px;                     /* Area klik sedikit lebih kecil */
+    height: 60px;
   }
 }
 </style>
