@@ -19,9 +19,9 @@
 
           <!-- Dropdown Profile -->
           <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Profile
-            </a>
+            </button>
             <ul class="dropdown-menu" aria-labelledby="profileDropdown">
               <li><a class="dropdown-item" href="/sambutan">Sambutan Kepala Sekolah</a></li>
               <li><a class="dropdown-item" href="/visi-misi">Visi & Misi</a></li>
@@ -32,9 +32,9 @@
 
           <!-- Dropdown Program -->
           <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="programDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="nav-link" href="#" id="programDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Program
-            </a>
+            </button>
             <ul class="dropdown-menu" aria-labelledby="programDropdown">
               <li><a class="dropdown-item" href="/perhotelan">Perhotelan</a></li>
               <li><a class="dropdown-item" href="/kuliner">Kuliner</a></li>
