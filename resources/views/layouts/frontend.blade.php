@@ -114,18 +114,60 @@
     });
 
     // Fix dropdown agar tidak langsung tertutup
-  document.querySelectorAll('.nav-item.dropdown').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      const dropdown = item.querySelector('.dropdown-menu');
-      dropdown.classList.add('show');
+  document.addEventListener('DOMContentLoaded', function () {
+  const dropdowns = document.querySelectorAll('.nav-item.dropdown');
+  const toggles = document.querySelectorAll('.nav-item.dropdown > .nav-link, .nav-item.dropdown > button');
+
+  // ======== DESKTOP (Hover) ========
+  function handleDesktopDropdown() {
+    dropdowns.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const dropdown = item.querySelector('.dropdown-menu');
+        dropdown.classList.add('show');
+      });
+      item.addEventListener('mouseleave', () => {
+        const dropdown = item.querySelector('.dropdown-menu');
+        setTimeout(() => {
+          if (!item.matches(':hover')) dropdown.classList.remove('show');
+        }, 150);
+      });
     });
-    item.addEventListener('mouseleave', () => {
-      const dropdown = item.querySelector('.dropdown-menu');
-      setTimeout(() => {
-        if (!item.matches(':hover')) dropdown.classList.remove('show');
-      }, 150); // sedikit delay supaya tidak "cepat hilang"
+  }
+
+  // ======== MOBILE (Click) ========
+  function handleMobileDropdown() {
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', function (e) {
+        if (window.innerWidth < 992) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const parent = this.closest('.dropdown');
+          const isActive = parent.classList.contains('show');
+
+          // Tutup semua dropdown lain
+          document.querySelectorAll('.dropdown.show').forEach(d => d.classList.remove('show'));
+
+          // Toggle dropdown ini
+          if (!isActive) parent.classList.add('show');
+        }
+      });
     });
+  }
+
+  // ======== Jalankan sesuai ukuran layar ========
+  if (window.innerWidth >= 992) {
+    handleDesktopDropdown();
+  } else {
+    handleMobileDropdown();
+  }
+
+  // ======== Update saat resize (ganti mode otomatis) ========
+  window.addEventListener('resize', () => {
+    // Hapus semua state dropdown saat mode berubah
+    document.querySelectorAll('.dropdown.show').forEach(d => d.classList.remove('show'));
   });
+});
   </script>
 
   @stack('scripts')

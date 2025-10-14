@@ -19,7 +19,7 @@
 
           <!-- Dropdown Profile -->
           <li class="nav-item dropdown">
-            <button class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="nav-link" id="profileDropdown" role="button" aria-expanded="false">
               Profile
             </button>
             <ul class="dropdown-menu" aria-labelledby="profileDropdown">
@@ -32,7 +32,7 @@
 
           <!-- Dropdown Program -->
           <li class="nav-item dropdown">
-            <button class="nav-link" href="#" id="programDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="nav-link" id="programDropdown" role="button" aria-expanded="false">
               Program
             </button>
             <ul class="dropdown-menu" aria-labelledby="programDropdown">
