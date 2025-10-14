@@ -19,7 +19,7 @@
 
           <!-- Dropdown Profile -->
           <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link" href="javascript:void(0)" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Profile
             </a>
             <ul class="dropdown-menu" aria-labelledby="profileDropdown">
@@ -32,7 +32,7 @@
 
           <!-- Dropdown Program -->
           <li class="nav-item dropdown">
-            <a class="nav-link" href="#" id="programDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link" href="javascript:void(0)" id="programDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Program
             </a>
             <ul class="dropdown-menu" aria-labelledby="programDropdown">
@@ -48,8 +48,8 @@
         </ul>
 
         <div class="d-flex align-items-center gap-1 ms-2">
-          <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/smkwidone" class="social-icon"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/smk_wisataindonesia/" class="social-icon"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>
