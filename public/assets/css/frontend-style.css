@@ -348,6 +348,31 @@ p {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%236b21a8' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .navbar .dropdown:hover > .dropdown-menu {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* animasi ringan */
+  .navbar .dropdown-menu {
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    display: block; /* tetap block supaya posisi tetap benar, visibility/opacity yang mengendalikan tampil */
+  }
+
+  /* saat visible pakai kelas show agar konsisten */
+  .navbar .dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
 
 /* Akhir Setting Navbar */
 
