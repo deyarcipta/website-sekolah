@@ -32,14 +32,14 @@ Route::get('/perhotelan', [PerhotelanController::class, 'index'])->name('fronten
 Route::get('/kuliner', [KulinerController::class, 'index'])->name('frontend.kuliner');
 
 // Halaman login CMS (akses melalui /w1s4t4)
-Route::get('/test', function () {
-    return 'Routing OK';
-});
+// Route::get('/test', function () {
+//     return 'Routing OK';
+// });
 Route::get('/w1s4t4', [AuthController::class, 'showLoginForm'])->name('backend.login');
 Route::post('/w1s4t4', [AuthController::class, 'login'])->name('backend.login.submit');
 
 // CMS / Dashboard
-Route::middleware(['auth'])->group(function () {
-    Route::get('/w1s4t4/dashboard', [DashboardController::class, 'index'])->name('backend.dashboard');
+Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('backend.dashboard');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('backend.logout');
 });
-
