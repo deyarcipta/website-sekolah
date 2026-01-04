@@ -1,6 +1,34 @@
-@extends('layouts.backend')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@yield('title', 'Dashboard')</title>
 
-@section('content')
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="{{ asset('assets/css/nucleo.css') }}">
+  <!-- Font Awesome Local -->
+  <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
+
+
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="{{ asset('assets/css/argon-dashboard.css') }}">
+
+  <style>
+    .main-content {
+      margin-left: 17.125rem; /* default width sidenav Argon */
+    }
+
+    @media (max-width: 1199.98px) {
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
 <body class="">
   <main class="main-content  mt-0">
     <section>
@@ -76,4 +104,4 @@
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
 </body>
-@endsection
+</html>
