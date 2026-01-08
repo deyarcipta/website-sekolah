@@ -17,11 +17,11 @@
     <div class="row align-items-center" style="min-height: 50vh;">
       <!-- Foto Kepala Sekolah -->
       <div class="col-md-4 d-flex flex-column align-items-center justify-content-center text-center">
-        <img src="{{ asset('assets/img/kepsek.png') }}" 
+        <img src="{{ asset($settings->headmaster_photo) }}" 
             class="img-fluid rounded-circle shadow mb-3" 
             alt="Kepala Sekolah" 
             style="max-width: 250px;">
-        <h5 class="fw-bold mb-0">H. Abdul Munir, HMA, M.Pd.</h5>
+        <h5 class="fw-bold mb-0">{{ $settings->headmaster_name }}</h5>
         <p class="text-muted">Kepala Sekolah</p>
       </div>
 
@@ -29,15 +29,7 @@
       <div class="col-md-8 d-flex align-items-center">
         <div>
           <p>
-            Selamat datang di <strong>SMK Wisata Indonesia</strong> untuk Tahun Ajaran 2025–2026.
-            Dengan penuh kebanggaan dan sukacita, kami menyambut seluruh peserta didik, guru, serta orang tua
-            dalam keluarga besar SMK Wisata Indonesia. Kami terus berkomitmen untuk mencetak lulusan yang
-            unggul, berkarakter, dan siap menghadapi dunia kerja maupun melanjutkan pendidikan ke jenjang lebih tinggi.
-          </p>
-          <p>
-            Dunia pendidikan kejuruan kini menuntut kolaborasi antara sekolah, industri, dan masyarakat. Oleh karena itu,
-            kami terus memperkuat kerja sama dengan berbagai mitra industri dan lembaga pendidikan untuk menghadirkan
-            pembelajaran berbasis proyek serta praktik nyata di lapangan.
+            {!! $settings->headmaster_message !!}
           </p>
         </div>
       </div>

@@ -5,19 +5,18 @@
       {{-- Kolom 1: Logo & Kontak --}}
       <div class="col-md-5 mb-4">
         <div class="mb-2">
-          <img src="{{ asset('assets/img/logowi.png') }}" alt="Logo SMK" width="100" class="img-fluid">
+          <img src="{{ asset($settings->site_logo) }}" alt="Logo" width="100" class="img-fluid">
         </div>
-        <h3 class="fw-bold">SMK WISATA INDONESIA</h3>
-        <p class="mb-1">JL. Raya Lenteng Agung / Jl. Langgar, Rt. 009/003<br>
-          No. 1, Kebagusan, Ps. Minggu, Kota Jakarta Selatan, DKI Jakarta 12520</p>
+        <h3 class="fw-bold text-uppercase">{{ $settings->site_name }}</h3>
+        <p class="mb-1">{{ $settings->site_address }}</p>
         <p class="mb-1">
-          <i class="bi bi-envelope-fill me-1"></i> smkwisataindonesia01@gmail.com
+          <i class="bi bi-envelope-fill me-1"></i> {{ $settings->site_email }}
         </p>
         <p class="mb-1">
-          <i class="bi bi-telephone-fill me-1"></i> (021) 123123123
+          <i class="bi bi-telephone-fill me-1"></i> {{ $settings->site_phone }}
         </p>
         <p class="mb-0">
-          <i class="bi bi-phone-fill me-1"></i> 081203412312
+          <i class="bi bi-phone-fill me-1"></i> {{ $settings->site_whatsapp }}
         </p>
       </div>
 
@@ -49,10 +48,10 @@
 
         <h4 class="fw-bold">Our Social Media</h4>
         <div class="d-flex gap-2 flex-wrap">
-          <a href="#"><img src="{{ asset('assets/img/instagram.png') }}" width="50" alt="Instagram"></a>
-          <a href="#"><img src="{{ asset('assets/img/youtube.png') }}" width="50" alt="YouTube"></a>
-          <a href="#"><img src="{{ asset('assets/img/facebook.png') }}" width="50" alt="Facebook"></a>
-          <a href="#"><img src="{{ asset('assets/img/tiktok.png') }}" width="50" alt="Tiktok"></a>
+          <a href="{{ $settings->instagram }}" target="_blank"><img src="{{ asset('assets/img/instagram.png') }}" width="50" alt="Instagram"></a>
+          <a href="{{ $settings->youtube }}" target="_blank"><img src="{{ asset('assets/img/youtube.png') }}" width="50" alt="YouTube"></a>
+          <a href="{{ $settings->facebook }}" target="_blank"><img src="{{ asset('assets/img/facebook.png') }}" width="50" alt="Facebook"></a>
+          <a href="{{ $settings->tiktok }}" target="_blank"><img src="{{ asset('assets/img/tiktok.png') }}" width="50" alt="Tiktok"></a>
         </div>
       </div>
     </div>

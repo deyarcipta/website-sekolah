@@ -9,7 +9,7 @@
        aria-hidden="true" id="iconSidenav"></i>
 
     <a class="navbar-brand m-0 d-flex align-items-center h-100" href="#" style="padding-left: 1rem;">
-      <img src="{{ asset('assets/img/logo-wistek.png') }}"
+      <img src="{{ asset($setting->site_logo) }}"
            class="navbar-brand-img"
            alt="logo"
            width="26" height="26">
@@ -48,7 +48,7 @@
 
         {{-- Profil Sekolah --}}
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link {{ request()->routeIs('backend.keunggulan-sekolah.index') ? 'active' : '' }}" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-school text-dark text-sm opacity-10"></i>
             </div>
@@ -73,6 +73,12 @@
                 Sarana Prasarana
               </a>
             </li>
+            <li class="nav-item">
+             <a class="nav-link {{ request()->routeIs('backend.keunggulan-sekolah.index') ? 'active' : '' }}" href="{{ route('backend.keunggulan-sekolah.index') }}">
+                <i class="fas fa-star text-xs opacity-6 me-2"></i>
+                Keunggulan Sekolah
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -82,7 +88,7 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-newspaper text-dark text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Berita</span>
+            <span class="nav-link-text ms-1">Berita & Artikel</span>
           </a>
         </li>
 
@@ -102,7 +108,7 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-calendar-alt text-dark text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Agenda</span>
+            <span class="nav-link-text ms-1">Agenda Sekolah</span>
           </a>
         </li>
 
@@ -130,16 +136,6 @@
           </ul>
         </li>
 
-        {{-- Informasi PPDB --}}
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fas fa-user-plus text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">PPDB</span>
-          </a>
-        </li>
-
         {{-- Kontak & Hubungi Kami --}}
         <li class="nav-item">
           <a class="nav-link" href="#">
@@ -157,35 +153,17 @@
           </h6>
         </li>
 
-        {{-- Jurusan / Program --}}
+        {{-- ================= PROGRAM / JURUSAN ================= --}}
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link"
+            href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-graduation-cap text-dark text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Program/Jurusan</span>
+            <span class="nav-link-text ms-1">Program / Jurusan</span>
           </a>
-          <ul class="nav flex-column ps-4">
-            <li class="nav-item">
-             <a class="nav-link" href="#">
-                <i class="fas fa-hotel text-xs opacity-6 me-2"></i>
-                Perhotelan
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-utensils text-xs opacity-6 me-2"></i>
-                Kuliner
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-laptop-code text-xs opacity-6 me-2"></i>
-                TKJ
-              </a>
-            </li>
-          </ul>
         </li>
+
 
         {{-- Guru & Staff --}}
         <li class="nav-item">
@@ -206,12 +184,6 @@
              <a class="nav-link" href="#">
                 <i class="fas fa-user-tie text-xs opacity-6 me-2"></i>
                 Tenaga Kependidikan
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-user-cog text-xs opacity-6 me-2"></i>
-                Staff Administrasi
               </a>
             </li>
           </ul>
@@ -266,7 +238,7 @@
 
         {{-- Pengaturan Website --}}
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link {{ request()->is('w1s4t4/settings*') ? 'active' : '' }}" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-cogs text-dark text-sm opacity-10"></i>
             </div>
@@ -274,9 +246,11 @@
           </a>
           <ul class="nav flex-column ps-4">
             <li class="nav-item">
-             <a class="nav-link" href="#">
-                <i class="fas fa-sliders-h text-xs opacity-6 me-2"></i>
-                Pengaturan Umum
+              {{-- Di sidebar --}}
+              <a class="nav-link {{ request()->is('w1s4t4/settings*') ? 'active' : '' }}"
+                href="{{ route('backend.settings.index') }}">
+                <i class="fas fa-cogs"></i>
+                <span>Pengaturan Website</span>
               </a>
             </li>
             <li class="nav-item">
@@ -309,12 +283,6 @@
                 Admin
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-chalkboard-teacher text-xs opacity-6 me-2"></i>
-                Akun Guru
-              </a>
-            </li>
           </ul>
         </li>
 
@@ -324,7 +292,7 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-database text-dark text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Backup Data</span>
+            <span class="nav-link-text ms-1">Backup & Restore</span>
           </a>
         </li>
 
@@ -334,7 +302,7 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-history text-dark text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Log Aktifitas</span>
+            <span class="nav-link-text ms-1">Log Aktivitas Sistem</span>
           </a>
         </li>
 

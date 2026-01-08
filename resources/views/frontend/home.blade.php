@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'Home - SMK Wisata Indonesia Jakarta')
+@section('title', 'Home')
 
 @section('content')
 <section id="hero" class="pd-top-100 pd-bottom-100 d-flex align-items-center">

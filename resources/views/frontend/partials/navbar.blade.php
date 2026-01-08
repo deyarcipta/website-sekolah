@@ -5,8 +5,8 @@
     @endif">
     <div class="container">
       <a class="navbar-brand" href="/">
-        <img src="{{ asset('assets/img/logowi.png') }}" alt="Logo" height="50">
-        <span class="ms-2">SMK WISATA INDONESIA</span>
+        <img src="{{ asset($settings->site_logo) }}" alt="Logo" height="50">
+        <span class="ms-2 text-uppercase">{{ $settings->site_name }}</span>
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
@@ -48,8 +48,8 @@
         </ul>
 
         <div class="d-flex align-items-center gap-1 ms-2">
-          <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="{{ $settings->facebook }}" class="social-icon"><i class="fab fa-facebook"></i></a>
+          <a href="{{ $settings->instagram }}" class="social-icon"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 <footer class="footer-section text-center py-3">
   <div class="container">
     <span>
-      &copy; {{ date('Y') }} <strong>SMK Wisata Indonesia</strong> |
+      &copy; {{ date('Y') }} <strong>{{ $settings->site_name }}</strong> |
       Website ini dibuat oleh <strong class="text-purple">Jurusan TJKT</strong> 
       untuk mendukung <em>Digitalisasi Sekolah</em>.
     </span>
