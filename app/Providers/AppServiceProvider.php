@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 use App\Models\WebsiteSetting;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,16 +22,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Method 1: Share dengan SEMUA view (paling sederhana)
-        $settings = WebsiteSetting::getSettings();
-        View::share('setting', $settings);
-        
-        // Untuk kompatibilitas: juga share sebagai $settings untuk backend
+        // ✅ Pastikan variabel selalu ada
+        $settings = null;
+
+        if (Schema::hasTable('website_settings')) {
+            $settings = WebsiteSetting::first();
+        }
+
+        // ✅ Share ke SEMUA view
+        view()->share('settings', $settings);
+
+        // ❗ OPTIONAL (sebenarnya sudah cukup dengan view()->share)
         View::composer('backend.*', function ($view) use ($settings) {
             $view->with('settings', $settings);
         });
-        
-        // Untuk frontend yang perlu $settings juga (jika ada)
+
         View::composer('frontend.*', function ($view) use ($settings) {
             $view->with('settings', $settings);
         });
