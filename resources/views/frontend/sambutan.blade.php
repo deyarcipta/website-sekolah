@@ -40,43 +40,6 @@
     <!-- Bagian-bagian lainnya -->
     <div class="content-section">
       {!! $sambutan->deskripsi !!}
-      {{-- <h4 class="fw-bold text-purple">Prestasi Akademik dan Dunia Kerja</h4>
-      <p>
-        SMK Wisata Indonesia berkomitmen menghasilkan lulusan yang kompeten dan siap kerja di berbagai bidang, baik
-        akademik maupun keterampilan kejuruan. Setiap tahun kami berhasil menempatkan siswa dalam program magang industri
-        dan kompetisi tingkat kota hingga nasional.
-      </p>
-
-      <h4 class="fw-bold text-purple mt-4">Identitas Kami sebagai Sekolah Kejuruan Unggulan</h4>
-      <p>
-        Berdiri sejak tahun 2002, sekolah ini telah berkembang menjadi salah satu sekolah kejuruan unggulan di bidang
-        perhotelan, pariwisata, kuliner, dan teknologi informasi. Kami berkomitmen menghadirkan pembelajaran yang
-        menyenangkan, relevan, dan selaras dengan kebutuhan dunia kerja.
-      </p>
-
-      <h4 class="fw-bold text-purple mt-4">Visi, Misi, dan Komitmen</h4>
-      <p>
-        Dengan visi *“Mewujudkan SMK Wisata Indonesia sebagai sekolah unggulan, berkarakter, dan berdaya saing global”*, 
-        kami terus memperkuat pembelajaran karakter serta fasilitas pendidikan yang mendukung terciptanya siswa-siswa profesional dan mandiri.
-      </p>
-
-      <h4 class="fw-bold text-purple mt-4">Komunitas yang Beragam dan Bersinergi</h4>
-      <p>
-        Kami percaya bahwa keberagaman adalah kekuatan. Setiap siswa diajak berkolaborasi, menghargai perbedaan, serta
-        membangun jejaring dengan sesama pelajar di dalam maupun luar sekolah.
-      </p>
-
-      <h4 class="fw-bold text-purple mt-4">Fasilitas dan Kegiatan Unggulan</h4>
-      <p>
-        SMK Wisata Indonesia menyediakan fasilitas lengkap seperti laboratorium komputer, dapur praktik, ruang perhotelan,
-        hingga ruang multimedia. Selain itu, berbagai kegiatan ekstrakurikuler disediakan untuk mengembangkan minat dan bakat siswa.
-      </p>
-
-      <h4 class="fw-bold text-purple mt-4">Memandang ke Depan</h4>
-      <p>
-        Kami optimis menghadapi masa depan dengan inovasi dan semangat kolaboratif. Mari bersama-sama wujudkan generasi
-        penerus bangsa yang profesional, berkarakter, dan siap bersaing di era global.
-      </p> --}}
     </div>
   </div>
 </section>

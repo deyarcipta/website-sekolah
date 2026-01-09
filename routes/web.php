@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\KeunggulanSekolahController;
 use App\Http\Controllers\Backend\SambutanKepsekController;
+use App\Http\Controllers\Backend\VisiMisiBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -72,6 +73,24 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
     Route::prefix('sambutan-kepsek')->name('backend.sambutan-kepsek.')->group(function () {
         Route::get('/', [SambutanKepsekController::class, 'index'])->name('index');
         Route::post('/', [SambutanKepsekController::class, 'store'])->name('store');
+    });
+
+    // Visi Misi
+    Route::prefix('visi-misi')->name('backend.visi-misi.')->group(function () {
+        // Main page (index form)
+        Route::get('/', [VisiMisiBackendController::class, 'index'])->name('index');
+        
+        // Store/Update data
+        Route::post('/', [VisiMisiBackendController::class, 'store'])->name('store');
+        
+        // Update data (alternatif)
+        Route::post('/update', [VisiMisiBackendController::class, 'update'])->name('update');
+        
+        // Image Deletion Routes
+        Route::delete('/remove-card-image/{cardNumber}', [VisiMisiBackendController::class, 'removeCardImage'])->name('remove-card-image');
+        Route::delete('/remove-visi-image', [VisiMisiBackendController::class, 'removeVisiImage'])->name('remove-visi-image');
+        Route::delete('/remove-misi-image', [VisiMisiBackendController::class, 'removeMisiImage'])->name('remove-misi-image');
+        Route::delete('/remove-hero-background', [VisiMisiBackendController::class, 'removeHeroBackground'])->name('remove-hero-background');
     });
     
     // Tambahkan route backend lainnya di sini...

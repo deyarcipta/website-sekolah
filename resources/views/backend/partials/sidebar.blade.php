@@ -62,7 +62,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="{{ route('backend.visi-misi.index') }}">
                 <i class="fas fa-bullseye text-xs opacity-6 me-2"></i>
                 Visi & Misi
               </a>
