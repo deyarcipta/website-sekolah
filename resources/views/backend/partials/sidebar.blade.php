@@ -48,7 +48,7 @@
 
         {{-- Profil Sekolah --}}
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('backend.keunggulan-sekolah.index') ? 'active' : '' }}" href="#">
+          <a class="nav-link {{ request()->routeIs('backend.keunggulan-sekolah.index') || request()->routeIs('backend.sambutan-kepsek.index') ? 'active' : '' }}" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-school text-dark text-sm opacity-10"></i>
             </div>
@@ -56,9 +56,9 @@
           </a>
           <ul class="nav flex-column ps-4">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link {{ request()->routeIs('backend.sambutan-kepsek.index') ? 'active' : '' }}" href="{{ route('backend.sambutan-kepsek.index') }}">
                 <i class="fas fa-comment-dots text-xs opacity-6 me-2"></i>
-                Sambutan
+                Sambutan Kepsek
               </a>
             </li>
             <li class="nav-item">

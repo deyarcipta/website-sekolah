@@ -39,7 +39,8 @@
 
     <!-- Bagian-bagian lainnya -->
     <div class="content-section">
-      <h4 class="fw-bold text-purple">Prestasi Akademik dan Dunia Kerja</h4>
+      {!! $sambutan->deskripsi !!}
+      {{-- <h4 class="fw-bold text-purple">Prestasi Akademik dan Dunia Kerja</h4>
       <p>
         SMK Wisata Indonesia berkomitmen menghasilkan lulusan yang kompeten dan siap kerja di berbagai bidang, baik
         akademik maupun keterampilan kejuruan. Setiap tahun kami berhasil menempatkan siswa dalam program magang industri
@@ -75,7 +76,7 @@
       <p>
         Kami optimis menghadapi masa depan dengan inovasi dan semangat kolaboratif. Mari bersama-sama wujudkan generasi
         penerus bangsa yang profesional, berkarakter, dan siap bersaing di era global.
-      </p>
+      </p> --}}
     </div>
   </div>
 </section>

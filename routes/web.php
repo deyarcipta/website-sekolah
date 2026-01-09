@@ -17,6 +17,7 @@ use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\KeunggulanSekolahController;
+use App\Http\Controllers\Backend\SambutanKepsekController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -65,6 +66,12 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         Route::put('/{id}', [KeunggulanSekolahController::class, 'update'])->name('update');
         Route::delete('/{id}', [KeunggulanSekolahController::class, 'destroy'])->name('destroy');
         Route::post('/update-urutan', [KeunggulanSekolahController::class, 'updateUrutan'])->name('update-urutan');
+    });
+
+    // Sambutan Kepala Sekolah
+    Route::prefix('sambutan-kepsek')->name('backend.sambutan-kepsek.')->group(function () {
+        Route::get('/', [SambutanKepsekController::class, 'index'])->name('index');
+        Route::post('/', [SambutanKepsekController::class, 'store'])->name('store');
     });
     
     // Tambahkan route backend lainnya di sini...
