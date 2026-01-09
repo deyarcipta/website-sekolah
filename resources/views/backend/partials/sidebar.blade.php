@@ -9,7 +9,7 @@
        aria-hidden="true" id="iconSidenav"></i>
 
     <a class="navbar-brand m-0 d-flex align-items-center h-100" href="#" style="padding-left: 1rem;">
-      <img src="{{ asset($setting->site_logo) }}"
+      <img src="{{ asset($settings->site_logo) }}"
            class="navbar-brand-img"
            alt="logo"
            width="26" height="26">
@@ -371,9 +371,10 @@
 }
 
 .nav-link.active {
-  background-color: #e9ecef !important;
-  font-weight: 600;
+  background: linear-gradient(135deg, #f1e6ff 0%, #efe9ff 100%);
   color: #344767 !important;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.25);
 }
 
 /* SUB MENU */

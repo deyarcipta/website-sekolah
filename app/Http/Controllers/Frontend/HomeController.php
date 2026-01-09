@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helpers\SettingHelper;
+use App\Models\KeunggulanSekolah;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        
-        return view('frontend.home');
+        $keunggulan = KeunggulanSekolah::where('is_active', true)
+        ->orderBy('urutan')
+        ->get();
+
+        return view('frontend.home', compact('keunggulan'));
     }
 }

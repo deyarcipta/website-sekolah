@@ -44,7 +44,7 @@
 
           <li class="nav-item"><a class="nav-link" href="/informasi">Informasi</a></li>
           <li class="nav-item"><a class="nav-link" href="/kontak">Hubungi Kami</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">PPDB</a></li>
+          <li class="nav-item"><a class="nav-link" href="https://ppdb.smkwisataindonesia.sch.id/" target="_blank">PPDB</a></li>
         </ul>
 
         <div class="d-flex align-items-center gap-1 ms-2">

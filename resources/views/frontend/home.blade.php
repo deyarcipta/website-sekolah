@@ -11,9 +11,9 @@
     <div class="row">
       <div class="col-md-6 .col-lg-6 d-flex flex-column justify-content-center">
         <div class="hero-text">
-          <h1>Selamat Datang di <br>SMK Wisata Indonesia Jakarta</h1>
-          <p>SMK Pusat Keunggulan di Jakarta Selatan yang menerapkan kedisiplinan.</p>
-          <a href="#" class="btn btn-join-now">Join Now</a>
+          <h1>Selamat Datang di <br>{{ $settings->site_name }}</h1>
+          <p>{{ $settings->site_tagline }}</p>
+          <a href="https://ppdb.smkwisataindonesia.sch.id/" target="_blank" class="btn btn-join-now">Join Now</a>
         </div>
       </div>
       <div class="col-md-6 .col-lg-6 d-flex flex-column justify-content-center">
@@ -32,43 +32,60 @@
       <p>Alasan kenapa kalian harus bergabung bersama kami</p>
     </div>
     <div class="row">
-      <div class="col-md-3 mb-3">
-        <div class="card h-100 custom-card text-center">
-          <img src="{{ asset('assets/img/akreditasi.png') }}" class="card-img-top mx-auto d-block" alt="Keunggulan 1">
-          <div class="card-body">
-            <h5 class="card-title">Akreditasi A</h5>
-            <p class="card-text">Terakreditasi A untuk semua program keahlian</p>
+  @foreach ($keunggulan as $item)
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 custom-card text-center">
+        <div class="card-body">
+          
+          @php
+              // Default color jika tidak ada
+              $warna = $item->warna ?? '#0d6efd';
+              
+              // Jika warna dalam format hex, konversi ke rgba dengan opacity
+              if (str_starts_with($warna, '#')) {
+                  // Hapus tanda #
+                  $hex = str_replace('#', '', $warna);
+                  
+                  // Konversi hex ke rgb
+                  if(strlen($hex) == 3) {
+                      $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+                      $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+                      $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+                  } else {
+                      $r = hexdec(substr($hex,0,2));
+                      $g = hexdec(substr($hex,2,2));
+                      $b = hexdec(substr($hex,4,2));
+                  }
+                  
+                  $bgColor = "rgba($r, $g, $b, 0.15)";
+              } else {
+                  // Jika bukan hex, gunakan warna asli dengan opacity
+                  $bgColor = $warna . '22'; // Hex dengan opacity 15% (22 dalam hex)
+              }
+          @endphp
+          
+          <div class="icon-wrapper mb-3" 
+              style="background-color: {{ $bgColor }};
+                      width: 70px; 
+                      height: 70px; 
+                      border-radius: 15%; 
+                      display: flex; 
+                      align-items: center; 
+                      justify-content: center; 
+                      margin: 0 auto;">
+            <i class="{{ $item->icon }} fa-2x"
+              style="color: {{ $warna }}"></i>
           </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card h-100 custom-card text-center">
-          <img src="{{ asset('assets/img/fasilitas.png') }}" class="card-img-top mx-auto d-block" alt="Keunggulan 1">
-          <div class="card-body">
-            <h5 class="card-title">Fasilitas Lengkap</h5>
-            <p class="card-text">Sarana dan prasarana yang mendukung pemberlajaran</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card h-100 custom-card text-center">
-          <img src="{{ asset('assets/img/guru.png') }}" class="card-img-top mx-auto d-block" alt="Keunggulan 1">
-          <div class="card-body">
-            <h5 class="card-title">Guru Profesional</h5>
-            <p class="card-text">Tenaga pengajar yang <i>up-to-date</i>, berpengalaman dan tersertifikasi</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card h-100 custom-card text-center">
-          <img src="{{ asset('assets/img/lingkungan.png') }}" class="card-img-top mx-auto d-block" alt="Keunggulan 1">
-          <div class="card-body">
-            <h5 class="card-title">Lingkungan Nyaman</h5>
-            <p class="card-text">Lingkungan yang nyaman dalam proses pembelajaran</p>
-          </div>
+          
+          <h5 class="card-title">{{ $item->judul }}</h5>
+          <p class="card-text">{!! $item->deskripsi !!}</p>
+          
         </div>
       </div>
     </div>
+  @endforeach
+</div>
+
   </div>
 </section>
 
