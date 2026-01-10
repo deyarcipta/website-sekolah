@@ -3,7 +3,7 @@
 @section('title', 'Visi & Misi - Dashboard Admin')
 
 @section('content')
-{{-- <div class="container-fluid px-4"> --}}
+<div class="container-fluid px-4">
     <!-- Header Card -->
     <div class="card shadow mb-4 border-0">
         <div class="card-body py-4">
@@ -22,30 +22,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Success/Error Messages -->
-    @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
-        <i class="fas fa-check-circle me-2"></i>
-        <div>{{ session('success') }}</div>
-        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
-    </div>
-    @endif
-
-    @if($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <div class="d-flex align-items-center">
-            <i class="fas fa-exclamation-circle me-2"></i>
-            <div>Terdapat kesalahan dalam pengisian form.</div>
-        </div>
-        <ul class="mb-0 mt-2 ps-3">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-    @endif
 
     <!-- Main Card with Tabs -->
     <div class="card shadow border-0">
@@ -948,7 +924,6 @@
 
 @push('scripts')
 <script src="{{ asset('assets/js/tinymce/js/tinymce/tinymce.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // Initialize TinyMCE for all textareas with class 'tinymce-editor'
     tinymce.init({
@@ -1440,16 +1415,34 @@
                 showSwal('success', 'Berhasil!', 'Form telah direset');
             }
         });
-        
-        // Show success message from session
-        @if(session('success'))
-        showSwal('success', 'Berhasil!', '{{ session('success') }}');
-        @endif
-        
-        // Show error messages
-        @if($errors->any())
-        showSwal('error', 'Error!', 'Terdapat kesalahan dalam pengisian form. Harap periksa kembali!', 5000);
-        @endif
     });
 </script>
 @endpush
+
+{{-- SESSION ALERTS --}}
+@if(session('success'))
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: '{{ session('success') }}',
+        showConfirmButton: false,
+        timer: 3000
+    });
+});
+</script>
+@endif
+
+@if(session('error'))
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: '{{ session('error') }}',
+        confirmButtonText: 'OK'
+    });
+});
+</script>
+@endif
