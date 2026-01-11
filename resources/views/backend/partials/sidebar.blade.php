@@ -9,7 +9,7 @@
        aria-hidden="true" id="iconSidenav"></i>
 
     <a class="navbar-brand m-0 d-flex align-items-center h-100" href="#" style="padding-left: 1rem;">
-      <img src="{{ asset($setting->site_logo ?? 'assets/img/logo.png') }}"
+      <img src="{{ asset($settings->site_logo ?? 'assets/img/logo.png') }}"
            class="navbar-brand-img"
            alt="logo"
            width="26" height="26">
