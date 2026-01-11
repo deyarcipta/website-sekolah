@@ -27,7 +27,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Nama Sekolah *</label>
                                 <input type="text" name="site_name" class="form-control" 
-                                       value="{{ old('site_name', $settings->site_name) }}" required>
+                                       value="{{ old('site_name', $settings->site_name) ?? '' }}" required>
                             </div>
                             
                             <div class="col-md-6 mb-3">
