@@ -348,7 +348,7 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between px-0">
                                     <span>Nama Sekolah:</span>
-                                    <strong>{{ $settings->site_name ?? '' }}</strong>
+                                    <strong>{{ $settings->site_name ?? '-' }}</strong>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between px-0">
                                     <span>Tagline:</span>
