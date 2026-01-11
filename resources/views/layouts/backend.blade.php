@@ -104,15 +104,15 @@
     }
   </script>
 
-  <!-- Core -->
-  {{-- <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script> --}}
-  <script src="{{ asset('assets/js/core/bootstrap.bundle.min.js') }}"></script>
-
   <!-- Jquery -->
   <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
 
   <!-- Jquery UI (untuk sortable) -->
   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+
+  <!-- Core -->
+  {{-- <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script> --}}
+  <script src="{{ asset('assets/js/core/bootstrap.bundle.min.js') }}"></script>
 
   <!-- SweetAlert2 JS -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

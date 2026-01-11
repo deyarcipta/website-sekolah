@@ -106,7 +106,7 @@
                                     </label>
                                     <div class="bg-white border rounded p-3">
                                         <div class="text-center" style="font-size: 16px; line-height: 1.6;">
-                                            {{ $visiMisi->opening_paragraph }}
+                                            {!! $visiMisi->opening_paragraph !!}
                                         </div>
                                     </div>
                                 </div>
@@ -848,7 +848,7 @@
         box-shadow: 0 0 0 0.2rem rgba(107, 2, 177, 0.25);
     }
     
-    /* Fix for TinyMCE container - ESSENTIAL FIX */
+    /* Fix for TinyMCE container */
     .tox-tinymce {
         width: 100% !important;
         height: 300px !important;
@@ -914,7 +914,7 @@
             text-overflow: ellipsis;
         }
         
-        /* Fix TinyMCE untuk mobile - MUST BE SET */
+        /* Fix TinyMCE untuk mobile */
         .tox-tinymce {
             height: 250px !important;
             width: 100% !important;
@@ -1093,6 +1093,9 @@
 @push('scripts')
 <script src="{{ asset('assets/js/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 <script>
+// Tunggu sampai TinyMCE siap
+let tinyMCEInitialized = false;
+
 // Notification Manager
 const NotificationManager = {
     toast(icon, title, text = '', timer = 3000) {
@@ -1216,7 +1219,7 @@ const ListItemManager = {
     
     removeItem(button) {
         const inputGroup = button.closest('.input-group');
-        const container = inputGroup.closest('[id$="-list-container"]');
+        const container = button.closest('[id$="-list-container"]');
         
         if (container.children.length > 1) {
             inputGroup.remove();
@@ -1335,8 +1338,13 @@ const FileRemovalHandler = {
     }
 };
 
-// Initialize TinyMCE dengan konfigurasi yang DIPERBAIKI
+// Initialize TinyMCE dengan konfigurasi yang SANGAT MINIMAL
 const initTinyMCE = () => {
+    if (tinyMCEInitialized) {
+        console.log('TinyMCE already initialized, skipping...');
+        return;
+    }
+    
     console.log('Initializing TinyMCE...');
     
     // Pastikan semua element editor ada
@@ -1348,94 +1356,38 @@ const initTinyMCE = () => {
         return;
     }
     
-    // Hapus semua instance TinyMCE yang ada
-    try {
-        tinymce.remove();
-    } catch (e) {
-        console.log('No existing TinyMCE instances to remove');
-    }
-    
     // Deteksi jika mobile
     const isMobile = window.innerWidth <= 768;
     
-    // Konfigurasi universal yang berfungsi di semua ukuran
+    // Konfigurasi yang SANGAT MINIMAL untuk menghindari error
     const config = {
         selector: '.tinymce-editor',
         height: isMobile ? 250 : 350,
-        width: '100%', // PASTIKAN ini ada
         menubar: !isMobile,
         plugins: [
-            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor',
-            'searchreplace', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 
-            'table', 'help', 'wordcount'
+            'advlist', 'autolink', 'lists', 'link', 'preview', 'anchor',
+            'searchreplace', 'code', 'fullscreen', 'help', 'wordcount'
         ],
-        toolbar: 'undo redo | styles | bold italic underline strikethrough | ' +
-                 'alignleft aligncenter alignright alignjustify | ' +
-                 'bullist numlist outdent indent | ' +
-                 'forecolor backcolor | link image | ' +
-                 'removeformat | help',
-        mobile: {
-            theme: 'mobile',
-            toolbar: [
-                'undo redo', 'bold italic underline', 'styleselect',
-                'bullist numlist', 'alignleft aligncenter alignright',
-                'link', 'forecolor backcolor'
-            ]
-        },
+        toolbar: 'undo redo | bold italic | bullist numlist | link | removeformat | help',
         branding: false,
         promotion: false,
         content_style: `
             body { 
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+                font-family: Arial, sans-serif; 
                 font-size: 14px; 
                 line-height: 1.5; 
                 color: #333; 
                 margin: 8px;
                 max-width: 100% !important;
-                overflow-wrap: break-word;
             }
             p { margin: 0 0 10px; }
-            img { max-width: 100%; height: auto; }
         `,
-        content_css: false,
-        // PASTIKAN iframe mengambil 100% width
-        iframe_aria_text: 'Rich text editor',
         setup: (editor) => {
             console.log('Setting up editor:', editor.id);
             
             // Simpan konten saat berubah
             editor.on('change', () => {
                 editor.save();
-            });
-            
-            // Pastikan iframe mengambil lebar penuh
-            editor.on('init', () => {
-                const iframe = editor.iframeElement;
-                if (iframe) {
-                    iframe.style.width = '100%';
-                    iframe.style.maxWidth = '100%';
-                    iframe.style.minWidth = '100%';
-                }
-                
-                // Pastikan container editor lebar penuh
-                const container = editor.getContainer();
-                if (container) {
-                    container.style.width = '100%';
-                    container.style.maxWidth = '100%';
-                    container.style.minWidth = '100%';
-                }
-            });
-            
-            // Handle focus untuk mobile
-            editor.on('focus', () => {
-                if (isMobile) {
-                    setTimeout(() => {
-                        window.scrollTo({
-                            top: editor.getContainer().offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }, 100);
-                }
             });
         }
     };
@@ -1444,32 +1396,11 @@ const initTinyMCE = () => {
     config.language = 'id';
     config.language_url = '{{ asset("assets/js/tinymce/langs/id.js") }}';
     
-    // Coba inisialisasi TinyMCE
+    // Coba inisialisasi TinyMCE hanya sekali
     try {
-        tinymce.init(config).then(() => {
-            console.log('TinyMCE initialized successfully');
-            
-            // Force width pada semua editor setelah init
-            setTimeout(() => {
-                tinymce.get().forEach(editor => {
-                    if (editor) {
-                        const container = editor.getContainer();
-                        if (container) {
-                            container.style.width = '100%';
-                            container.style.maxWidth = '100%';
-                            container.style.minWidth = '100%';
-                        }
-                        
-                        const iframe = editor.iframeElement;
-                        if (iframe) {
-                            iframe.style.width = '100%';
-                            iframe.style.maxWidth = '100%';
-                            iframe.style.minWidth = '100%';
-                        }
-                    }
-                });
-            }, 500);
-        });
+        tinymce.init(config);
+        console.log('TinyMCE initialized successfully');
+        tinyMCEInitialized = true;
     } catch (error) {
         console.error('Error initializing TinyMCE:', error);
         
@@ -1504,7 +1435,7 @@ const setupTabs = () => {
     }
 };
 
-// Main Application
+// Main Application - HANYA SATU EVENT LISTENER
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM loaded, initializing...');
     
@@ -1518,22 +1449,6 @@ document.addEventListener('DOMContentLoaded', () => {
             trigger: 'hover focus',
             boundary: 'viewport'
         });
-    });
-    
-    // Initialize TinyMCE dengan timeout untuk memastikan DOM siap
-    setTimeout(() => {
-        initTinyMCE();
-    }, 300);
-    
-    // Re-initialize TinyMCE on window resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            console.log('Window resized to:', window.innerWidth, 'x', window.innerHeight);
-            initTinyMCE();
-            setupTabs();
-        }, 250);
     });
     
     // Initialize image previews
@@ -1659,7 +1574,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             // Save all TinyMCE content before form submission
-            if (typeof tinymce !== 'undefined') {
+            if (typeof tinymce !== 'undefined' && tinyMCEInitialized) {
                 tinymce.triggerSave();
             }
             
@@ -1707,7 +1622,7 @@ document.addEventListener('DOMContentLoaded', () => {
         FormValidator.clearValidation(form);
         
         // Reset TinyMCE editors
-        if (typeof tinymce !== 'undefined') {
+        if (typeof tinymce !== 'undefined' && tinyMCEInitialized) {
             tinymce.get().forEach(editor => {
                 if (editor) {
                     editor.setContent('');
@@ -1746,6 +1661,33 @@ document.addEventListener('DOMContentLoaded', () => {
             img.dataset.originalSrc = img.src;
         }
     });
+    
+    // Initialize TinyMCE - HANYA SEKALI dengan timeout cukup
+    setTimeout(() => {
+        console.log('Initializing TinyMCE...');
+        initTinyMCE();
+    }, 300);
+    
+    // Re-initialize TinyMCE on window resize - tanpa flag reset
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            console.log('Window resized, checking TinyMCE...');
+            // Cek jika TinyMCE perlu di-reinit
+            const editors = document.querySelectorAll('.tinymce-editor');
+            const hasTinyMCE = editors.length > 0 && typeof tinymce !== 'undefined';
+            
+            if (hasTinyMCE && tinyMCEInitialized) {
+                // TinyMCE sudah berjalan, cukup setup tabs
+                setupTabs();
+            } else if (hasTinyMCE) {
+                // TinyMCE belum berjalan, init
+                initTinyMCE();
+                setupTabs();
+            }
+        }, 500);
+    });
 });
 
 // Handle session messages
@@ -1766,5 +1708,20 @@ document.addEventListener('DOMContentLoaded', () => {
     NotificationManager.warning('Validasi Gagal', 'Mohon periksa kembali form Anda');
 });
 @endif
+
+// Fallback jika TinyMCE tidak ada
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        if (typeof tinymce === 'undefined') {
+            console.warn('TinyMCE not loaded, using textarea fallback');
+            document.querySelectorAll('.tinymce-editor').forEach(textarea => {
+                textarea.style.display = 'block';
+                textarea.style.width = '100%';
+                textarea.style.minHeight = '200px';
+                textarea.style.maxWidth = '100%';
+            });
+        }
+    }, 3000);
+});
 </script>
 @endpush

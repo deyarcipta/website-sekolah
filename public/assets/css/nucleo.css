@@ -1,0 +1,268 @@
+/* Nucleo Icons Font */
+@font-face {
+    font-family: 'nucleo-icons';
+    src: url('../fonts/nucleo-icons.eot');
+    src: url('../fonts/nucleo-icons.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/nucleo-icons.woff2') format('woff2'),
+        url('../fonts/nucleo-icons.woff') format('woff'),
+        url('../fonts/nucleo-icons.ttf') format('truetype'),
+        url('../fonts/nucleo-icons.svg#nucleo-icons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ni {
+    display: inline-block;
+    font: normal normal normal 14px/1 nucleo-icons;
+    font-size: inherit;
+    speak: none;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Size helpers */
+.ni-lg {
+    font-size: 1.33333333em;
+    line-height: 0.75em;
+    vertical-align: -15%;
+}
+
+.ni-2x {
+    font-size: 2em;
+}
+
+.ni-3x {
+    font-size: 3em;
+}
+
+.ni-4x {
+    font-size: 4em;
+}
+
+.ni-5x {
+    font-size: 5em;
+}
+
+/* Fixed width */
+.ni-fw {
+    width: 1.28571429em;
+    text-align: center;
+}
+
+/* Icon list (ikon yang sering dipakai) */
+.ni-air-baloon::before {
+    content: "\ea01";
+}
+
+.ni-album-2::before {
+    content: "\ea02";
+}
+
+.ni-align-center::before {
+    content: "\ea03";
+}
+
+.ni-align-left-2::before {
+    content: "\ea04";
+}
+
+.ni-align-right-2::before {
+    content: "\ea05";
+}
+
+.ni-app::before {
+    content: "\ea06";
+}
+
+.ni-archive-2::before {
+    content: "\ea07";
+}
+
+.ni-badge::before {
+    content: "\ea08";
+}
+
+.ni-bell-55::before {
+    content: "\ea09";
+}
+
+.ni-bold::before {
+    content: "\ea0a";
+}
+
+.ni-book-bookmark::before {
+    content: "\ea0b";
+}
+
+.ni-box-2::before {
+    content: "\ea0c";
+}
+
+.ni-briefcase-24::before {
+    content: "\ea0d";
+}
+
+.ni-building::before {
+    content: "\ea0e";
+}
+
+.ni-button-pause::before {
+    content: "\ea0f";
+}
+
+.ni-button-play::before {
+    content: "\ea10";
+}
+
+.ni-calendar-grid-58::before {
+    content: "\ea11";
+}
+
+.ni-camera-compact::before {
+    content: "\ea12";
+}
+
+.ni-cart::before {
+    content: "\ea13";
+}
+
+.ni-chart-bar-32::before {
+    content: "\ea14";
+}
+
+.ni-chart-pie-35::before {
+    content: "\ea15";
+}
+
+.ni-check-bold::before {
+    content: "\ea16";
+}
+
+.ni-circle-08::before {
+    content: "\ea17";
+}
+
+.ni-cloud-download-95::before {
+    content: "\ea18";
+}
+
+.ni-credit-card::before {
+    content: "\ea19";
+}
+
+.ni-delivery-fast::before {
+    content: "\ea1a";
+}
+
+.ni-diamond::before {
+    content: "\ea1b";
+}
+
+.ni-email-83::before {
+    content: "\ea1c";
+}
+
+.ni-favourite-28::before {
+    content: "\ea1d";
+}
+
+.ni-folder-17::before {
+    content: "\ea1e";
+}
+
+.ni-glasses-2::before {
+    content: "\ea1f";
+}
+
+.ni-hat-3::before {
+    content: "\ea20";
+}
+
+.ni-headphones::before {
+    content: "\ea21";
+}
+
+.ni-html5::before {
+    content: "\ea22";
+}
+
+.ni-image::before {
+    content: "\ea23";
+}
+
+.ni-key-25::before {
+    content: "\ea24";
+}
+
+.ni-laptop::before {
+    content: "\ea25";
+}
+
+.ni-lock-circle-open::before {
+    content: "\ea26";
+}
+
+.ni-map-big::before {
+    content: "\ea27";
+}
+
+.ni-money-coins::before {
+    content: "\ea28";
+}
+
+.ni-notes::before {
+    content: "\ea29";
+}
+
+.ni-paper-diploma::before {
+    content: "\ea2a";
+}
+
+.ni-pin-3::before {
+    content: "\ea2b";
+}
+
+.ni-planet::before {
+    content: "\ea2c";
+}
+
+.ni-send::before {
+    content: "\ea2d";
+}
+
+.ni-settings-gear-65::before {
+    content: "\ea2e";
+}
+
+.ni-single-02::before {
+    content: "\ea2f";
+}
+
+.ni-single-copy-04::before {
+    content: "\ea30";
+}
+
+.ni-support-16::before {
+    content: "\ea31";
+}
+
+.ni-tag::before {
+    content: "\ea32";
+}
+
+.ni-tv-2::before {
+    content: "\ea33";
+}
+
+.ni-ui-04::before {
+    content: "\ea34";
+}
+
+.ni-user-run::before {
+    content: "\ea35";
+}
+
+.ni-world::before {
+    content: "\ea36";
+}
