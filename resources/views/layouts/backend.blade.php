@@ -6,7 +6,7 @@
   <title>@yield('title', 'Dashboard')</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{{ asset($settings->site_logo) }}">
+  <link rel="icon" type="image/png" href="{{ asset($setting->site_logo ?? 'assets/img/logo.png') }}">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
