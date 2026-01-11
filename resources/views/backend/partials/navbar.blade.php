@@ -302,6 +302,66 @@
     transform: translateY(0);
   }
 }
+
+/* ========== CRITICAL FIX FOR SIDEBAR ON MOBILE ========== */
+/* Ini adalah perbaikan utama untuk memastikan sidebar di atas navbar */
+@media (max-width: 1199.98px) {
+  #sidenav-main {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    width: 250px !important;
+    z-index: 1035 !important; /* Lebih tinggi dari navbar (1030) */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 30px 0 rgba(31, 45, 61, 0.3);
+  }
+  
+  #sidenav-main.show {
+    transform: translateX(0);
+  }
+  
+  /* Overlay untuk background saat sidebar terbuka */
+  .sidenav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1034 !important; /* Di antara navbar dan sidebar */
+    display: none;
+  }
+  
+  .sidenav-overlay.show {
+    display: block;
+    animation: overlayFadeIn 0.3s ease;
+  }
+  
+  /* Body style saat sidebar terbuka */
+  body.g-sidenav-pinned {
+    overflow: hidden;
+  }
+}
+
+/* Untuk desktop, kembalikan ke normal */
+@media (min-width: 1200px) {
+  #sidenav-main {
+    z-index: 1031 !important;
+    position: relative !important;
+  }
+}
+
+/* Overlay animation */
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 </style>
 
 <script>
@@ -312,40 +372,114 @@ document.addEventListener('DOMContentLoaded', function() {
   const body = document.getElementsByTagName('body')[0];
   
   if (iconSidenav && sidenav) {
-    // Toggle sidebar
-    iconSidenav.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      if (body.classList.contains('g-sidenav-pinned')) {
-        // Close sidebar
-        body.classList.remove('g-sidenav-pinned');
-        body.classList.add('g-sidenav-hidden');
-        sidenav.classList.remove('show');
+    // Buat overlay untuk mobile
+    let overlay = null;
+    
+    // Function untuk membuat overlay
+    function createOverlay() {
+      if (window.innerWidth < 1200 && !document.querySelector('.sidenav-overlay')) {
+        overlay = document.createElement('div');
+        overlay.className = 'sidenav-overlay';
+        document.body.appendChild(overlay);
+        
+        // Close sidebar ketika overlay diklik
+        overlay.addEventListener('click', function() {
+          closeSidebar();
+        });
+      }
+    }
+    
+    // Function untuk menghapus overlay
+    function removeOverlay() {
+      const existingOverlay = document.querySelector('.sidenav-overlay');
+      if (existingOverlay) {
+        existingOverlay.remove();
+        overlay = null;
+      }
+    }
+    
+    // Function untuk membuka sidebar
+    function openSidebar() {
+      // Untuk mobile: gunakan overlay dan fixed sidebar
+      if (window.innerWidth < 1200) {
+        createOverlay();
+        sidenav.classList.add('show');
+        if (overlay) overlay.classList.add('show');
+        body.classList.add('g-sidenav-pinned');
+        body.classList.remove('g-sidenav-hidden');
       } else {
-        // Open sidebar
+        // Untuk desktop: gunakan fungsi asli
         body.classList.remove('g-sidenav-hidden');
         body.classList.add('g-sidenav-pinned');
         sidenav.classList.add('show');
       }
       
-      // Toggle aria-expanded
-      const isExpanded = iconSidenav.getAttribute('aria-expanded') === 'true';
-      iconSidenav.setAttribute('aria-expanded', !isExpanded);
-    });
+      iconSidenav.setAttribute('aria-expanded', 'true');
+    }
     
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(event) {
+    // Function untuk menutup sidebar
+    function closeSidebar() {
+      // Untuk mobile: hapus overlay
       if (window.innerWidth < 1200) {
-        if (!sidenav.contains(event.target) && !iconSidenav.contains(event.target)) {
-          if (body.classList.contains('g-sidenav-pinned')) {
-            body.classList.remove('g-sidenav-pinned');
-            body.classList.add('g-sidenav-hidden');
-            sidenav.classList.remove('show');
-            iconSidenav.setAttribute('aria-expanded', 'false');
-          }
-        }
+        sidenav.classList.remove('show');
+        if (overlay) overlay.classList.remove('show');
+        body.classList.remove('g-sidenav-pinned');
+        body.classList.add('g-sidenav-hidden');
+        
+        // Hapus overlay setelah animasi selesai
+        setTimeout(() => {
+          removeOverlay();
+        }, 300);
+      } else {
+        // Untuk desktop: gunakan fungsi asli
+        body.classList.remove('g-sidenav-pinned');
+        body.classList.add('g-sidenav-hidden');
+        sidenav.classList.remove('show');
+      }
+      
+      iconSidenav.setAttribute('aria-expanded', 'false');
+    }
+    
+    // Toggle sidebar
+    iconSidenav.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      if (sidenav.classList.contains('show')) {
+        closeSidebar();
+      } else {
+        openSidebar();
       }
     });
+    
+    // Close sidebar with escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && sidenav.classList.contains('show')) {
+        closeSidebar();
+      }
+    });
+    
+    // Handle window resize
+    function handleResize() {
+      // Jika resize ke desktop, hapus overlay dan close sidebar mobile
+      if (window.innerWidth >= 1200) {
+        removeOverlay();
+        if (sidenav.classList.contains('show')) {
+          sidenav.classList.remove('show');
+        }
+      } else {
+        // Jika resize ke mobile, hapus overlay lama dan buat baru jika sidebar terbuka
+        removeOverlay();
+        if (sidenav.classList.contains('show')) {
+          createOverlay();
+        }
+      }
+    }
+    
+    // Initial setup
+    handleResize();
+    
+    // Listen untuk resize
+    window.addEventListener('resize', handleResize);
   }
   
   // ========== USER DROPDOWN FUNCTIONALITY ==========
