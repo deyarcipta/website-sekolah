@@ -324,6 +324,7 @@
   height: auto !important;
   max-height: calc(100vh - 1rem);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 1040;
 }
 
 /* HEADER */
