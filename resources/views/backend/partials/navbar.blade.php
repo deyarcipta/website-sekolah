@@ -222,72 +222,40 @@
 </style>
 
 <script>
-// Script untuk hamburger menu toggle
-document.addEventListener('DOMContentLoaded', function() {
-  const iconSidenav = document.getElementById('iconNavbarSidenav');
-  const sidenav = document.getElementById('sidenav-main');
-  const body = document.getElementsByTagName('body')[0];
-  
-  if (iconSidenav && sidenav) {
-    // Toggle sidebar
-    iconSidenav.addEventListener('click', function(e) {
-      e.preventDefault();
-      
-      if (body.classList.contains('g-sidenav-pinned')) {
-        // Close sidebar
-        body.classList.remove('g-sidenav-pinned');
-        body.classList.add('g-sidenav-hidden');
-        sidenav.classList.remove('show');
-      } else {
-        // Open sidebar
-        body.classList.remove('g-sidenav-hidden');
-        body.classList.add('g-sidenav-pinned');
-        sidenav.classList.add('show');
-      }
-      
-      // Toggle aria-expanded
-      const isExpanded = iconSidenav.getAttribute('aria-expanded') === 'true';
-      iconSidenav.setAttribute('aria-expanded', !isExpanded);
-    });
-    
-    // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', function(event) {
-      if (window.innerWidth < 1200) {
-        if (!sidenav.contains(event.target) && !iconSidenav.contains(event.target)) {
-          if (body.classList.contains('g-sidenav-pinned')) {
-            body.classList.remove('g-sidenav-pinned');
+document.addEventListener('DOMContentLoaded', function () {
+    const iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
+    const body = document.body;
+
+    if (!iconNavbarSidenav) return;
+
+    iconNavbarSidenav.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Toggle sidebar Argon way
+        if (body.classList.contains('g-sidenav-show')) {
+            body.classList.remove('g-sidenav-show');
             body.classList.add('g-sidenav-hidden');
-            sidenav.classList.remove('show');
-            iconSidenav.setAttribute('aria-expanded', 'false');
-          }
+        } else {
+            body.classList.add('g-sidenav-show');
+            body.classList.remove('g-sidenav-hidden');
         }
-      }
     });
-  }
-  
-  // Optional: Add smooth interactions for user dropdown
-  const userDropdown = document.getElementById('userDropdown');
-  if (userDropdown) {
-    const dropdownMenu = userDropdown.nextElementSibling;
-    
-    // Add hover effect for desktop
-    if (window.innerWidth >= 768) {
-      userDropdown.addEventListener('mouseenter', function() {
-        dropdownMenu.classList.add('show');
-      });
-      
-      userDropdown.addEventListener('mouseleave', function() {
-        setTimeout(() => {
-          if (!dropdownMenu.matches(':hover')) {
-            dropdownMenu.classList.remove('show');
-          }
-        }, 100);
-      });
-      
-      dropdownMenu.addEventListener('mouseleave', function() {
-        dropdownMenu.classList.remove('show');
-      });
-    }
-  }
+
+    // Tutup sidebar saat klik area luar (mobile)
+    document.addEventListener('click', function (e) {
+        const sidenav = document.getElementById('sidenav-main');
+
+        if (!sidenav) return;
+
+        if (
+            body.classList.contains('g-sidenav-show') &&
+            window.innerWidth < 1200 &&
+            !sidenav.contains(e.target) &&
+            !iconNavbarSidenav.contains(e.target)
+        ) {
+            body.classList.remove('g-sidenav-show');
+            body.classList.add('g-sidenav-hidden');
+        }
+    });
 });
 </script>
