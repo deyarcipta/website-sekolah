@@ -3,7 +3,7 @@
 @section('title', 'Visi & Misi - Dashboard Admin')
 
 @section('content')
-<div class="container-fluid px-4">
+
     <!-- Header Card -->
     <div class="card shadow mb-4 border-0">
         <div class="card-body py-4">
@@ -25,33 +25,43 @@
 
     <!-- Main Card with Tabs -->
     <div class="card shadow border-0">
-        <!-- Tabs in Single Line -->
-        <div class="card-header bg-white px-0 pt-0 pb-3 border-bottom">
-            <div class="d-flex align-items-center" style="overflow-x: auto; white-space: nowrap;">
-                <ul class="nav nav-tabs nav-fill flex-nowrap" id="visiMisiTab" role="tablist" style="min-width: 100%;">
-                    <li class="nav-item" role="presentation" style="flex: 1;">
-                        <button class="nav-link active" id="paragraf-tab" data-bs-toggle="tab" data-bs-target="#paragraf">
-                            <i class="fas fa-paragraph me-2"></i> Paragraf Pembuka
+        <!-- Tabs Navigation -->
+        <div class="card-header bg-white px-4 pt-0 pb-3 border-bottom">
+            <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" id="visiMisiTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="paragraf-tab" data-bs-toggle="tab" data-bs-target="#paragraf" type="button"
+                                title="Paragraf Pembuka">
+                            <i class="fas fa-paragraph me-2"></i>
+                            <span class="tab-text">Paragraf</span>
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation" style="flex: 1;">
-                        <button class="nav-link" id="kartu-tab" data-bs-toggle="tab" data-bs-target="#kartu">
-                            <i class="fas fa-images me-2"></i> 3 Kartu Unggulan
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="kartu-tab" data-bs-toggle="tab" data-bs-target="#kartu" type="button"
+                                title="3 Kartu Unggulan">
+                            <i class="fas fa-images me-2"></i>
+                            <span class="tab-text">Kartu</span>
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation" style="flex: 1;">
-                        <button class="nav-link" id="visi-tab" data-bs-toggle="tab" data-bs-target="#visi">
-                            <i class="fas fa-eye me-2"></i> Visi Sekolah
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="visi-tab" data-bs-toggle="tab" data-bs-target="#visi" type="button"
+                                title="Visi Sekolah">
+                            <i class="fas fa-eye me-2"></i>
+                            <span class="tab-text">Visi</span>
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation" style="flex: 1;">
-                        <button class="nav-link" id="misi-tab" data-bs-toggle="tab" data-bs-target="#misi">
-                            <i class="fas fa-bullseye me-2"></i> Misi Sekolah
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="misi-tab" data-bs-toggle="tab" data-bs-target="#misi" type="button"
+                                title="Misi Sekolah">
+                            <i class="fas fa-bullseye me-2"></i>
+                            <span class="tab-text">Misi</span>
                         </button>
                     </li>
-                    <li class="nav-item" role="presentation" style="flex: 1;">
-                        <button class="nav-link" id="hero-tab" data-bs-toggle="tab" data-bs-target="#hero">
-                            <i class="fas fa-image me-2"></i> Background Hero
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="hero-tab" data-bs-toggle="tab" data-bs-target="#hero" type="button"
+                                title="Background Hero">
+                            <i class="fas fa-image me-2"></i>
+                            <span class="tab-text">Hero</span>
                         </button>
                     </li>
                 </ul>
@@ -63,7 +73,7 @@
             @csrf
             
             <!-- Tab Content -->
-            <div class="card-body bg-light">
+            <div class="card-body bg-light p-3 p-md-4">
                 <div class="tab-content" id="visiMisiTabContent">
                     <!-- Tab 1: Paragraf Pembuka -->
                     <div class="tab-pane fade show active" id="paragraf" role="tabpanel">
@@ -76,6 +86,7 @@
                                     <textarea 
                                         class="form-control tinymce-editor" 
                                         name="opening_paragraph" 
+                                        id="opening_paragraph"
                                         rows="6"
                                         placeholder="Masukkan paragraf pembuka..."
                                         required
@@ -93,8 +104,8 @@
                                     <label class="form-label fw-bold mb-3">
                                         <i class="fas fa-eye me-2"></i> Preview Frontend
                                     </label>
-                                    <div class="bg-white border rounded p-4">
-                                        <div class="text-center" style="font-size: 18px; line-height: 1.6;">
+                                    <div class="bg-white border rounded p-3">
+                                        <div class="text-center" style="font-size: 16px; line-height: 1.6;">
                                             {{ $visiMisi->opening_paragraph }}
                                         </div>
                                     </div>
@@ -126,7 +137,7 @@
                                     </div>
                                     <div class="card-body">
                                         <!-- Label -->
-                                        <div class="form-group mb-4">
+                                        <div class="form-group mb-3">
                                             <label class="form-label fw-bold">Label Teks <span class="text-danger">*</span></label>
                                             <input type="text" 
                                                    class="form-control" 
@@ -163,15 +174,11 @@
                                             </div>
                                             
                                             <!-- Upload New Image -->
-                                            <div class="input-group">
-                                                <input type="file" 
-                                                       class="form-control" 
-                                                       name="card{{ $i }}_image" 
-                                                       accept="image/*">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-upload"></i>
-                                                </button>
-                                            </div>
+                                            <input type="file" 
+                                                   class="form-control" 
+                                                   name="card{{ $i }}_image" 
+                                                   accept="image/*"
+                                                   id="card{{$i}}-image-input">
                                             <small class="text-muted d-block mt-2">
                                                 <i class="fas fa-ruler-combined me-1"></i>
                                                 @if($i == 3)
@@ -195,15 +202,15 @@
                             <label class="form-label fw-bold mb-3">
                                 <i class="fas fa-desktop me-2"></i> Preview Layout
                             </label>
-                            <div class="bg-white border rounded p-4">
+                            <div class="bg-white border rounded p-3">
                                 <div class="row g-3">
                                     @for($i = 1; $i <= 3; $i++)
                                     <div class="col-12 col-md-{{ $i == 3 ? '6' : '3' }}">
                                         <div class="position-relative rounded overflow-hidden shadow-sm" 
-                                             style="height: 120px; background: linear-gradient(45deg, #f8f9fa, #e9ecef);">
+                                             style="height: 100px; background: linear-gradient(45deg, #f8f9fa, #e9ecef);">
                                             <div class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center" 
                                                  style="background: rgba(107, 2, 177, 0.7);">
-                                                <span class="text-white fw-bold">{{ $visiMisi->{"card{$i}_label"} }}</span>
+                                                <span class="text-white fw-bold fs-6">{{ Str::limit($visiMisi->{"card{$i}_label"}, 10) }}</span>
                                             </div>
                                             <small class="position-absolute bottom-0 start-0 m-2 badge bg-dark">Kartu {{ $i }}</small>
                                         </div>
@@ -229,7 +236,7 @@
                                     </div>
                                     <div class="card-body">
                                         <!-- Judul -->
-                                        <div class="form-group mb-4">
+                                        <div class="form-group mb-3">
                                             <label class="form-label fw-bold">
                                                 <i class="fas fa-heading me-2"></i> Judul Section <span class="text-danger">*</span>
                                             </label>
@@ -245,12 +252,13 @@
                                         </div>
 
                                         <!-- Deskripsi -->
-                                        <div class="form-group mb-4">
+                                        <div class="form-group mb-3">
                                             <label class="form-label fw-bold">
                                                 <i class="fas fa-align-left me-2"></i> Deskripsi (Teks Tebal) <span class="text-danger">*</span>
                                             </label>
                                             <textarea class="form-control tinymce-editor" 
                                                       name="visi_description" 
+                                                      id="visi_description"
                                                       rows="4"
                                                       placeholder="Masukkan deskripsi visi..."
                                                       required>{{ old('visi_description', $visiMisi->visi_description) }}</textarea>
@@ -325,12 +333,13 @@
                                                 <div class="position-relative d-inline-block">
                                                     <img src="{{ $visiMisi->getVisiImageUrl() }}" 
                                                          class="img-fluid rounded border shadow" 
-                                                         style="max-height: 250px;">
+                                                         style="max-height: 200px; width: 100%;"
+                                                         id="current-visi-image">
                                                     @if($visiMisi->visi_image)
                                                     <div class="position-absolute top-0 end-0 mt-2 me-2">
                                                         <button type="button" 
-                                                                class="btn btn-sm btn-danger" 
-                                                                id="remove-visi-image">
+                                                                class="btn btn-sm btn-danger remove-image-btn" 
+                                                                data-type="visi">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -344,15 +353,11 @@
                                             <label class="form-label fw-bold">
                                                 <i class="fas fa-upload me-2"></i> Upload Gambar Baru
                                             </label>
-                                            <div class="input-group">
-                                                <input type="file" 
-                                                       class="form-control" 
-                                                       name="visi_image" 
-                                                       accept="image/*">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
+                                            <input type="file" 
+                                                   class="form-control" 
+                                                   name="visi_image" 
+                                                   accept="image/*"
+                                                   id="visi-image-input">
                                             <small class="text-muted d-block mt-2">
                                                 <i class="fas fa-info-circle me-1"></i>
                                                 Rekomendasi: Rasio 1:1, min. 500x500px. Format: JPG, PNG, JPEG (Max: 2MB)
@@ -368,43 +373,11 @@
                                                 <i class="fas fa-eye me-2"></i> Preview Gambar Baru
                                             </label>
                                             <div id="visi-image-preview" 
-                                                 class="border rounded p-3 text-center" 
-                                                 style="min-height: 200px; background: linear-gradient(45deg, #f8f9fa, #e9ecef); display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                                                 class="image-preview-placeholder">
                                                 <i class="fas fa-image fa-3x text-muted mb-3"></i>
                                                 <p class="text-muted mb-0">Gambar akan muncul di sini setelah dipilih</p>
-                                                <small class="text-muted mt-2">Drag & drop atau klik untuk memilih</small>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Preview Visi di Frontend -->
-                        <div class="mt-4">
-                            <label class="form-label fw-bold mb-3">
-                                <i class="fas fa-desktop me-2"></i> Preview Frontend Visi
-                            </label>
-                            <div class="bg-white border rounded p-4">
-                                <div class="row align-items-center">
-                                    <div class="col-md-6">
-                                        <div class="position-relative p-3" style="background: #f8f9fa; border-radius: 10px;">
-                                            <div style="height: 200px; background: #ddd; border-radius: 5px;"></div>
-                                            <div class="position-absolute top-0 start-0 m-3 bg-success" style="width: 40px; height: 40px; border-radius: 5px;"></div>
-                                            <div class="position-absolute bottom-0 end-0 m-3 bg-primary" style="width: 50px; height: 50px; border-radius: 50%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h4 class="text-purple">{{ $visiMisi->visi_title }}</h4>
-                                        <p class="fw-bold">{{ Str::limit($visiMisi->visi_description, 100) }}</p>
-                                        <ul class="list-unstyled">
-                                            @foreach(array_slice($visiItems, 0, 2) as $item)
-                                            <li class="mb-2">
-                                                <i class="fas fa-check-circle text-success me-2"></i>
-                                                {{ Str::limit($item, 50) }}
-                                            </li>
-                                            @endforeach
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -423,7 +396,7 @@
                                     </div>
                                     <div class="card-body">
                                         <!-- Judul -->
-                                        <div class="form-group mb-4">
+                                        <div class="form-group mb-3">
                                             <label class="form-label fw-bold">
                                                 <i class="fas fa-heading me-2"></i> Judul Section <span class="text-danger">*</span>
                                             </label>
@@ -439,12 +412,13 @@
                                         </div>
 
                                         <!-- Deskripsi -->
-                                        <div class="form-group mb-4">
+                                        <div class="form-group mb-3">
                                             <label class="form-label fw-bold">
                                                 <i class="fas fa-align-left me-2"></i> Deskripsi (Teks Tebal) <span class="text-danger">*</span>
                                             </label>
                                             <textarea class="form-control tinymce-editor" 
                                                       name="misi_description" 
+                                                      id="misi_description"
                                                       rows="4"
                                                       placeholder="Masukkan deskripsi misi..."
                                                       required>{{ old('misi_description', $visiMisi->misi_description) }}</textarea>
@@ -518,12 +492,13 @@
                                                 <div class="position-relative d-inline-block">
                                                     <img src="{{ $visiMisi->getMisiImageUrl() }}" 
                                                          class="img-fluid rounded border shadow" 
-                                                         style="max-height: 250px;">
+                                                         style="max-height: 200px; width: 100%;"
+                                                         id="current-misi-image">
                                                     @if($visiMisi->misi_image)
                                                     <div class="position-absolute top-0 end-0 mt-2 me-2">
                                                         <button type="button" 
-                                                                class="btn btn-sm btn-danger" 
-                                                                id="remove-misi-image">
+                                                                class="btn btn-sm btn-danger remove-image-btn" 
+                                                                data-type="misi">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -537,15 +512,11 @@
                                             <label class="form-label fw-bold">
                                                 <i class="fas fa-upload me-2"></i> Upload Gambar Baru
                                             </label>
-                                            <div class="input-group">
-                                                <input type="file" 
-                                                       class="form-control" 
-                                                       name="misi_image" 
-                                                       accept="image/*">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
+                                            <input type="file" 
+                                                   class="form-control" 
+                                                   name="misi_image" 
+                                                   accept="image/*"
+                                                   id="misi-image-input">
                                             <small class="text-muted d-block mt-2">
                                                 <i class="fas fa-info-circle me-1"></i>
                                                 Rekomendasi: Rasio 1:1, min. 500x500px. Format: JPG, PNG, JPEG (Max: 2MB)
@@ -561,11 +532,9 @@
                                                 <i class="fas fa-eye me-2"></i> Preview Gambar Baru
                                             </label>
                                             <div id="misi-image-preview" 
-                                                 class="border rounded p-3 text-center" 
-                                                 style="min-height: 200px; background: linear-gradient(45deg, #f8f9fa, #e9ecef); display: flex; align-items: center; justify-content: center; flex-direction: column;">
+                                                 class="image-preview-placeholder">
                                                 <i class="fas fa-image fa-3x text-muted mb-3"></i>
                                                 <p class="text-muted mb-0">Gambar akan muncul di sini setelah dipilih</p>
-                                                <small class="text-muted mt-2">Drag & drop atau klik untuk memilih</small>
                                             </div>
                                         </div>
                                     </div>
@@ -585,7 +554,7 @@
                                     </div>
                                     <div class="card-body">
                                         <!-- Hero Title -->
-                                        <div class="form-group mb-4">
+                                        <div class="form-group mb-3">
                                             <label class="form-label fw-bold">
                                                 <i class="fas fa-heading me-2"></i> Judul Hero
                                             </label>
@@ -609,12 +578,13 @@
                                                 <div class="position-relative d-inline-block">
                                                     <img src="{{ $visiMisi->getHeroBackgroundUrl() }}" 
                                                          class="img-fluid rounded border shadow" 
-                                                         style="max-height: 200px; width: 100%; object-fit: cover;">
+                                                         style="max-height: 150px; width: 100%; object-fit: cover;"
+                                                         id="current-hero-image">
                                                     @if($visiMisi->hero_background)
                                                     <div class="position-absolute top-0 end-0 mt-2 me-2">
                                                         <button type="button" 
-                                                                class="btn btn-sm btn-danger" 
-                                                                id="remove-hero-background">
+                                                                class="btn btn-sm btn-danger remove-image-btn" 
+                                                                data-type="hero">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </div>
@@ -628,15 +598,11 @@
                                             <label class="form-label fw-bold">
                                                 <i class="fas fa-upload me-2"></i> Upload Background Baru
                                             </label>
-                                            <div class="input-group">
-                                                <input type="file" 
-                                                       class="form-control" 
-                                                       name="hero_background" 
-                                                       accept="image/*">
-                                                <button class="btn btn-outline-secondary" type="button">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
+                                            <input type="file" 
+                                                   class="form-control" 
+                                                   name="hero_background" 
+                                                   accept="image/*"
+                                                   id="hero-image-input">
                                             <small class="text-muted d-block mt-2">
                                                 <i class="fas fa-ruler-combined me-1"></i>
                                                 Ukuran optimal: 1920x400px. Format: JPG, PNG, JPEG (Max: 5MB)
@@ -657,7 +623,7 @@
                                     </div>
                                     <div class="card-body">
                                         <!-- Panduan -->
-                                        <div class="alert alert-light border mb-4">
+                                        <div class="alert alert-light border mb-3">
                                             <h6 class="fw-bold mb-3">
                                                 <i class="fas fa-lightbulb me-2"></i> Panduan Hero Section
                                             </h6>
@@ -676,18 +642,12 @@
                                                 <i class="fas fa-eye me-2"></i> Preview Hero
                                             </label>
                                             <div class="border rounded overflow-hidden shadow-sm">
-                                                <div class="position-relative" style="height: 180px; overflow: hidden; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ $visiMisi->getHeroBackgroundUrl() }}'); background-size: cover; background-position: center;">
+                                                <div class="position-relative" style="height: 150px; overflow: hidden; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ $visiMisi->getHeroBackgroundUrl() }}'); background-size: cover; background-position: center;">
                                                     <div style="position: absolute; inset: 0; background: rgba(169, 72, 234, 0.7);"></div>
                                                     <div class="position-absolute top-50 start-50 translate-middle text-center text-white w-100 px-3">
-                                                        <h3 class="mb-2 fw-bold">{{ $visiMisi->hero_title }}</h3>
-                                                        <p class="mb-0 opacity-75">Halaman Visi & Misi</p>
+                                                        <h4 class="mb-2 fw-bold">{{ $visiMisi->hero_title }}</h4>
+                                                        <p class="mb-0 opacity-75 small">Halaman Visi & Misi</p>
                                                     </div>
-                                                </div>
-                                                <div class="bg-white p-3 border-top">
-                                                    <small class="text-muted">
-                                                        <i class="fas fa-info-circle me-1"></i>
-                                                        Ini adalah preview bagaimana hero akan ditampilkan di frontend
-                                                    </small>
                                                 </div>
                                             </div>
                                         </div>
@@ -703,38 +663,34 @@
             <div class="card-footer bg-white border-top py-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <span class="text-muted">
+                        <span class="text-muted small">
                             <i class="fas fa-exclamation-circle me-2"></i> Pastikan semua data sudah benar sebelum menyimpan
                         </span>
                     </div>
                     <div>
-                        <button type="reset" class="btn btn-outline-secondary me-3" form="visiMisiForm">
+                        <button type="reset" class="btn btn-outline-secondary px-4" id="resetFormBtn">
                             <i class="fas fa-redo me-1"></i> Reset Form
                         </button>
-                        <button type="submit" class="btn btn-primary px-4" form="visiMisiForm">
-                            <i class="fas fa-save me-1"></i> Simpan Semua Perubahan
+                        <button type="submit" class="btn btn-primary px-4" id="submitBtn">
+                            <i class="fas fa-save me-1"></i> Simpan
                         </button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
-</div>
 
 <!-- Loading Overlay -->
 <div class="loading-overlay">
-    <div class="text-center">
-        <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-        <h5 class="text-muted">Menyimpan perubahan...</h5>
+    <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
     </div>
+    <h5 class="text-muted">Menyimpan perubahan...</h5>
 </div>
 @endsection
 
 @push('styles')
 <style>
-    /* Warna kustom */
     .bg-purple {
         background-color: #6b02b1 !important;
     }
@@ -743,91 +699,94 @@
         color: #6b02b1 !important;
     }
     
-    /* Tabs styling untuk satu line */
+    /* Nav tabs styling - NO SCROLL */
+    .nav-tabs-wrapper {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+    }
+    
+    /* Remove all scroll behavior */
     .nav-tabs {
-        border-bottom: none;
-        flex-wrap: nowrap;
+        border-bottom: 2px solid #dee2e6;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: space-between !important;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+        width: 100% !important;
+        overflow: hidden !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Hide scrollbar */
+    .nav-tabs::-webkit-scrollbar {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+    
+    .nav-tabs .nav-item {
+        flex: 1 !important;
+        flex-shrink: 0 !important;
+        text-align: center;
+        max-width: 20% !important;
+        min-width: 0 !important;
     }
     
     .nav-tabs .nav-link {
         color: #495057;
         font-weight: 500;
         border: none;
-        border-radius: 8px 8px 0 0;
-        padding: 12px 16px;
+        border-bottom: 3px solid transparent;
+        padding: 12px 5px !important;
         transition: all 0.3s ease;
         white-space: nowrap;
-        margin: 0 2px;
-        background-color: #f8f9fa;
-        border: 1px solid #dee2e6;
-        border-bottom: none;
+        text-align: center;
+        font-size: 0.85rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background-color: transparent;
+        cursor: pointer;
+        min-height: 70px;
+        width: 100% !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
     }
     
     .nav-tabs .nav-link:hover {
         color: #6b02b1;
-        background-color: rgba(107, 2, 177, 0.1);
+        border-bottom-color: rgba(107, 2, 177, 0.3);
+        background-color: rgba(107, 2, 177, 0.05);
     }
     
     .nav-tabs .nav-link.active {
         color: #6b02b1;
-        background-color: white;
-        border-color: #dee2e6 #dee2e6 white;
+        background-color: transparent;
+        border-bottom-color: #6b02b1;
         font-weight: 600;
-        position: relative;
     }
     
-    .nav-tabs .nav-link.active:after {
-        content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background-color: #6b02b1;
-    }
-    
-    /* Scroll horizontal untuk tabs */
-    .card-header .d-flex {
-        overflow-x: auto;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        padding-bottom: 3px;
-    }
-    
-    .card-header .d-flex::-webkit-scrollbar {
-        display: none;
-    }
-    
-    /* Card styling */
-    .card {
-        border-radius: 12px;
+    /* Tab text styling */
+    .nav-tabs .nav-link .tab-text {
+        display: block !important;
         overflow: hidden;
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        text-overflow: ellipsis;
+        max-width: 100%;
+        white-space: nowrap;
+        font-size: 0.8rem;
     }
     
-    .card-header.bg-white {
-        padding: 1rem 1.5rem 0 1.5rem;
-    }
-    
-    /* Tab content background */
-    .tab-content {
-        min-height: 500px;
-    }
-    
-    .tab-pane {
-        padding: 20px 0;
-    }
-    
-    /* TinyMCE styling */
-    .tox-tinymce {
-        border-radius: 8px !important;
-        border: 1px solid #ced4da !important;
-        transition: border-color 0.3s ease;
-    }
-    
-    .tox-tinymce:focus-within {
-        border-color: #6b02b1 !important;
-        box-shadow: 0 0 0 0.2rem rgba(107, 2, 177, 0.25) !important;
+    .nav-tabs .nav-link i {
+        font-size: 1.2rem;
+        margin-bottom: 5px;
     }
     
     /* Loading overlay */
@@ -837,12 +796,12 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.9);
-        display: flex;
+        background: rgba(255, 255, 255, 0.95);
+        display: none;
         align-items: center;
         justify-content: center;
         z-index: 9999;
-        display: none;
+        flex-direction: column;
         backdrop-filter: blur(5px);
     }
     
@@ -851,11 +810,15 @@
         background: linear-gradient(45deg, #f8f9fa, #e9ecef);
         border: 2px dashed #dee2e6;
         border-radius: 8px;
-        padding: 2.5rem;
+        padding: 1.5rem;
         text-align: center;
         color: #6c757d;
         transition: all 0.3s ease;
-        cursor: pointer;
+        min-height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
     
     .image-preview-placeholder:hover {
@@ -863,7 +826,12 @@
         background: linear-gradient(45deg, #f8f9fa, #f0f4ff);
     }
     
-    /* Button styling */
+    .image-preview-placeholder img {
+        max-height: 150px;
+        border-radius: 5px;
+    }
+    
+    /* Primary button */
     .btn-primary {
         background-color: #6b02b1;
         border-color: #6b02b1;
@@ -880,15 +848,95 @@
         box-shadow: 0 0 0 0.2rem rgba(107, 2, 177, 0.25);
     }
     
-    /* Responsive adjustments */
+    /* Fix for TinyMCE container - ESSENTIAL FIX */
+    .tox-tinymce {
+        width: 100% !important;
+        height: 300px !important;
+        border-radius: 8px !important;
+        border: 1px solid #ced4da !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    .tox-tinymce .tox-edit-area {
+        width: 100% !important;
+        max-width: 100% !important;
+        border: none !important;
+    }
+    
+    /* Ensure TinyMCE iframe takes full width */
+    .tox-tinymce iframe {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    /* Responsive adjustments untuk tabs - NO SCROLL */
     @media (max-width: 768px) {
+        .nav-tabs-wrapper {
+            overflow: visible !important;
+        }
+        
+        .nav-tabs {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            overflow: visible !important;
+            -webkit-overflow-scrolling: auto !important;
+        }
+        
+        .nav-tabs .nav-item {
+            flex: 1 !important;
+            min-width: 0 !important;
+            max-width: 20% !important;
+        }
+        
         .nav-tabs .nav-link {
-            padding: 10px 12px;
-            font-size: 0.85rem;
+            padding: 8px 3px !important;
+            font-size: 0.75rem !important;
+            min-height: 65px;
+            width: 100% !important;
+            overflow: hidden !important;
         }
         
         .nav-tabs .nav-link i {
-            margin-right: 5px;
+            font-size: 1.1rem !important;
+            margin-right: 0 !important;
+            margin-bottom: 4px;
+        }
+        
+        .nav-tabs .nav-link .tab-text {
+            font-size: 0.7rem !important;
+            display: block !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Fix TinyMCE untuk mobile - MUST BE SET */
+        .tox-tinymce {
+            height: 250px !important;
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        .tox-tinymce iframe {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 100% !important;
+        }
+        
+        /* Mobile optimized TinyMCE toolbar */
+        .tox .tox-toolbar__group {
+            padding: 4px 6px !important;
+        }
+        
+        .tox .tox-tbtn {
+            width: 32px !important;
+            height: 32px !important;
+            min-width: 32px !important;
         }
         
         .card-footer .d-flex {
@@ -900,24 +948,144 @@
             width: 100%;
             margin: 5px 0;
         }
-        
-        .card-header h1 {
-            font-size: 1.5rem;
-        }
     }
     
     @media (max-width: 576px) {
-        .nav-tabs .nav-link span {
-            display: none;
+        .nav-tabs .nav-link {
+            padding: 8px 2px !important;
+            font-size: 0.65rem !important;
+            min-height: 60px;
         }
         
         .nav-tabs .nav-link i {
+            font-size: 1rem !important;
+        }
+        
+        .nav-tabs .nav-link .tab-text {
+            font-size: 0.65rem !important;
+        }
+        
+        .nav-tabs .nav-item {
+            min-width: 0 !important;
+        }
+        
+        /* TinyMCE untuk screen kecil */
+        .tox-tinymce {
+            height: 200px !important;
+            width: 100% !important;
+        }
+        
+        .tox-tinymce iframe {
+            width: 100% !important;
+        }
+        
+        .card {
+            margin-left: -10px;
+            margin-right: -10px;
+            border-radius: 0;
+            border-left: none;
+            border-right: none;
+        }
+        
+        .card-header,
+        .card-body,
+        .card-footer {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+    
+    @media (max-width: 400px) {
+        .nav-tabs .nav-link {
+            padding: 8px 1px !important;
+            font-size: 0.6rem !important;
+            min-height: 55px;
+        }
+        
+        .nav-tabs .nav-link i {
+            font-size: 0.9rem !important;
+        }
+        
+        .nav-tabs .nav-link .tab-text {
+            font-size: 0.6rem !important;
+        }
+        
+        /* TinyMCE untuk screen sangat kecil */
+        .tox-tinymce {
+            height: 180px !important;
+            width: 100% !important;
+        }
+    }
+    
+    /* Fix for mobile view */
+    .container-fluid {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    @media (max-width: 576px) {
+        .container-fluid {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        .row {
+            margin-left: 0;
             margin-right: 0;
         }
         
-        .nav-tabs .nav-link {
-            padding: 10px;
+        .col-12, .col-lg-4, .col-lg-6, .col-md-6 {
+            padding-left: 10px;
+            padding-right: 10px;
         }
+        
+        /* Adjust spacing for mobile */
+        .mb-4 {
+            margin-bottom: 1rem !important;
+        }
+        
+        .mt-4 {
+            margin-top: 1rem !important;
+        }
+        
+        /* Improve button sizing */
+        .btn {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+        }
+    }
+    
+    /* Mobile touch improvements */
+    @media (hover: none) and (pointer: coarse) {
+        .btn, .form-control, select, textarea {
+            min-height: 44px; /* Minimum touch target size */
+        }
+        
+        .tox-tinymce {
+            min-height: 44px !important;
+        }
+        
+        /* Better touch targets for mobile */
+        .tox .tox-tbtn {
+            min-width: 36px !important;
+            min-height: 36px !important;
+        }
+        
+        /* Prevent text selection on tap */
+        .nav-tabs .nav-link {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+    }
+    
+    /* Prevent any scrollbars */
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+    }
+    
+    .card, .card-body {
+        overflow: visible !important;
     }
 </style>
 @endpush
@@ -925,74 +1093,26 @@
 @push('scripts')
 <script src="{{ asset('assets/js/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 <script>
-    // Initialize TinyMCE for all textareas with class 'tinymce-editor'
-    tinymce.init({
-        selector: '.tinymce-editor',
-        height: 300,
-        menubar: true,
-        plugins: [
-            'advlist', 'autolink', 'lists', 'link', 'charmap', 'preview',
-            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-            'insertdatetime', 'table', 'help', 'wordcount', 'emoticons'
-        ],
-        toolbar: 'undo redo | formatselect | bold italic underline strikethrough | ' +
-                 'alignleft aligncenter alignright alignjustify | ' +
-                 'bullist numlist outdent indent | link table emoticons | ' +
-                 'removeformat | help | code',
-        language: 'id',
-        language_url: '{{ asset("assets/js/tinymce/langs/id.js") }}',
-        promotion: false,
-        branding: false,
-        content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.6; color: #212529; }' +
-                      'h1, h2, h3, h4, h5, h6 { color: #6b02b1; margin-top: 1rem; }' +
-                      'p { margin-bottom: 1rem; }',
-        
-        setup: function (editor) {
-            editor.on('change', function () {
-                editor.save();
-            });
-        }
-    });
-    
-    // Loading overlay function
-    function showLoading(message = 'Menyimpan perubahan...') {
-        const overlay = document.querySelector('.loading-overlay');
-        if (overlay) {
-            overlay.querySelector('h5').textContent = message;
-            overlay.style.display = 'flex';
-        }
-    }
-    
-    function hideLoading() {
-        const overlay = document.querySelector('.loading-overlay');
-        if (overlay) {
-            overlay.style.display = 'none';
-        }
-    }
-    
-    // Show SweetAlert notification
-    function showSwal(icon, title, text, timer = null) {
-        const Toast = Swal.mixin({
+// Notification Manager
+const NotificationManager = {
+    toast(icon, title, text = '', timer = 3000) {
+        return Swal.fire({
             toast: true,
             position: 'top-end',
-            showConfirmButton: false,
-            timer: timer || 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-        
-        Toast.fire({
             icon: icon,
             title: title,
-            text: text
+            text: text,
+            showConfirmButton: false,
+            timer: timer,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
         });
-    }
+    },
     
-    // Confirm dialog with SweetAlert
-    function confirmDialog(title, text, confirmButtonText = 'Ya', cancelButtonText = 'Tidak') {
+    confirm(title, text, confirmText = 'Ya', cancelText = 'Tidak') {
         return Swal.fire({
             title: title,
             text: text,
@@ -1000,449 +1120,651 @@
             showCancelButton: true,
             confirmButtonColor: '#6b02b1',
             cancelButtonColor: '#6c757d',
-            confirmButtonText: confirmButtonText,
-            cancelButtonText: cancelButtonText,
-            reverseButtons: true
+            confirmButtonText: confirmText,
+            cancelButtonText: cancelText,
+            reverseButtons: true,
+            customClass: {
+                popup: 'border-radius-12'
+            }
+        });
+    },
+    
+    success(title, text = '') {
+        this.toast('success', title, text);
+    },
+    
+    error(title, text = '') {
+        this.toast('error', title, text, 4000);
+    },
+    
+    warning(title, text = '') {
+        this.toast('warning', title, text, 4000);
+    }
+};
+
+// Loading Manager
+const LoadingManager = {
+    show(message = 'Menyimpan perubahan...') {
+        const overlay = document.querySelector('.loading-overlay');
+        const messageEl = overlay.querySelector('h5');
+        if (messageEl) messageEl.textContent = message;
+        overlay.style.display = 'flex';
+    },
+    
+    hide() {
+        const overlay = document.querySelector('.loading-overlay');
+        overlay.style.display = 'none';
+    }
+};
+
+// Image Preview Handler
+const ImageHandler = {
+    preview(input, previewId, currentImageId = null) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById(previewId);
+                if (preview) {
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" class="img-fluid rounded shadow" style="max-height: 150px;">
+                        <p class="text-success small mt-2">
+                            <i class="fas fa-check-circle me-1"></i> Gambar siap diupload
+                        </p>
+                    `;
+                }
+                
+                // Update current image preview if exists
+                if (currentImageId) {
+                    const currentImg = document.getElementById(currentImageId);
+                    if (currentImg) {
+                        currentImg.src = e.target.result;
+                    }
+                }
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    },
+    
+    setupPreview(inputId, previewId, currentImageId = null) {
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.addEventListener('change', () => {
+                this.preview(input, previewId, currentImageId);
+            });
+        }
+    }
+};
+
+// List Item Manager
+const ListItemManager = {
+    addItem(containerId, placeholder = 'Masukkan poin...') {
+        const container = document.getElementById(containerId);
+        const index = container.children.length;
+        
+        const div = document.createElement('div');
+        div.className = 'input-group mb-2';
+        div.innerHTML = `
+            <span class="input-group-text bg-light border">${index + 1}</span>
+            <input type="text" class="form-control" name="${containerId.replace('-list-container', '_items[]')}" 
+                   placeholder="${placeholder}" required>
+            <button type="button" class="btn btn-outline-danger remove-list-item">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        container.appendChild(div);
+    },
+    
+    removeItem(button) {
+        const inputGroup = button.closest('.input-group');
+        const container = inputGroup.closest('[id$="-list-container"]');
+        
+        if (container.children.length > 1) {
+            inputGroup.remove();
+            this.renumberItems(container);
+            return true;
+        }
+        return false;
+    },
+    
+    renumberItems(container) {
+        const items = container.querySelectorAll('.input-group');
+        items.forEach((item, index) => {
+            item.querySelector('.input-group-text').textContent = index + 1;
+        });
+    }
+};
+
+// Form Validator
+const FormValidator = {
+    validate(form) {
+        let isValid = true;
+        
+        // Validate required text fields
+        const requiredFields = form.querySelectorAll('[required]:not([type="file"])');
+        requiredFields.forEach(field => {
+            let value = field.value.trim();
+            
+            // Check if it's a TinyMCE editor
+            if (field.classList.contains('tinymce-editor')) {
+                const editor = tinymce.get(field.id);
+                if (editor) {
+                    value = editor.getContent().trim();
+                }
+            }
+            
+            if (!value) {
+                isValid = false;
+                field.classList.add('is-invalid');
+                
+                // Scroll to first invalid field
+                if (isValid === false) {
+                    const yOffset = -100;
+                    const y = field.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    
+                    window.scrollTo({
+                        top: y,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Focus the field
+                    if (field.classList.contains('tinymce-editor')) {
+                        const editor = tinymce.get(field.id);
+                        if (editor) editor.focus();
+                    } else {
+                        field.focus();
+                    }
+                }
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
+        
+        return isValid;
+    },
+    
+    clearValidation(form) {
+        const invalidFields = form.querySelectorAll('.is-invalid');
+        invalidFields.forEach(field => field.classList.remove('is-invalid'));
+    }
+};
+
+// File Removal Handler
+const FileRemovalHandler = {
+    async remove(type, cardNumber = null) {
+        let url = `/backend/visi-misi/remove-${type}-image`;
+        let message = `Apakah Anda yakin ingin menghapus gambar ${type}?`;
+        
+        if (cardNumber) {
+            url = `/backend/visi-misi/remove-card-image/${cardNumber}`;
+            message = `Apakah Anda yakin ingin menghapus gambar kartu ${cardNumber}?`;
+        }
+        
+        const result = await NotificationManager.confirm(
+            'Hapus Gambar',
+            message,
+            'Ya, Hapus!'
+        );
+        
+        if (result.isConfirmed) {
+            LoadingManager.show('Menghapus gambar...');
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                LoadingManager.hide();
+                
+                if (data.success) {
+                    NotificationManager.success('Berhasil!', 'Gambar telah dihapus');
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    NotificationManager.error('Gagal!', data.message || 'Gagal menghapus gambar');
+                }
+            } catch (error) {
+                LoadingManager.hide();
+                NotificationManager.error('Error!', 'Terjadi kesalahan saat menghapus gambar');
+            }
+        }
+    }
+};
+
+// Initialize TinyMCE dengan konfigurasi yang DIPERBAIKI
+const initTinyMCE = () => {
+    console.log('Initializing TinyMCE...');
+    
+    // Pastikan semua element editor ada
+    const editorElements = document.querySelectorAll('.tinymce-editor');
+    console.log('Found editor elements:', editorElements.length);
+    
+    if (editorElements.length === 0) {
+        console.warn('No TinyMCE elements found');
+        return;
+    }
+    
+    // Hapus semua instance TinyMCE yang ada
+    try {
+        tinymce.remove();
+    } catch (e) {
+        console.log('No existing TinyMCE instances to remove');
+    }
+    
+    // Deteksi jika mobile
+    const isMobile = window.innerWidth <= 768;
+    
+    // Konfigurasi universal yang berfungsi di semua ukuran
+    const config = {
+        selector: '.tinymce-editor',
+        height: isMobile ? 250 : 350,
+        width: '100%', // PASTIKAN ini ada
+        menubar: !isMobile,
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor',
+            'searchreplace', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 
+            'table', 'help', 'wordcount'
+        ],
+        toolbar: 'undo redo | styles | bold italic underline strikethrough | ' +
+                 'alignleft aligncenter alignright alignjustify | ' +
+                 'bullist numlist outdent indent | ' +
+                 'forecolor backcolor | link image | ' +
+                 'removeformat | help',
+        mobile: {
+            theme: 'mobile',
+            toolbar: [
+                'undo redo', 'bold italic underline', 'styleselect',
+                'bullist numlist', 'alignleft aligncenter alignright',
+                'link', 'forecolor backcolor'
+            ]
+        },
+        branding: false,
+        promotion: false,
+        content_style: `
+            body { 
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; 
+                font-size: 14px; 
+                line-height: 1.5; 
+                color: #333; 
+                margin: 8px;
+                max-width: 100% !important;
+                overflow-wrap: break-word;
+            }
+            p { margin: 0 0 10px; }
+            img { max-width: 100%; height: auto; }
+        `,
+        content_css: false,
+        // PASTIKAN iframe mengambil 100% width
+        iframe_aria_text: 'Rich text editor',
+        setup: (editor) => {
+            console.log('Setting up editor:', editor.id);
+            
+            // Simpan konten saat berubah
+            editor.on('change', () => {
+                editor.save();
+            });
+            
+            // Pastikan iframe mengambil lebar penuh
+            editor.on('init', () => {
+                const iframe = editor.iframeElement;
+                if (iframe) {
+                    iframe.style.width = '100%';
+                    iframe.style.maxWidth = '100%';
+                    iframe.style.minWidth = '100%';
+                }
+                
+                // Pastikan container editor lebar penuh
+                const container = editor.getContainer();
+                if (container) {
+                    container.style.width = '100%';
+                    container.style.maxWidth = '100%';
+                    container.style.minWidth = '100%';
+                }
+            });
+            
+            // Handle focus untuk mobile
+            editor.on('focus', () => {
+                if (isMobile) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: editor.getContainer().offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            });
+        }
+    };
+    
+    // Tambahkan language config jika tersedia
+    config.language = 'id';
+    config.language_url = '{{ asset("assets/js/tinymce/langs/id.js") }}';
+    
+    // Coba inisialisasi TinyMCE
+    try {
+        tinymce.init(config).then(() => {
+            console.log('TinyMCE initialized successfully');
+            
+            // Force width pada semua editor setelah init
+            setTimeout(() => {
+                tinymce.get().forEach(editor => {
+                    if (editor) {
+                        const container = editor.getContainer();
+                        if (container) {
+                            container.style.width = '100%';
+                            container.style.maxWidth = '100%';
+                            container.style.minWidth = '100%';
+                        }
+                        
+                        const iframe = editor.iframeElement;
+                        if (iframe) {
+                            iframe.style.width = '100%';
+                            iframe.style.maxWidth = '100%';
+                            iframe.style.minWidth = '100%';
+                        }
+                    }
+                });
+            }, 500);
+        });
+    } catch (error) {
+        console.error('Error initializing TinyMCE:', error);
+        
+        // Fallback: tampilkan textarea biasa
+        editorElements.forEach(textarea => {
+            textarea.style.display = 'block';
+            textarea.style.width = '100%';
+            textarea.style.minHeight = '200px';
+            textarea.style.maxWidth = '100%';
+        });
+    }
+};
+
+// Function untuk setup tabs tanpa scroll
+const setupTabs = () => {
+    const navTabs = document.querySelector('.nav-tabs');
+    if (navTabs) {
+        // Pastikan tidak ada scroll
+        navTabs.style.overflow = 'hidden';
+        navTabs.style.overflowX = 'hidden';
+        navTabs.style.overflowY = 'hidden';
+        navTabs.style.flexWrap = 'nowrap';
+        navTabs.style.justifyContent = 'space-between';
+        
+        // Atur lebar setiap item tab
+        const navItems = navTabs.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.style.flex = '1';
+            item.style.minWidth = '0';
+            item.style.textAlign = 'center';
+        });
+    }
+};
+
+// Main Application
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing...');
+    
+    // Setup tabs tanpa scroll
+    setupTabs();
+    
+    // Initialize Bootstrap tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            trigger: 'hover focus',
+            boundary: 'viewport'
+        });
+    });
+    
+    // Initialize TinyMCE dengan timeout untuk memastikan DOM siap
+    setTimeout(() => {
+        initTinyMCE();
+    }, 300);
+    
+    // Re-initialize TinyMCE on window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            console.log('Window resized to:', window.innerWidth, 'x', window.innerHeight);
+            initTinyMCE();
+            setupTabs();
+        }, 250);
+    });
+    
+    // Initialize image previews
+    ImageHandler.setupPreview('visi-image-input', 'visi-image-preview', 'current-visi-image');
+    ImageHandler.setupPreview('misi-image-input', 'misi-image-preview', 'current-misi-image');
+    
+    // Setup hero image preview
+    const heroInput = document.getElementById('hero-image-input');
+    if (heroInput) {
+        heroInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const currentImg = document.getElementById('current-hero-image');
+                    if (currentImg) {
+                        currentImg.src = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
         });
     }
     
-    document.addEventListener('DOMContentLoaded', function() {
-        // Function to preview image
-        function previewImage(input, previewId) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const previewElement = document.getElementById(previewId);
-                    previewElement.innerHTML = `
-                        <div class="text-center">
-                            <img src="${e.target.result}" class="img-fluid rounded shadow" style="max-height: 180px;">
-                            <p class="text-success small mt-2">
-                                <i class="fas fa-check-circle me-1"></i> Gambar siap diupload
-                            </p>
-                        </div>
-                    `;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        
-        // Visi image preview
-        const visiImageInput = document.querySelector('input[name="visi_image"]');
-        if (visiImageInput) {
-            visiImageInput.addEventListener('change', function() {
-                previewImage(this, 'visi-image-preview');
-            });
-        }
-        
-        // Misi image preview
-        const misiImageInput = document.querySelector('input[name="misi_image"]');
-        if (misiImageInput) {
-            misiImageInput.addEventListener('change', function() {
-                previewImage(this, 'misi-image-preview');
-            });
-        }
-        
-        // Card image previews
-        for (let i = 1; i <= 3; i++) {
-            const cardInput = document.querySelector(`input[name="card${i}_image"]`);
-            if (cardInput) {
-                cardInput.addEventListener('change', function(e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const currentImageDiv = this.closest('.form-group').querySelector('.current-image img');
-                            if (currentImageDiv) {
-                                currentImageDiv.src = e.target.result;
-                            }
-                        }
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-        }
-        
-        // Hero background preview
-        const heroBackgroundInput = document.querySelector('input[name="hero_background"]');
-        if (heroBackgroundInput) {
-            heroBackgroundInput.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
+    // Setup card image previews
+    for (let i = 1; i <= 3; i++) {
+        const cardInput = document.getElementById(`card${i}-image-input`);
+        if (cardInput) {
+            cardInput.addEventListener('change', (e) => {
+                const currentImg = cardInput.closest('.form-group').querySelector('.current-image img');
+                if (currentImg && e.target.files[0]) {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const currentImageDiv = document.querySelector('.current-image img');
-                        if (currentImageDiv) {
-                            currentImageDiv.src = e.target.result;
+                    reader.onload = (event) => {
+                        currentImg.src = event.target.result;
+                    };
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+        }
+    }
+    
+    // Add list item buttons
+    document.getElementById('add-visi-item')?.addEventListener('click', () => {
+        ListItemManager.addItem('visi-list-container', 'Masukkan poin visi...');
+    });
+    
+    document.getElementById('add-misi-item')?.addEventListener('click', () => {
+        ListItemManager.addItem('misi-list-container', 'Masukkan poin misi...');
+    });
+    
+    // Remove list item (event delegation)
+    document.addEventListener('click', async (e) => {
+        // Remove list items
+        if (e.target.closest('.remove-list-item')) {
+            const button = e.target.closest('.remove-list-item');
+            const container = button.closest('[id$="-list-container"]');
+            
+            if (ListItemManager.removeItem(button)) {
+                NotificationManager.success('Berhasil!', 'Poin telah dihapus');
+            } else {
+                NotificationManager.warning('Peringatan', 'Minimal harus ada satu poin!');
+            }
+        }
+        
+        // Remove images
+        if (e.target.closest('.remove-image-btn')) {
+            const button = e.target.closest('.remove-image-btn');
+            const type = button.dataset.type;
+            FileRemovalHandler.remove(type);
+        }
+        
+        // Remove card images
+        if (e.target.closest('.remove-card-image')) {
+            const button = e.target.closest('.remove-card-image');
+            const cardNumber = button.dataset.card;
+            FileRemovalHandler.remove('card', cardNumber);
+        }
+    });
+    
+    // Form submission
+    document.getElementById('visiMisiForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Clear previous validation
+        FormValidator.clearValidation(e.target);
+        
+        // Validate form
+        if (!FormValidator.validate(e.target)) {
+            NotificationManager.error('Form tidak lengkap!', 'Harap lengkapi semua field yang wajib diisi.');
+            return;
+        }
+        
+        // Confirm submission
+        const result = await NotificationManager.confirm(
+            'Simpan Perubahan',
+            'Apakah Anda yakin ingin menyimpan semua perubahan?',
+            'Ya, Simpan!'
+        );
+        
+        if (result.isConfirmed) {
+            submitForm(e.target);
+        }
+    });
+    
+    // Reset form button
+    document.getElementById('resetFormBtn')?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        const result = await NotificationManager.confirm(
+            'Reset Form',
+            'Apakah Anda yakin ingin mereset form? Semua perubahan yang belum disimpan akan hilang.',
+            'Ya, Reset!'
+        );
+        
+        if (result.isConfirmed) {
+            resetForm();
+            NotificationManager.success('Berhasil!', 'Form telah direset');
+        }
+    });
+    
+    // Form submission function
+    const submitForm = async (form) => {
+        LoadingManager.show();
+        
+        try {
+            // Save all TinyMCE content before form submission
+            if (typeof tinymce !== 'undefined') {
+                tinymce.triggerSave();
+            }
+            
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            });
+            
+            const result = await response.json();
+            LoadingManager.hide();
+            
+            if (response.ok && result.success) {
+                NotificationManager.success('Berhasil!', 'Data berhasil disimpan');
+                setTimeout(() => location.reload(), 1500);
+            } else {
+                NotificationManager.error('Gagal!', result.message || 'Gagal menyimpan data');
+                
+                // Display validation errors if any
+                if (result.errors) {
+                    Object.keys(result.errors).forEach(field => {
+                        const input = form.querySelector(`[name="${field}"]`);
+                        if (input) {
+                            input.classList.add('is-invalid');
                         }
-                    }
-                    reader.readAsDataURL(file);
+                    });
+                }
+            }
+        } catch (error) {
+            LoadingManager.hide();
+            NotificationManager.error('Error!', 'Terjadi kesalahan saat menyimpan data');
+        }
+    };
+    
+    // Form reset function
+    const resetForm = () => {
+        const form = document.getElementById('visiMisiForm');
+        if (!form) return;
+        
+        form.reset();
+        FormValidator.clearValidation(form);
+        
+        // Reset TinyMCE editors
+        if (typeof tinymce !== 'undefined') {
+            tinymce.get().forEach(editor => {
+                if (editor) {
+                    editor.setContent('');
                 }
             });
         }
         
-        // Add list item functionality for Visi
-        document.getElementById('add-visi-item').addEventListener('click', function() {
-            const container = document.getElementById('visi-list-container');
-            const index = container.children.length;
-            
-            const div = document.createElement('div');
-            div.className = 'input-group mb-2';
-            div.innerHTML = `
-                <span class="input-group-text bg-light border">${index + 1}</span>
-                <input type="text" class="form-control" name="visi_items[]" placeholder="Masukkan poin visi..." required>
-                <button type="button" class="btn btn-outline-danger remove-list-item" data-target="visi">
-                    <i class="fas fa-trash"></i>
-                </button>
-            `;
-            container.appendChild(div);
-        });
-        
-        // Add list item functionality for Misi
-        document.getElementById('add-misi-item').addEventListener('click', function() {
-            const container = document.getElementById('misi-list-container');
-            const index = container.children.length;
-            
-            const div = document.createElement('div');
-            div.className = 'input-group mb-2';
-            div.innerHTML = `
-                <span class="input-group-text bg-light border">${index + 1}</span>
-                <input type="text" class="form-control" name="misi_items[]" placeholder="Masukkan poin misi..." required>
-                <button type="button" class="btn btn-outline-danger remove-list-item" data-target="misi">
-                    <i class="fas fa-trash"></i>
-                </button>
-            `;
-            container.appendChild(div);
-        });
-        
-        // Remove list item functionality (delegation)
-        document.addEventListener('click', async function(e) {
-            if (e.target.closest('.remove-list-item')) {
-                const button = e.target.closest('.remove-list-item');
-                const container = button.closest('[id$="-list-container"]');
-                const inputGroup = button.closest('.input-group');
-                
-                if (inputGroup && container.children.length > 1) {
-                    const result = await confirmDialog(
-                        'Hapus Poin',
-                        'Apakah Anda yakin ingin menghapus poin ini?',
-                        'Ya, Hapus!'
-                    );
-                    
-                    if (result.isConfirmed) {
-                        inputGroup.remove();
-                        
-                        // Re-number the remaining items
-                        const items = container.querySelectorAll('.input-group');
-                        items.forEach((item, index) => {
-                            item.querySelector('.input-group-text').textContent = index + 1;
-                        });
-                        
-                        showSwal('success', 'Berhasil!', 'Poin telah dihapus');
-                    }
-                } else if (container.children.length === 1) {
-                    showSwal('warning', 'Peringatan', 'Minimal harus ada satu poin!', 4000);
-                }
+        // Reset image previews
+        ['visi-image-preview', 'misi-image-preview'].forEach(previewId => {
+            const preview = document.getElementById(previewId);
+            if (preview) {
+                preview.innerHTML = `
+                    <i class="fas fa-image fa-3x text-muted mb-3"></i>
+                    <p class="text-muted mb-0">Gambar akan muncul di sini setelah dipilih</p>
+                `;
             }
         });
         
-        // Remove card image with SweetAlert
-        document.querySelectorAll('.remove-card-image').forEach(button => {
-            button.addEventListener('click', async function() {
-                const cardNumber = this.getAttribute('data-card');
-                
-                const result = await confirmDialog(
-                    'Hapus Gambar Kartu',
-                    `Apakah Anda yakin ingin menghapus gambar kartu ${cardNumber}?`,
-                    'Ya, Hapus!'
-                );
-                
-                if (result.isConfirmed) {
-                    showLoading('Menghapus gambar...');
-                    
-                    try {
-                        const response = await fetch(`/backend/visi-misi/remove-card-image/${cardNumber}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
-                            }
-                        });
-                        
-                        const data = await response.json();
-                        hideLoading();
-                        
-                        if (data.success) {
-                            showSwal('success', 'Berhasil!', 'Gambar kartu telah dihapus');
-                            setTimeout(() => location.reload(), 1500);
-                        } else {
-                            showSwal('error', 'Gagal!', 'Gagal menghapus gambar');
-                        }
-                    } catch (error) {
-                        hideLoading();
-                        showSwal('error', 'Error!', 'Terjadi kesalahan saat menghapus gambar');
-                    }
-                }
-            });
-        });
-        
-        // Remove visi image with SweetAlert
-        document.getElementById('remove-visi-image').addEventListener('click', async function() {
-            const result = await confirmDialog(
-                'Hapus Gambar Visi',
-                'Apakah Anda yakin ingin menghapus gambar visi?',
-                'Ya, Hapus!'
-            );
-            
-            if (result.isConfirmed) {
-                showLoading('Menghapus gambar...');
-                
-                try {
-                    const response = await fetch('/backend/visi-misi/remove-visi-image', {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    hideLoading();
-                    
-                    if (data.success) {
-                        showSwal('success', 'Berhasil!', 'Gambar visi telah dihapus');
-                        setTimeout(() => location.reload(), 1500);
-                    } else {
-                        showSwal('error', 'Gagal!', 'Gagal menghapus gambar visi');
-                    }
-                } catch (error) {
-                    hideLoading();
-                    showSwal('error', 'Error!', 'Terjadi kesalahan saat menghapus gambar');
-                }
+        // Reset current images to original
+        ['current-visi-image', 'current-misi-image', 'current-hero-image'].forEach(imgId => {
+            const img = document.getElementById(imgId);
+            if (img && img.dataset.originalSrc) {
+                img.src = img.dataset.originalSrc;
             }
         });
         
-        // Remove misi image with SweetAlert
-        document.getElementById('remove-misi-image').addEventListener('click', async function() {
-            const result = await confirmDialog(
-                'Hapus Gambar Misi',
-                'Apakah Anda yakin ingin menghapus gambar misi?',
-                'Ya, Hapus!'
-            );
-            
-            if (result.isConfirmed) {
-                showLoading('Menghapus gambar...');
-                
-                try {
-                    const response = await fetch('/backend/visi-misi/remove-misi-image', {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    hideLoading();
-                    
-                    if (data.success) {
-                        showSwal('success', 'Berhasil!', 'Gambar misi telah dihapus');
-                        setTimeout(() => location.reload(), 1500);
-                    } else {
-                        showSwal('error', 'Gagal!', 'Gagal menghapus gambar misi');
-                    }
-                } catch (error) {
-                    hideLoading();
-                    showSwal('error', 'Error!', 'Terjadi kesalahan saat menghapus gambar');
-                }
-            }
+        // Reset file inputs
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.value = '';
         });
-        
-        // Remove hero background with SweetAlert
-        document.getElementById('remove-hero-background').addEventListener('click', async function() {
-            const result = await confirmDialog(
-                'Hapus Background Hero',
-                'Apakah Anda yakin ingin menghapus background hero?',
-                'Ya, Hapus!'
-            );
-            
-            if (result.isConfirmed) {
-                showLoading('Menghapus background...');
-                
-                try {
-                    const response = await fetch('/backend/visi-misi/remove-hero-background', {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    const data = await response.json();
-                    hideLoading();
-                    
-                    if (data.success) {
-                        showSwal('success', 'Berhasil!', 'Background hero telah dihapus');
-                        setTimeout(() => location.reload(), 1500);
-                    } else {
-                        showSwal('error', 'Gagal!', 'Gagal menghapus background');
-                    }
-                } catch (error) {
-                    hideLoading();
-                    showSwal('error', 'Error!', 'Terjadi kesalahan saat menghapus background');
-                }
-            }
-        });
-        
-        // Form submission with validation
-        document.getElementById('visiMisiForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Basic validation
-            let isValid = true;
-            const requiredFields = this.querySelectorAll('[required]');
-            
-            requiredFields.forEach(field => {
-                if (!field.value.trim() && field.type !== 'file') {
-                    isValid = false;
-                    field.classList.add('is-invalid');
-                    
-                    if (isValid === false) {
-                        field.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                } else {
-                    field.classList.remove('is-invalid');
-                }
-            });
-            
-            // Check TinyMCE content
-            const tinymceEditors = document.querySelectorAll('.tinymce-editor');
-            tinymceEditors.forEach(editor => {
-                const content = tinymce.get(editor.id)?.getContent().trim();
-                if (!content) {
-                    isValid = false;
-                }
-            });
-            
-            if (!isValid) {
-                showSwal('error', 'Form tidak lengkap!', 'Harap lengkapi semua field yang wajib diisi.', 4000);
-                return false;
-            }
-            
-            // Show confirmation dialog before submitting
-            const result = await confirmDialog(
-                'Simpan Perubahan',
-                'Apakah Anda yakin ingin menyimpan semua perubahan?',
-                'Ya, Simpan!'
-            );
-            
-            if (result.isConfirmed) {
-                showLoading('Menyimpan perubahan...');
-                
-                // Submit form programmatically
-                const formData = new FormData(this);
-                
-                try {
-                    const response = await fetch(this.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
-                    });
-                    
-                    const result = await response.json();
-                    hideLoading();
-                    
-                    if (response.ok && result.success) {
-                        showSwal('success', 'Berhasil!', 'Data berhasil disimpan');
-                        
-                        // Reload page after success
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1500);
-                    } else {
-                        showSwal('error', 'Gagal!', result.message || 'Gagal menyimpan data', 4000);
-                    }
-                } catch (error) {
-                    hideLoading();
-                    showSwal('error', 'Error!', 'Terjadi kesalahan saat menyimpan data', 4000);
-                }
-            }
-        });
-        
-        // Form reset handler with SweetAlert
-        document.querySelector('button[type="reset"]').addEventListener('click', async function(e) {
-            e.preventDefault();
-            
-            const result = await confirmDialog(
-                'Reset Form',
-                'Apakah Anda yakin ingin mereset form? Semua perubahan yang belum disimpan akan hilang.',
-                'Ya, Reset!'
-            );
-            
-            if (result.isConfirmed) {
-                // Reset TinyMCE editors
-                const tinymceEditors = document.querySelectorAll('.tinymce-editor');
-                tinymceEditors.forEach(editor => {
-                    tinymce.get(editor.id).setContent('');
-                });
-                
-                // Reset file inputs
-                const fileInputs = document.querySelectorAll('input[type="file"]');
-                fileInputs.forEach(input => {
-                    input.value = '';
-                });
-                
-                // Reset image previews
-                const previews = document.querySelectorAll('[id$="-image-preview"]');
-                previews.forEach(preview => {
-                    preview.innerHTML = `
-                        <div class="text-center">
-                            <i class="fas fa-image fa-3x text-muted mb-3"></i>
-                            <p class="text-muted mb-0">Gambar akan muncul di sini setelah dipilih</p>
-                            <small class="text-muted mt-2">Drag & drop atau klik untuk memilih</small>
-                        </div>
-                    `;
-                });
-                
-                // Reset form
-                document.getElementById('visiMisiForm').reset();
-                
-                showSwal('success', 'Berhasil!', 'Form telah direset');
-            }
-        });
-    });
-</script>
-@endpush
-
-{{-- SESSION ALERTS --}}
-@if(session('success'))
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: '{{ session('success') }}',
-        showConfirmButton: false,
-        timer: 3000
+    };
+    
+    // Store original image sources
+    document.querySelectorAll('#current-visi-image, #current-misi-image, #current-hero-image').forEach(img => {
+        if (img) {
+            img.dataset.originalSrc = img.src;
+        }
     });
 });
-</script>
+
+// Handle session messages
+@if(session('success'))
+document.addEventListener('DOMContentLoaded', () => {
+    NotificationManager.success('Berhasil!', '{{ session('success') }}');
+});
 @endif
 
 @if(session('error'))
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: '{{ session('error') }}',
-        confirmButtonText: 'OK'
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    NotificationManager.error('Error!', '{{ session('error') }}');
 });
-</script>
 @endif
+
+@if($errors->any())
+document.addEventListener('DOMContentLoaded', () => {
+    NotificationManager.warning('Validasi Gagal', 'Mohon periksa kembali form Anda');
+});
+@endif
+</script>
+@endpush

@@ -15,9 +15,9 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-12">
-        <p class="text-center mb-1 mt-4" style="padding: 0px 25px; font-size: 20px;">
-          {{ $visiMisi->opening_paragraph ?? 'Pendidikan di SMK Wisata Indonesia adalah tentang meningkatkan kemampuan keterampilan siswa yang dilandaskan dengan ide kreatif, unggul dan berakhlak mulia untuk mampu<br>bersaing di dunia industri.' }}
-        </p>
+        {{-- <p class="text-center mb-1 mt-4" style="padding: 0px 25px; font-size: 20px;"> --}}
+          {!! $visiMisi->opening_paragraph ?? 'Pendidikan di SMK Wisata Indonesia adalah tentang meningkatkan kemampuan keterampilan siswa yang dilandaskan dengan ide kreatif, unggul dan berakhlak mulia untuk mampu<br>bersaing di dunia industri.' !!}
+        {{-- </p> --}}
 
         <div class="line-with-star">
           <span>★</span>
