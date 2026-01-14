@@ -7,7 +7,7 @@
     <!-- Header Card -->
     <div class="card shadow mb-4 border-0">
         <div class="card-body py-4">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center page-header">
                 <div>
                     <h1 class="h3 text-gray-800 mb-1">
                         <i class="fas fa-bullseye me-2"></i> Kelola Visi & Misi
@@ -777,62 +777,148 @@
         max-width: 100% !important;
         min-width: 100% !important;
     }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .nav-tabs-wrapper {
-            overflow: visible !important;
-        }
-        
-        .nav-tabs .nav-link {
-            padding: 8px 3px !important;
-            font-size: 0.75rem !important;
-            min-height: 65px;
-        }
-        
-        .nav-tabs .nav-link i {
-            font-size: 1.1rem !important;
-            margin-bottom: 4px;
-        }
-        
-        .nav-tabs .nav-link .tab-text {
-            font-size: 0.7rem !important;
-        }
-        
-        .tox-tinymce {
-            height: 250px !important;
-        }
+
+    /* ===== HEADER PAGE RESPONSIVE ===== */
+
+    .page-header {
+    gap: 0.75rem;
+    }
+
+    /* Desktop default (≥768px) */
+    .page-header h1 {
+    font-size: 1.75rem;
+    }
+
+    .page-header p {
+    font-size: 0.9rem;
     }
     
-    @media (max-width: 576px) {
-        .nav-tabs .nav-link {
-            padding: 8px 2px !important;
-            font-size: 0.65rem !important;
-            min-height: 60px;
-        }
-        
-        .nav-tabs .nav-link i {
-            font-size: 1rem !important;
-        }
-        
-        .nav-tabs .nav-link .tab-text {
-            font-size: 0.65rem !important;
-        }
-        
-        .tox-tinymce {
-            height: 200px !important;
-        }
-        
-        .card-footer .d-flex {
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .card-footer .btn {
-            width: 100%;
-            margin: 5px 0;
-        }
+    /* ================= RESPONSIVE ADJUSTMENTS ================= */
+
+/* Tablet & Mobile */
+@media (max-width: 768px) {
+
+    /* Wrapper */
+    .nav-tabs-wrapper {
+        overflow: visible !important;
+        width: 100%;
     }
+
+    /* Tabs container */
+    .nav-tabs {
+        width: 100% !important;
+        justify-content: space-between !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* ⛔ FIX UTAMA: hilangkan max-width desktop */
+    .nav-tabs-wrapper .nav-tabs .nav-item {
+        max-width: unset !important;
+        flex: 1 1 auto !important;
+    }
+
+    /* Netralisasi padding card header */
+    .card-header {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+
+    /* Tab button */
+    .nav-tabs .nav-link {
+        padding: 8px 3px !important;
+        font-size: 0.75rem !important;
+        min-height: 65px;
+        width: 100%;
+    }
+
+    .nav-tabs .nav-link i {
+        font-size: 1.1rem !important;
+        margin-bottom: 4px;
+    }
+
+    .nav-tabs .nav-link .tab-text {
+        font-size: 0.7rem !important;
+    }
+
+    /* TinyMCE */
+    .tox-tinymce {
+        height: 250px !important;
+    }
+
+    /* Page header */
+    .page-header {
+        flex-direction: column;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        gap: 0.5rem;
+    }
+
+    .page-header > div {
+        width: 100%;
+    }
+
+    .page-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .page-header p {
+        font-size: 0.85rem;
+    }
+
+    .page-header a.btn {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/* Mobile kecil */
+@media (max-width: 576px) {
+
+    .nav-tabs {
+        justify-content: space-between !important;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 8px 2px !important;
+        font-size: 0.65rem !important;
+        min-height: 60px;
+    }
+
+    .nav-tabs .nav-link i {
+        font-size: 1rem !important;
+    }
+
+    .nav-tabs .nav-link .tab-text {
+        font-size: 0.65rem !important;
+    }
+
+    .tox-tinymce {
+        height: 200px !important;
+    }
+
+    /* Footer button stack */
+    .card-footer .d-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card-footer .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .page-header h1 {
+        font-size: 1.25rem;
+    }
+
+    .page-header p {
+        font-size: 0.8rem;
+    }
+}
+
 </style>
 @endpush
 
