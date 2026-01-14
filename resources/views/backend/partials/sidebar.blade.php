@@ -455,20 +455,8 @@
 </style>
 
 <script>
-// Script untuk toggle submenu
+// TOGGLE SUBMENU SAJA - SIDEBAR TOGGLE DIPINDAH KE LAYOUT UTAMA
 document.addEventListener('DOMContentLoaded', function() {
-  // Fungsi untuk menyesuaikan tinggi sidebar
-  function adjustSidebarHeight() {
-    const sidenav = document.getElementById('sidenav-main');
-    const windowHeight = window.innerHeight;
-    
-    sidenav.style.height = windowHeight + 'px';
-    
-    const headerHeight = document.querySelector('.sidenav-header').offsetHeight;
-    const contentWrapper = document.querySelector('.navbar-vertical-content-wrapper');
-    contentWrapper.style.height = (windowHeight - headerHeight - 1) + 'px';
-  }
-  
   // Fungsi untuk toggle submenu
   document.querySelectorAll('.nav-item:has(> ul.nav) > .nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -501,9 +489,5 @@ document.addEventListener('DOMContentLoaded', function() {
       submenu.style.display = 'none';
     }
   });
-  
-  // Panggil fungsi saat load dan resize
-  adjustSidebarHeight();
-  window.addEventListener('resize', adjustSidebarHeight);
 });
 </script>

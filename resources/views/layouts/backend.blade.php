@@ -126,6 +126,243 @@
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('assets/js/argon-dashboard.min.js?v=2.1.0') }}"></script>
 
+  <!-- SIDEBAR TOGGLE FIX UNTUK MOBILE -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // ========== SIDEBAR TOGGLE FIX ==========
+    const iconNavbarSidenav = document.getElementById('iconNavbarSidenav');
+    const iconSidenav = document.getElementById('iconSidenav');
+    const sidenav = document.getElementById('sidenav-main');
+    const body = document.getElementsByTagName('body')[0];
+    
+    if (iconNavbarSidenav && sidenav) {
+      console.log('Sidebar toggle script loaded');
+      
+      // ========== OVERLAY MANAGEMENT ==========
+      let overlay = null;
+      
+      function createOverlay() {
+        // Hanya buat overlay untuk mobile dan jika belum ada
+        if (window.innerWidth < 1200 && !document.querySelector('.sidenav-overlay')) {
+          overlay = document.createElement('div');
+          overlay.className = 'sidenav-overlay';
+          overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1034;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+          `;
+          document.body.appendChild(overlay);
+          
+          // Close sidebar ketika overlay diklik
+          overlay.addEventListener('click', function() {
+            closeSidebar();
+          });
+          
+          // Tampilkan overlay dengan efek fade
+          setTimeout(() => {
+            overlay.style.display = 'block';
+            setTimeout(() => {
+              overlay.style.opacity = '1';
+            }, 10);
+          }, 10);
+          
+          // Prevent scroll saat overlay aktif
+          document.body.style.overflow = 'hidden';
+        }
+      }
+      
+      function removeOverlay() {
+        const existingOverlay = document.querySelector('.sidenav-overlay');
+        if (existingOverlay) {
+          existingOverlay.style.opacity = '0';
+          setTimeout(() => {
+            if (existingOverlay.parentNode) {
+              existingOverlay.parentNode.removeChild(existingOverlay);
+            }
+          }, 300);
+          document.body.style.overflow = '';
+        }
+        overlay = null;
+      }
+      
+      // Function untuk membuka sidebar
+      function openSidebar() {
+        console.log('Opening sidebar');
+        
+        // Untuk mobile (< 1200px)
+        if (window.innerWidth < 1200) {
+          // Tambahkan class untuk sidebar
+          sidenav.classList.add('show');
+          // Buat overlay
+          createOverlay();
+        } else {
+          // Untuk desktop (≥ 1200px)
+          body.classList.remove('g-sidenav-hidden');
+          body.classList.add('g-sidenav-pinned');
+        }
+        
+        iconNavbarSidenav.setAttribute('aria-expanded', 'true');
+      }
+      
+      // Function untuk menutup sidebar
+      function closeSidebar() {
+        console.log('Closing sidebar');
+        
+        // Untuk mobile (< 1200px)
+        if (window.innerWidth < 1200) {
+          sidenav.classList.remove('show');
+          removeOverlay();
+        } else {
+          // Untuk desktop (≥ 1200px)
+          body.classList.remove('g-sidenav-pinned');
+          body.classList.add('g-sidenav-hidden');
+        }
+        
+        iconNavbarSidenav.setAttribute('aria-expanded', 'false');
+      }
+      
+      // Function untuk toggle sidebar
+      function toggleSidebar() {
+        console.log('Toggling sidebar');
+        
+        if (window.innerWidth < 1200) {
+          // Untuk mobile: cek apakah sidebar sedang show
+          if (sidenav.classList.contains('show')) {
+            closeSidebar();
+          } else {
+            openSidebar();
+          }
+        } else {
+          // Untuk desktop: toggle class pada body
+          if (body.classList.contains('g-sidenav-pinned')) {
+            closeSidebar();
+          } else {
+            openSidebar();
+          }
+        }
+      }
+      
+      // ========== EVENT LISTENERS ==========
+      
+      // 1. Hamburger di navbar
+      iconNavbarSidenav.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleSidebar();
+      });
+      
+      // 2. Close button di sidebar (jika ada)
+      if (iconSidenav) {
+        iconSidenav.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeSidebar();
+        });
+      }
+      
+      // 3. Close sidebar dengan ESC key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (window.innerWidth < 1200 && sidenav.classList.contains('show')) {
+            closeSidebar();
+          }
+        }
+      });
+      
+      // 4. Close sidebar ketika klik di luar sidebar di mobile
+      document.addEventListener('click', function(e) {
+        if (window.innerWidth < 1200 && sidenav.classList.contains('show')) {
+          // Jika klik di luar sidebar dan bukan di hamburger
+          if (!sidenav.contains(e.target) && !iconNavbarSidenav.contains(e.target)) {
+            closeSidebar();
+          }
+        }
+      });
+      
+      // ========== WINDOW RESIZE HANDLER ==========
+      function handleResize() {
+        // Jika resize ke desktop (≥ 1200px)
+        if (window.innerWidth >= 1200) {
+          // Hapus overlay jika ada
+          removeOverlay();
+          // Reset body overflow
+          document.body.style.overflow = '';
+          // Pastikan sidebar tidak dalam mode mobile show
+          sidenav.classList.remove('show');
+        } else {
+          // Jika resize ke mobile (< 1200px)
+          // Jika sidebar sedang terbuka, buat overlay
+          if (sidenav.classList.contains('show')) {
+            createOverlay();
+          }
+        }
+      }
+      
+      // Initial setup
+      if (window.innerWidth < 1200) {
+        // Pastikan sidebar tertutup di mobile saat pertama load
+        sidenav.classList.remove('show');
+      }
+      
+      // Listen untuk resize
+      window.addEventListener('resize', handleResize);
+    }
+  });
+  </script>
+
+  <style>
+  /* HANYA CSS UNTUK SIDEBAR MOBILE - TIDAK MEMPENGARUHI TAMPILAN LAIN */
+  @media (max-width: 1199.98px) {
+    /* Overlay untuk sidebar mobile */
+    .sidenav-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      background-color: rgba(0, 0, 0, 0.5) !important;
+      z-index: 1034 !important;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    /* Sidebar untuk mobile */
+    #sidenav-main {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      height: 100vh !important;
+      width: 250px !important;
+      max-width: 80vw !important;
+      z-index: 1035 !important;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+    }
+    
+    /* Sidebar ketika terbuka */
+    #sidenav-main.show {
+      transform: translateX(0) !important;
+    }
+  }
+
+  /* Untuk desktop (≥ 1200px) */
+  @media (min-width: 1200px) {
+    #sidenav-main {
+      transform: translateX(0) !important;
+    }
+  }
+  </style>
+
   <!-- Custom SweetAlert2 Configuration -->
   <script>
     // SweetAlert2 Global Configuration
