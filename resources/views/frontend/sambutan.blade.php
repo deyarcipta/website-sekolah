@@ -39,7 +39,7 @@
 
     <!-- Bagian-bagian lainnya -->
     <div class="content-section">
-      {!! $sambutan->deskripsi !!}
+      {!! $sambutan->deskripsi  ?? 'Tidak ada sambutan yang tersedia saat ini.' !!}
     </div>
   </div>
 </section>

@@ -154,9 +154,7 @@
             bottom: 0;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1034;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            display: block;
           `;
           document.body.appendChild(overlay);
           
@@ -165,14 +163,6 @@
             closeSidebar();
           });
           
-          // Tampilkan overlay dengan efek fade
-          setTimeout(() => {
-            overlay.style.display = 'block';
-            setTimeout(() => {
-              overlay.style.opacity = '1';
-            }, 10);
-          }, 10);
-          
           // Prevent scroll saat overlay aktif
           document.body.style.overflow = 'hidden';
         }
@@ -180,16 +170,11 @@
       
       function removeOverlay() {
         const existingOverlay = document.querySelector('.sidenav-overlay');
-        if (existingOverlay) {
-          existingOverlay.style.opacity = '0';
-          setTimeout(() => {
-            if (existingOverlay.parentNode) {
-              existingOverlay.parentNode.removeChild(existingOverlay);
-            }
-          }, 300);
-          document.body.style.overflow = '';
+        if (existingOverlay && existingOverlay.parentNode) {
+          existingOverlay.parentNode.removeChild(existingOverlay);
         }
         overlay = null;
+        document.body.style.overflow = '';
       }
       
       // Function untuk membuka sidebar
@@ -198,10 +183,12 @@
         
         // Untuk mobile (< 1200px)
         if (window.innerWidth < 1200) {
+          // Pastikan overlay dihapus dulu
+          removeOverlay();
+          // Buat overlay baru
+          createOverlay();
           // Tambahkan class untuk sidebar
           sidenav.classList.add('show');
-          // Buat overlay
-          createOverlay();
         } else {
           // Untuk desktop (≥ 1200px)
           body.classList.remove('g-sidenav-hidden');
@@ -275,24 +262,12 @@
         }
       });
       
-      // 4. Close sidebar ketika klik di luar sidebar di mobile
-      document.addEventListener('click', function(e) {
-        if (window.innerWidth < 1200 && sidenav.classList.contains('show')) {
-          // Jika klik di luar sidebar dan bukan di hamburger
-          if (!sidenav.contains(e.target) && !iconNavbarSidenav.contains(e.target)) {
-            closeSidebar();
-          }
-        }
-      });
-      
       // ========== WINDOW RESIZE HANDLER ==========
       function handleResize() {
         // Jika resize ke desktop (≥ 1200px)
         if (window.innerWidth >= 1200) {
           // Hapus overlay jika ada
           removeOverlay();
-          // Reset body overflow
-          document.body.style.overflow = '';
           // Pastikan sidebar tidak dalam mode mobile show
           sidenav.classList.remove('show');
         } else {
@@ -317,7 +292,16 @@
   </script>
 
   <style>
-  /* HANYA CSS UNTUK SIDEBAR MOBILE - TIDAK MEMPENGARUHI TAMPILAN LAIN */
+  /* HANYA PERBAIKAN UNTUK DUA MASALAH - TIDAK MENGUBAH TAMPILAN LAIN */
+  
+  /* 1. FIX BACKGROUND PUTIH DI ATAS NAVBAR */
+  .min-height-300.bg-dark.position-absolute.w-100 {
+    position: relative !important;
+    height: 300px !important;
+    z-index: 0 !important;
+  }
+  
+  /* 2. FIX SIDEBAR MOBILE DAN OVERLAY */
   @media (max-width: 1199.98px) {
     /* Overlay untuk sidebar mobile */
     .sidenav-overlay {
@@ -328,9 +312,6 @@
       bottom: 0 !important;
       background-color: rgba(0, 0, 0, 0.5) !important;
       z-index: 1034 !important;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
     }
     
     /* Sidebar untuk mobile */
@@ -347,6 +328,7 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
       border-radius: 0 !important;
       margin: 0 !important;
+      background-color: white !important;
     }
     
     /* Sidebar ketika terbuka */
