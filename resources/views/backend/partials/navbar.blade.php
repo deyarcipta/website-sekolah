@@ -190,49 +190,36 @@
   position: relative;
 }
 
-/* DESKTOP STYLES - Hover & Click functionality */
+/* DESKTOP STYLES - Click functionality only (no hover) */
 @media (min-width: 992px) {
-  /* Default state - hidden */
   .nav-item.dropdown .dropdown-menu {
     position: absolute !important;
     top: 100% !important;
     right: 0 !important;
     left: auto !important;
-    margin-top: 0.5rem !important;
-    display: block !important; /* Selalu ada di DOM */
+    margin-top: 0.125rem !important;
+    display: none; /* Hidden by default */
     opacity: 0;
-    visibility: hidden;
     transform: translateY(-10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
   
-  /* Hover state - show */
-  .nav-item.dropdown:hover .dropdown-menu,
-  /* Click state - show (via JS) */
+  /* Hanya tampilkan saat class 'show' ada */
   .nav-item.dropdown .dropdown-menu.show {
+    display: block !important;
     opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  
-  /* Keep dropdown open when hovering over dropdown itself */
-  .dropdown-menu:hover {
-    opacity: 1;
-    visibility: visible;
     transform: translateY(0);
   }
 }
 
-/* MOBILE STYLES - Click functionality only */
+/* MOBILE STYLES - Click functionality with fixed positioning */
 @media (max-width: 991.98px) {
   /* Hide user info on mobile */
   .d-none.d-md-flex {
     display: none !important;
   }
   
-  /* Default state - hidden */
+  /* Fixed positioning for mobile dropdown */
   .nav-item.dropdown .dropdown-menu {
     position: fixed !important;
     right: 15px !important;
@@ -241,27 +228,16 @@
     z-index: 1060 !important;
     width: auto !important;
     min-width: 250px !important;
-    display: block !important;
+    display: none; /* Hidden by default */
     opacity: 0;
-    visibility: hidden;
     transform: translateY(-10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
   
-  /* Click state - show */
   .nav-item.dropdown .dropdown-menu.show {
+    display: block !important;
     opacity: 1;
-    visibility: visible;
     transform: translateY(0);
-    pointer-events: auto;
-  }
-  
-  /* Disable hover on mobile */
-  .nav-item.dropdown:hover .dropdown-menu {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transform: translateY(-10px) !important;
   }
   
   /* Adjust for very small screens */
@@ -308,115 +284,60 @@
   transition: transform 0.3s ease;
 }
 
-/* Smooth animation */
-.nav-item.dropdown .dropdown-menu {
-  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+/* Animation for dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 
 <script>
-// USER DROPDOWN SAJA - SIDEBAR TOGGLE DIPINDAH KE LAYOUT UTAMA
+// USER DROPDOWN FUNCTIONALITY - CLICK ONLY (NO HOVER)
 document.addEventListener('DOMContentLoaded', function() {
-  // ========== USER DROPDOWN FUNCTIONALITY ==========
   const userDropdown = document.getElementById('userDropdown');
   const userDropdownMenu = document.getElementById('userDropdownMenu');
-  const userDropdownContainer = document.getElementById('userDropdownContainer');
   
-  if (userDropdown && userDropdownMenu && userDropdownContainer) {
-    let isMobile = window.innerWidth < 992;
-    let isClickOpened = false;
-    
-    // Update isMobile on resize
-    window.addEventListener('resize', function() {
-      isMobile = window.innerWidth < 992;
-    });
-    
-    // ========== CLICK FUNCTIONALITY ==========
+  if (userDropdown && userDropdownMenu) {
+    // Toggle dropdown on click untuk semua device
     userDropdown.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
       
-      // Toggle dropdown
-      if (userDropdownMenu.classList.contains('show')) {
-        userDropdownMenu.classList.remove('show');
-        isClickOpened = false;
-      } else {
+      const isShowing = userDropdownMenu.classList.contains('show');
+      
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
+        if (menu !== userDropdownMenu) {
+          menu.classList.remove('show');
+        }
+      });
+      
+      // Toggle current dropdown
+      if (!isShowing) {
         userDropdownMenu.classList.add('show');
-        isClickOpened = true;
-        
-        // Close other dropdowns if any
-        document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
-          if (menu !== userDropdownMenu) {
-            menu.classList.remove('show');
-          }
-        });
+      } else {
+        userDropdownMenu.classList.remove('show');
       }
     });
     
-    // ========== HOVER SUPPORT FOR DESKTOP ==========
-    if (!isMobile) {
-      // Saat hover masuk ke dropdown menu, pastikan tetap terbuka
-      userDropdownMenu.addEventListener('mouseenter', function() {
-        if (isClickOpened) {
-          userDropdownMenu.classList.add('show');
-        }
-      });
-      
-      // Saat hover keluar dari dropdown menu (hanya untuk click mode)
-      userDropdownMenu.addEventListener('mouseleave', function(e) {
-        // Cek jika dropdown dibuka dengan click (bukan hover)
-        if (isClickOpened) {
-          // Cek apakah mouse pergi ke trigger atau masih di dropdown
-          setTimeout(() => {
-            const isHoveringTrigger = userDropdownContainer.matches(':hover');
-            const isHoveringMenu = userDropdownMenu.matches(':hover');
-            
-            if (!isHoveringTrigger && !isHoveringMenu) {
-              userDropdownMenu.classList.remove('show');
-              isClickOpened = false;
-            }
-          }, 100);
-        }
-      });
-      
-      // Saat hover keluar dari container (untuk click mode)
-      userDropdownContainer.addEventListener('mouseleave', function(e) {
-        if (isClickOpened) {
-          // Cek apakah mouse pergi ke dropdown menu
-          const isGoingToMenu = e.relatedTarget && userDropdownMenu.contains(e.relatedTarget);
-          
-          if (!isGoingToMenu) {
-            setTimeout(() => {
-              const isHoveringMenu = userDropdownMenu.matches(':hover');
-              
-              if (!isHoveringMenu) {
-                userDropdownMenu.classList.remove('show');
-                isClickOpened = false;
-              }
-            }, 100);
-          }
-        }
-      });
-    }
-    
-    // ========== CLOSE DROPDOWN WHEN CLICKING OUTSIDE ==========
+    // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
-      if (isClickOpened) {
-        if (!userDropdownContainer.contains(e.target) && !userDropdownMenu.contains(e.target)) {
+      if (userDropdownMenu.classList.contains('show')) {
+        if (!userDropdown.contains(e.target) && !userDropdownMenu.contains(e.target)) {
           userDropdownMenu.classList.remove('show');
-          isClickOpened = false;
         }
       }
     });
     
-    // Prevent dropdown from closing when clicking inside (for form submissions)
+    // Prevent dropdown from closing when clicking inside
     userDropdownMenu.addEventListener('click', function(e) {
       e.stopPropagation();
-      // Keep dropdown open when clicking inside (except for form submissions)
-      if (!e.target.closest('form')) {
-        isClickOpened = true;
-        userDropdownMenu.classList.add('show');
-      }
     });
   }
 });
