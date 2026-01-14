@@ -81,7 +81,9 @@
 
     @include('backend.partials.sidebar')
     <main class="main-content position-relative border-radius-lg">
-      @include('backend.partials.navbar')
+       <div class="pt-3">
+        @include('backend.partials.navbar')
+      </div>
       <div class="container-fluid py-4 px-4">
         @yield('content')
         {{-- @include('backend.partials.configuration') --}}
