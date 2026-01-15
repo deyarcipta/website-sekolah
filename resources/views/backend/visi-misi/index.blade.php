@@ -643,50 +643,49 @@
         color: #6b02b1 !important;
     }
     
-    /* Nav tabs styling - NO SCROLL */
-    .nav-tabs-wrapper {
+        .nav-tabs-wrapper {
         position: relative;
-        overflow: hidden;
         width: 100%;
     }
-    
+
     .nav-tabs {
         border-bottom: 2px solid #dee2e6;
         display: flex !important;
         flex-wrap: nowrap !important;
-        justify-content: space-between !important;
+        justify-content: center !important; /* PERUBAHAN: center bukan space-between */
         padding-left: 0;
         margin-bottom: 0;
         list-style: none;
         width: 100% !important;
-        overflow: hidden !important;
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
     }
-    
+
+    /* Hide scrollbar on desktop */
     .nav-tabs::-webkit-scrollbar {
         display: none !important;
         width: 0 !important;
         height: 0 !important;
     }
-    
-    .nav-tabs .nav-item {
-        flex: 1 !important;
-        flex-shrink: 0 !important;
-        text-align: center;
-        max-width: 20% !important;
+
+    .nav-tabs {
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
     }
-    
+
+    .nav-tabs .nav-item {
+        flex: 0 0 auto !important; /* PERUBAHAN: tidak stretch, ukuran auto */
+        text-align: center;
+    }
+
     .nav-tabs .nav-link {
         color: #495057;
         font-weight: 500;
         border: none;
         border-bottom: 3px solid transparent;
-        padding: 12px 5px !important;
+        padding: 12px 24px !important; /* PERUBAHAN: padding lebih besar */
         transition: all 0.3s ease;
         white-space: nowrap;
         text-align: center;
-        font-size: 0.85rem !important;
+        font-size: 0.9rem !important; /* PERUBAHAN: sedikit lebih besar */
         display: flex !important;
         flex-direction: column !important;
         align-items: center;
@@ -695,35 +694,33 @@
         background-color: transparent;
         cursor: pointer;
         min-height: 70px;
-        width: 100% !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis;
+        min-width: 130px; /* PERUBAHAN: minimum width untuk desktop */
     }
-    
+
     .nav-tabs .nav-link:hover {
         color: #6b02b1;
         border-bottom-color: rgba(107, 2, 177, 0.3);
         background-color: rgba(107, 2, 177, 0.05);
     }
-    
+
     .nav-tabs .nav-link.active {
         color: #6b02b1;
         background-color: transparent;
         border-bottom-color: #6b02b1;
         font-weight: 600;
     }
-    
+
     .nav-tabs .nav-link .tab-text {
         display: block !important;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 100%;
         white-space: nowrap;
-        font-size: 0.8rem;
+        font-size: 0.85rem;
     }
-    
+
     .nav-tabs .nav-link i {
-        font-size: 1.2rem;
+        font-size: 1.3rem; /* PERUBAHAN: sedikit lebih besar */
         margin-bottom: 5px;
     }
     
@@ -798,48 +795,54 @@
 /* Tablet & Mobile */
 @media (max-width: 768px) {
 
-    /* Wrapper */
-    .nav-tabs-wrapper {
-        overflow: visible !important;
-        width: 100%;
-    }
-
-    /* Tabs container */
-    .nav-tabs {
-        width: 100% !important;
-        justify-content: space-between !important;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* ⛔ FIX UTAMA: hilangkan max-width desktop */
-    .nav-tabs-wrapper .nav-tabs .nav-item {
-        max-width: unset !important;
-        flex: 1 1 auto !important;
-    }
-
-    /* Netralisasi padding card header */
-    .card-header {
-        padding-left: 0.75rem !important;
-        padding-right: 0.75rem !important;
-    }
-
-    /* Tab button */
-    .nav-tabs .nav-link {
-        padding: 8px 3px !important;
-        font-size: 0.75rem !important;
-        min-height: 65px;
-        width: 100%;
-    }
-
-    .nav-tabs .nav-link i {
-        font-size: 1.1rem !important;
-        margin-bottom: 4px;
-    }
-
-    .nav-tabs .nav-link .tab-text {
-        font-size: 0.7rem !important;
-    }
+        .nav-tabs-wrapper {
+            overflow-x: auto !important;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #6b02b1 #f8f9fa;
+            padding-bottom: 5px;
+        }
+        
+        .nav-tabs-wrapper::-webkit-scrollbar {
+            height: 4px;
+            display: block !important;
+        }
+        
+        .nav-tabs-wrapper::-webkit-scrollbar-track {
+            background: #f8f9fa;
+            border-radius: 3px;
+        }
+        
+        .nav-tabs-wrapper::-webkit-scrollbar-thumb {
+            background-color: #6b02b1;
+            border-radius: 3px;
+        }
+        
+        .nav-tabs {
+            justify-content: flex-start !important; /* Mulai dari kiri untuk mobile */
+            min-width: min-content; /* Lebar minimal sesuai konten untuk scroll */
+        }
+        
+        .nav-tabs .nav-item {
+            flex: 0 0 auto !important; /* Tetap auto untuk mobile */
+        }
+        
+        .nav-tabs .nav-link {
+            padding: 10px 15px !important;
+            font-size: 0.85rem !important;
+            min-width: 110px; /* Lebih kecil untuk mobile */
+            min-height: 65px;
+        }
+        
+        .nav-tabs .nav-link i {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        
+        .nav-tabs .nav-link .tab-text {
+            font-size: 0.8rem;
+        }
 
     /* TinyMCE */
     .tox-tinymce {
@@ -877,23 +880,21 @@
 /* Mobile kecil */
 @media (max-width: 576px) {
 
-    .nav-tabs {
-        justify-content: space-between !important;
-    }
-
-    .nav-tabs .nav-link {
-        padding: 8px 2px !important;
-        font-size: 0.65rem !important;
-        min-height: 60px;
-    }
-
-    .nav-tabs .nav-link i {
-        font-size: 1rem !important;
-    }
-
-    .nav-tabs .nav-link .tab-text {
-        font-size: 0.65rem !important;
-    }
+        .nav-tabs .nav-link {
+            padding: 8px 12px !important;
+            font-size: 0.8rem !important;
+            min-width: 95px;
+            min-height: 60px;
+        }
+        
+        .nav-tabs .nav-link i {
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+        
+        .nav-tabs .nav-link .tab-text {
+            font-size: 0.75rem;
+        }
 
     .tox-tinymce {
         height: 200px !important;
