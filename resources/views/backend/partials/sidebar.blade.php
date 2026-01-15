@@ -48,7 +48,7 @@
 
         {{-- Profil Sekolah --}}
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('backend.keunggulan-sekolah.index') || request()->routeIs('backend.sambutan-kepsek.index') ? 'active' : '' }}" href="#">
+          <a class="nav-link {{ request()->routeIs('backend.keunggulan-sekolah.index') || request()->routeIs('backend.sambutan-kepsek.index') || request()->routeIs('backend.visi-misi.index') || request()->routeIs('backend.sarpras.index') ? 'active' : '' }}" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-school text-dark text-sm opacity-10"></i>
             </div>
@@ -62,13 +62,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('backend.visi-misi.index') }}">
+              <a class="nav-link {{ request()->routeIs('backend.visi-misi.index') ? 'active' : '' }}" href="{{ route('backend.visi-misi.index') }}">
                 <i class="fas fa-bullseye text-xs opacity-6 me-2"></i>
                 Visi & Misi
               </a>
             </li>
             <li class="nav-item">
-             <a class="nav-link" href="#">
+             <a class="nav-link {{ request()->routeIs('backend.sarpras.index') ? 'active' : '' }}" href="{{ route('backend.sarpras.index') }}">
                 <i class="fas fa-building text-xs opacity-6 me-2"></i>
                 Sarana Prasarana
               </a>

@@ -16,9 +16,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-12">
-        <p class="text-center mb-1 mt-4" style="padding: 0px 25px; font-size: 20px;">
-          Setiap sudut SMK Wisata Indonesia dirancang untuk praktik nyata mengasah <br>keterampilan, kreativitas, dan karakter unggul.
-        </p>
+        {!! $sarpras->opening_paragraph ?? '<h1 class="fw-bold mb-4 text-center">Sarana dan Prasarana Berkualitas untuk Pendidikan Terbaik</h1>' !!}
 
         <div class="line-with-star">
           <span>★</span>
@@ -42,15 +40,22 @@
 
     {{-- TEKS (KIRI) --}}
     <div class="col-lg-6">
-      <h1 class="fw-bold text-purple mb-2">Lingkungan Belajar Nyaman & Inspiratif</h1>
-      <p>
-        Kami percaya fasilitas yang tepat akan melahirkan kompetensi hebat. Dari kelas multimedia hingga laboratorium hotel dan boga, siswa belajar langsung melalui simulasi standar industri.
-      </p>
+      <h1 class="fw-bold text-purple mb-2">{{ $sarpras->learning_title ?? 'Lingkungan Belajar Nyaman & Inspiratif' }}</h1>
+      {!! $sarpras->learning_description ?? '<p class="mb-4">Kami menyediakan lingkungan belajar yang mendukung perkembangan akademis dan kreativitas siswa. Fasilitas kami dirancang untuk menciptakan suasana yang kondusif bagi pembelajaran efektif.</p>' !!}
       <div class="features-list">
         <ul>
-          <li>Ruang belajar modern, nyaman, ber-AC, dan mendukung pembelajaran kolaboratif.</li>
-          <li>Infrastruktur digital: Wi-Fi area kampus, proyektor interaktif, dan perpustakaan digital.</li>
-          <li>Praktik nyata di fasilitas perhotelan dan tata boga bertaraf profesional.</li>
+          @php
+            // Pastikan learning adalah array
+            $learningItems = $sarpras->learning_features ?? [];
+            if (!is_array($learningItems)) {
+                $learningItems = json_decode($learningItems, true) ?? [];
+            }
+
+            // Tampilkan setiap item dalam list
+            foreach ($learningItems as $item) {
+                echo '<li>' . e($item) . '</li>';
+            }
+          @endphp
         </ul>
       </div>
     </div>
@@ -63,14 +68,11 @@
 
   <div class="row g-4 justify-content-center">
     @php
-      $fasilitas = [
-        ['title' => 'Ruang Belajar Full AC', 'desc' => 'Kelas yang sudah difasilitasi pendingin ruangan untuk memberikan kenyamanan dalam belajar.'],
-        ['title' => 'Laboratorium Komputer', 'desc' => 'Laboratorium modern untuk praktik jaringan dan teknologi informasi terkini.'],
-        ['title' => 'Perpustakaan Digital', 'desc' => 'Akses e-book dan referensi digital untuk mendukung kegiatan belajar siswa.'],
-        ['title' => 'Ruang Praktek Hotel', 'desc' => 'Fasilitas praktik tata boga dan perhotelan bertaraf profesional.'],
-        ['title' => 'Wi-Fi Area Kampus', 'desc' => 'Akses internet cepat di seluruh area sekolah untuk menunjang pembelajaran digital.'],
-        ['title' => 'Studio Multimedia', 'desc' => 'Tempat siswa mengembangkan kreativitas di bidang desain dan produksi media.'],
-      ];
+      // Pastikan facilities_items adalah array
+      $fasilitas = $sarpras->facilities_items ?? [];
+      if (!is_array($fasilitas)) {
+          $fasilitas = json_decode($fasilitas, true) ?? [];
+      }
     @endphp
 
     @foreach ($fasilitas as $item)
@@ -90,40 +92,45 @@
 {{-- === Mengintip Fasilitas === --}}
 <section style="background-color: #F4E8FC; margin-bottom: 75px; padding: 50px 0;">
   <div class="container">
-    <h1 class="fw-bold mb-5">Mengintip Fasilitas Kami</h1>
+    <h1 class="fw-bold mb-5 text-center text-purple">{{ $sarpras->gallery_title ?? 'Gallery Fasilitas' }}</h1>
 
-    <div class="row g-3">
-      <!-- Gambar 1 -->
-      <div class="col-12 col-md-4">
-        <div class="image-card  card-rect"
-             style="background-image: url('{{ asset('assets/img/sarpras.png') }}'); height: 250px;">
+    <div class="row g-3 justify-content-center">
+      @php
+        // Pastikan gallery_images adalah array
+        $gallery = $sarpras->gallery_images ?? [];
+        if (!is_array($gallery)) {
+            $gallery = json_decode($gallery, true) ?? [];
+        }
+        
+        // Default images jika kosong
+        if (empty($gallery)) {
+            $gallery = [
+                'assets/img/sarpras.png',
+                'assets/img/sarpras.png',
+                'assets/img/sarpras.png',
+                'assets/img/sarpras.png',
+                'assets/img/sarpras.png',
+                'assets/img/sarpras.png'
+            ];
+        }
+      @endphp
+
+      @foreach ($gallery as $index => $image)
+        <!-- Gambar {{ $index + 1 }} -->
+        <div class="col-12 col-md-4 mb-4">
+          <div class="image-card card-rect"
+               style="
+                 background-image: url('{{ asset($image) }}'); 
+                 height: 250px;
+                 background-size: cover;
+                 background-position: center;
+                 border-radius: 8px;
+               ">
+          </div>
         </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="image-card  card-rect"
-             style="background-image: url('{{ asset('assets/img/sarpras.png') }}'); height: 250px;">
-        </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="image-card  card-rect"
-             style="background-image: url('{{ asset('assets/img/sarpras.png') }}'); height: 250px;">
-        </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="image-card  card-rect"
-             style="background-image: url('{{ asset('assets/img/sarpras.png') }}'); height: 250px;">
-        </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="image-card  card-rect"
-             style="background-image: url('{{ asset('assets/img/sarpras.png') }}'); height: 250px;">
-        </div>
-      </div>
-      <div class="col-12 col-md-4">
-        <div class="image-card  card-rect"
-             style="background-image: url('{{ asset('assets/img/sarpras.png') }}'); height: 250px;">
-        </div>
-      </div>
+      @endforeach
+    </div>
+  </div>
 </section>
 
 @endsection

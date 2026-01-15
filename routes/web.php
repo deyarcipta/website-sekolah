@@ -19,6 +19,7 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\KeunggulanSekolahController;
 use App\Http\Controllers\Backend\SambutanKepsekController;
 use App\Http\Controllers\Backend\VisiMisiBackendController;
+use App\Http\Controllers\Backend\SarprasBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -91,6 +92,25 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         Route::delete('/remove-visi-image', [VisiMisiBackendController::class, 'removeVisiImage'])->name('remove-visi-image');
         Route::delete('/remove-misi-image', [VisiMisiBackendController::class, 'removeMisiImage'])->name('remove-misi-image');
         Route::delete('/remove-hero-background', [VisiMisiBackendController::class, 'removeHeroBackground'])->name('remove-hero-background');
+    });
+
+    // Backend Sarpras Routes
+    Route::prefix('sarpras')->name('backend.sarpras.')->group(function () {
+        Route::get('/', [SarprasBackendController::class, 'index'])->name('index');
+        Route::post('/', [SarprasBackendController::class, 'store'])->name('store');
+        
+        // Tambahan untuk fasilitas dinamis
+        Route::post('/add-facilities-item', [SarprasBackendController::class, 'addFacilitiesItem'])->name('add-facilities');
+        Route::post('/add-gallery-image', [SarprasBackendController::class, 'addGalleryImage'])->name('add-gallery'); // Nama method diperbaiki
+        
+        // Route DELETE untuk penghapusan - SESUAIKAN DENGAN METHOD DI CONTROLLER
+        Route::delete('/remove-facilities-item/{index}', [SarprasBackendController::class, 'removeFacilities'])->name('remove-facilities'); // Ganti 'removeFacilitiesItem' menjadi 'removeFacilities'
+        Route::delete('/remove-hero-image', [SarprasBackendController::class, 'removeHeroImage'])->name('remove-hero');
+        Route::delete('/remove-learning-image', [SarprasBackendController::class, 'removeLearningImage'])->name('remove-learning');
+        
+        // Route untuk gallery - SESUAIKAN DENGAN METHOD DI CONTROLLER
+        Route::delete('/remove-gallery-slot/{index}', [SarprasBackendController::class, 'removeGallery'])->name('remove-gallery-slot'); // Ganti 'removeGallerySlot' menjadi 'removeGallery'
+        Route::delete('/remove-gallery-image/{index}', [SarprasBackendController::class, 'removeGalleryImage'])->name('remove-gallery-image'); // Ini sudah benar
     });
     
     // Tambahkan route backend lainnya di sini...
