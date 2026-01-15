@@ -21,6 +21,7 @@ use App\Http\Controllers\Backend\SambutanKepsekController;
 use App\Http\Controllers\Backend\VisiMisiBackendController;
 use App\Http\Controllers\Backend\SarprasBackendController;
 use App\Http\Controllers\Backend\MouPartnerBackendController;
+use App\Http\Controllers\Backend\GuruStaffBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -123,6 +124,21 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         Route::delete('/{id}', [MouPartnerBackendController::class, 'destroy'])->name('destroy');
         Route::post('/update-urutan', [MouPartnerBackendController::class, 'updateUrutan'])->name('update-urutan');
         
+    });
+
+    Route::prefix('backend/guru-staff')->name('backend.guru-staff.')->group(function () {
+        Route::get('/', [GuruStaffBackendController::class, 'index'])->name('index');
+        Route::post('/', [GuruStaffBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit-data', [GuruStaffBackendController::class, 'editData'])->name('edit-data');
+        Route::put('/{id}', [GuruStaffBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [GuruStaffBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/update-urutan', [GuruStaffBackendController::class, 'updateUrutan'])->name('update-urutan');
+        Route::get('/settings', [GuruStaffBackendController::class, 'getSettings'])->name('settings');
+        Route::post('/update-settings', [GuruStaffBackendController::class, 'updateSettings'])->name('update-settings');
+        
+        // Tambahkan route untuk deskripsi
+        Route::get('/deskripsi', [GuruStaffBackendController::class, 'getDeskripsi'])->name('deskripsi');
+        Route::post('/deskripsi', [GuruStaffBackendController::class, 'storeDeskripsi'])->name('store.deskripsi');
     });
     
     // Tambahkan route backend lainnya di sini...

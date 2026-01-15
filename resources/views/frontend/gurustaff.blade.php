@@ -17,7 +17,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-12">
         <p class="text-center mb-1 mt-4" style="padding: 0px 25px; font-size: 20px;">
-          Sebuah tim pendidik yang berdedikasi untuk membentuk masa depan cerdas<br>dan berkarakter.
+          {!! $description ?? 'Sebuah tim pendidik yang berdedikasi untuk membentuk masa depan cerdas dan berkarakter.' !!}
         </p>
 
         <div class="line-with-star">
@@ -31,118 +31,141 @@
 <section class="container" style="margin-bottom: 100px;">
 
   {{-- === Kepala Sekolah === --}}
-  <h1 class="fw-bold mb-4 text-center text-purple">Kepala Sekolah</h1>
-  <div class="row justify-content-center mb-5">
-    <div class="col-md-4 col-lg-3 d-flex">
-      <div class="card text-center kepala-card shadow-sm flex-fill">
-        <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Kepala Sekolah">
-        <div class="card-body d-flex flex-column justify-content-end">
-          <h5 class="card-title mb-1 fw-bold">Budi Santoso, S.Pd.</h5>
-          <p class="card-text mb-0">Kepala Sekolah</p>
+  @if(isset($kepalaSekolah) && $kepalaSekolah->isNotEmpty())
+    <h1 class="fw-bold mb-4 text-center text-purple">Kepala Sekolah</h1>
+    <div class="row justify-content-center mb-5">
+      @foreach($kepalaSekolah as $kepala)
+        <div class="col-md-4 col-lg-3 d-flex">
+          <div class="card text-center kepala-card shadow-sm flex-fill">
+            <img src="{{ $kepala->foto_url }}" class="card-img-top" alt="{{ $kepala->nama }}">
+            <div class="card-body d-flex flex-column justify-content-end">
+              <h5 class="card-title mb-1 fw-bold">{{ $kepala->nama }}</h5>
+              <p class="card-text mb-0">{{ $kepala->jabatan }}</p>
+              @if($kepala->pendidikan)
+                <small class="text-muted">{{ $kepala->pendidikan }}</small>
+              @endif
+            </div>
+          </div>
         </div>
-      </div>
+      @endforeach
     </div>
-  </div>
+  @else
+    {{-- Informasi jika data tidak ada --}}
+    <h1 class="fw-bold mb-4 text-center text-purple">Kepala Sekolah</h1>
+    <div class="alert alert-info text-center" role="alert">
+      <i class="fas fa-info-circle me-2"></i>
+      Data Kepala Sekolah sedang dalam proses pengisian.
+    </div>
+  @endif
 
   {{-- === Wakil Kepala Sekolah === --}}
-  <h1 class="fw-bold mb-4 text-center text-purple">Wakil Kepala Sekolah</h1>
-  <div class="row g-4 justify-content-center mb-5">
-    <div class="col-md-4 col-lg-3 d-flex">
-      <div class="card text-center kepala-card shadow-sm flex-fill">
-        <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Wakil Kepala Sekolah 1">
-        <div class="card-body">
-          <h5 class="card-title mb-1">Siti Rahmawati, S.Kom.</h5>
-          <p class="card-text mb-0">Wakil Kepala Sekolah Kurikulum</p>
+  @if(isset($wakilKepala) && $wakilKepala->isNotEmpty())
+    <h1 class="fw-bold mb-4 text-center text-purple">Wakil Kepala Sekolah</h1>
+    <div class="row g-4 justify-content-center mb-5">
+      @foreach($wakilKepala as $wakil)
+        <div class="col-md-4 col-lg-3 d-flex">
+          <div class="card text-center kepala-card shadow-sm flex-fill">
+            <img src="{{ $wakil->foto_url }}" class="card-img-top" alt="{{ $wakil->nama }}">
+            <div class="card-body">
+              <h5 class="card-title mb-1">{{ $wakil->nama }}</h5>
+              <p class="card-text mb-0">{{ $wakil->jabatan }}</p>
+              @if($wakil->bidang)
+                <small class="text-info">{{ $wakil->bidang }}</small>
+              @endif
+            </div>
+          </div>
         </div>
-      </div>
+      @endforeach
     </div>
-
-    <div class="col-md-4 col-lg-3 d-flex">
-      <div class="card text-center kepala-card shadow-sm flex-fill">
-        <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Wakil Kepala Sekolah 2">
-        <div class="card-body">
-          <h5 class="card-title mb-1 fw-bold">Andi Prasetyo, S.Pd.</h5>
-          <p class="card-text mb-0">Wakil Kepala Sekolah Bidang Kesiswaan</p>
-        </div>
-      </div>
+  @else
+    {{-- Informasi jika data tidak ada --}}
+    <h1 class="fw-bold mb-4 text-center text-purple">Wakil Kepala Sekolah</h1>
+    <div class="alert alert-info text-center" role="alert">
+      <i class="fas fa-info-circle me-2"></i>
+      Data Wakil Kepala Sekolah sedang dalam proses pengisian.
     </div>
-
-    <div class="col-md-4 col-lg-3 d-flex">
-      <div class="card text-center kepala-card shadow-sm flex-fill">
-        <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Wakil Kepala Sekolah 3">
-        <div class="card-body">
-          <h5 class="card-title mb-1 fw-bold">Lina Marlina, S.Pd.</h5>
-          <p class="card-text mb-0">Wakil Kepala Sekolah Bidangan Sarana & Prasarana</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  @endif
 
   {{-- === Kepala Kompetensi Keahlian === --}}
-  <h1 class="fw-bold mb-4 text-center text-purple">Kepala Kompetensi Keahlian</h1>
-  <div class="row g-4 justify-content-center mb-5">
-    <div class="col-md-4 col-lg-3 d-flex">
-      <div class="card text-center kepala-card shadow-sm flex-fill">
-        <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Kepala Kompetensi Keahlian 1">
-        <div class="card-body">
-          <h5 class="card-title mb-1">Siti Rahmawati, S.Kom.</h5>
-          <p class="card-text mb-0">Kepala Kompetensi Keahlian Perhotelan</p>
+  @if(isset($kepalaJurusan) && $kepalaJurusan->isNotEmpty())
+    <h1 class="fw-bold mb-4 text-center text-purple">Kepala Kompetensi Keahlian</h1>
+    <div class="row g-4 justify-content-center mb-5">
+      @foreach($kepalaJurusan as $jurusan)
+        <div class="col-md-4 col-lg-3 d-flex">
+          <div class="card text-center kepala-card shadow-sm flex-fill">
+            <img src="{{ $jurusan->foto_url }}" class="card-img-top" alt="{{ $jurusan->nama }}">
+            <div class="card-body">
+              <h5 class="card-title mb-1">{{ $jurusan->nama }}</h5>
+              <p class="card-text mb-0">{{ $jurusan->jabatan }}</p>
+              @if($jurusan->jurusan)
+                <small class="text-warning">{{ $jurusan->jurusan }}</small>
+              @endif
+            </div>
+          </div>
         </div>
-      </div>
+      @endforeach
     </div>
-
-    <div class="col-md-4 col-lg-3 d-flex">
-      <div class="card text-center kepala-card shadow-sm flex-fill">
-        <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Kepala Kompetensi Keahlian 2">
-        <div class="card-body">
-          <h5 class="card-title mb-1 fw-bold">Andi Prasetyo, S.Pd.</h5>
-          <p class="card-text mb-0">Kepala Kompetensi Keahlian Kuliner</p>
-        </div>
-      </div>
+  @else
+    {{-- Informasi jika data tidak ada --}}
+    <h1 class="fw-bold mb-4 text-center text-purple">Kepala Kompetensi Keahlian</h1>
+    <div class="alert alert-info text-center" role="alert">
+      <i class="fas fa-info-circle me-2"></i>
+      Data Kepala Kompetensi Keahlian sedang dalam proses pengisian.
     </div>
-
-    <div class="col-md-4 col-lg-3 d-flex">
-      <div class="card text-center kepala-card shadow-sm flex-fill">
-        <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Wakil Kepala Sekolah 3">
-        <div class="card-body">
-          <h5 class="card-title mb-1 fw-bold">Lina Marlina, S.Pd.</h5>
-          <p class="card-text mb-0">Kepalaa Kompetensi Keahlian TJKT</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  @endif
 
   {{-- === Guru === --}}
-  <h1 class="fw-bold mb-4 text-center text-purple">Guru</h1>
-  <div class="row g-4 justify-content-center mb-5">
-    @for ($i = 1; $i <= 8; $i++)
-      <div class="col-md-3 col-sm-6 d-flex">
-        <div class="card text-center kepala-card shadow-sm flex-fill">
-          <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Guru {{ $i }}">
-          <div class="card-body d-flex flex-column justify-content-end">
-            <h5 class="card-title mb-1 fw-bold">Guru {{ $i }}</h5>
-            <p class="card-text mb-0">Guru Mata Pelajaran</p>
+  @if(isset($guru) && $guru->isNotEmpty())
+    <h1 class="fw-bold mb-4 text-center text-purple">Guru</h1>
+    <div class="row g-4 justify-content-center mb-5">
+      @foreach($guru as $g)
+        <div class="col-md-3 col-sm-6 d-flex">
+          <div class="card text-center kepala-card shadow-sm flex-fill">
+            <img src="{{ $g->foto_url }}" class="card-img-top" alt="{{ $g->nama }}">
+            <div class="card-body d-flex flex-column justify-content-end">
+              <h5 class="card-title mb-1 fw-bold">{{ $g->nama }}</h5>
+              <p class="card-text mb-0">{{ $g->jabatan ?: 'Guru' }}</p>
+              @if($g->pendidikan)
+                <small class="text-muted">{{ $g->pendidikan }}</small>
+              @endif
+            </div>
           </div>
         </div>
-      </div>
-    @endfor
-  </div>
+      @endforeach
+    </div>
+  @else
+    {{-- Informasi jika data tidak ada --}}
+    <h1 class="fw-bold mb-4 text-center text-purple">Guru</h1>
+    <div class="alert alert-info text-center" role="alert">
+      <i class="fas fa-info-circle me-2"></i>
+      Data Guru sedang dalam proses pengisian.
+    </div>
+  @endif
 
   {{-- === Staff === --}}
-  <h1 class="fw-bold mb-4 text-center text-purple">Staff</h1>
-  <div class="row g-4 justify-content-center">
-    @for ($i = 1; $i <= 8; $i++)
-      <div class="col-md-3 col-sm-6 d-flex">
-        <div class="card text-center kepala-card shadow-sm flex-fill">
-          <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Staff {{ $i }}">
-          <div class="card-body d-flex flex-column justify-content-end">
-            <h5 class="card-title mb-1 fw-bold">Staff {{ $i }}</h5>
-            <p class="card-text mb-0">Staff Mata Pelajaran</p>
+  @if(isset($staff) && $staff->isNotEmpty())
+    <h1 class="fw-bold mb-4 text-center text-purple">Staff</h1>
+    <div class="row g-4 justify-content-center">
+      @foreach($staff as $s)
+        <div class="col-md-3 col-sm-6 d-flex">
+          <div class="card text-center kepala-card shadow-sm flex-fill">
+            <img src="{{ $s->foto_url }}" class="card-img-top" alt="{{ $s->nama }}">
+            <div class="card-body d-flex flex-column justify-content-end">
+              <h5 class="card-title mb-1 fw-bold">{{ $s->nama }}</h5>
+              <p class="card-text mb-0">{{ $s->jabatan ?: 'Staff' }}</p>
+            </div>
           </div>
         </div>
-      </div>
-    @endfor
-  </div>
+      @endforeach
+    </div>
+  @else
+    {{-- Informasi jika data tidak ada --}}
+    <h1 class="fw-bold mb-4 text-center text-purple">Staff</h1>
+    <div class="alert alert-info text-center" role="alert">
+      <i class="fas fa-info-circle me-2"></i>
+      Data Staff sedang dalam proses pengisian.
+    </div>
+  @endif
 </section>
 @endsection
 
@@ -198,10 +221,29 @@
   font-size: 0.9rem;
 }
 
+/* Alert untuk data kosong */
+.alert-info {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  color: #6c757d;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 1rem;
+}
+
+.alert-info i {
+  color: #007bff;
+}
+
 /* Responsif */
 @media (max-width: 767.98px) {
   .kepala-card img {
     height: 200px;
+  }
+  
+  .alert-info {
+    padding: 15px;
+    font-size: 0.9rem;
   }
 }
 

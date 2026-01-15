@@ -26,7 +26,7 @@
     </div>
 
     <!-- Main Card -->
-    <div class="card shadow border-0">
+    <div class="card shadow-lg border-0 rounded-5 overflow-hidden">
         <div class="card-body p-0">
             @if($partners->isEmpty())
                 <div class="text-center py-5">
@@ -613,11 +613,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         const formData = new FormData(this);
-        // const url = this.action;
-        // const method = this.method;
-        
-        // Clear previous validation errors
-        // clearValidationErrors();
+
         // 👇 tambahkan spoofing method
         if (document.getElementById('form_id').value) {
             formData.append('_method', 'PUT');

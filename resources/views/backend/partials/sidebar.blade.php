@@ -178,26 +178,13 @@
 
         {{-- Guru & Staff --}}
         <li class="nav-item">
-         <a class="nav-link" href="#">
+          <a class="nav-link {{ request()->routeIs('backend.guru-staff.index') ? 'active' : '' }}" 
+            href="{{ route('backend.guru-staff.index') }}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-chalkboard-teacher text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Guru & Staff</span>
           </a>
-          <ul class="nav flex-column ps-4">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-users text-xs opacity-6 me-2"></i>
-                Data Guru
-              </a>
-            </li>
-            <li class="nav-item">
-             <a class="nav-link" href="#">
-                <i class="fas fa-user-tie text-xs opacity-6 me-2"></i>
-                Tenaga Kependidikan
-              </a>
-            </li>
-          </ul>
         </li>
 
         {{-- Siswa --}}
