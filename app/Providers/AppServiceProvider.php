@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Models\WebsiteSetting;
+use App\Models\MouPartner;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,6 +40,14 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('frontend.*', function ($view) use ($settings) {
             $view->with('settings', $settings);
+        });
+
+        View::composer('frontend.partials.mou', function ($view) {
+            $mouPartners = MouPartner::active()
+                ->orderBy('sort_order')
+                ->get();
+
+            $view->with('mouPartners', $mouPartners);
         });
     }
 }

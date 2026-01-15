@@ -20,6 +20,7 @@ use App\Http\Controllers\Backend\KeunggulanSekolahController;
 use App\Http\Controllers\Backend\SambutanKepsekController;
 use App\Http\Controllers\Backend\VisiMisiBackendController;
 use App\Http\Controllers\Backend\SarprasBackendController;
+use App\Http\Controllers\Backend\MouPartnerBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -111,6 +112,17 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         // Route untuk gallery - SESUAIKAN DENGAN METHOD DI CONTROLLER
         Route::delete('/remove-gallery-slot/{index}', [SarprasBackendController::class, 'removeGallery'])->name('remove-gallery-slot'); // Ganti 'removeGallerySlot' menjadi 'removeGallery'
         Route::delete('/remove-gallery-image/{index}', [SarprasBackendController::class, 'removeGalleryImage'])->name('remove-gallery-image'); // Ini sudah benar
+    });
+
+    // Backend Mitra Kerjasama (MoU) Routes
+    Route::prefix('mou-partners')->name('backend.mou-partners.')->group(function () {
+        Route::get('/', [MouPartnerBackendController::class, 'index'])->name('index');
+        Route::post('/', [MouPartnerBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit-data', [MouPartnerBackendController::class, 'editData'])->name('edit-data');
+        Route::put('/{id}', [MouPartnerBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [MouPartnerBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/update-urutan', [MouPartnerBackendController::class, 'updateUrutan'])->name('update-urutan');
+        
     });
     
     // Tambahkan route backend lainnya di sini...

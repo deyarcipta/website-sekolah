@@ -85,20 +85,106 @@
       });
 
       // Swiper untuk MOU
-      new Swiper('.mouSwiper', {
-        loop: true,
-        slidesPerView: 5,
-        autoplay: {
-          delay: 2000,
-          disableOnInteraction: false,
-        },
-        breakpoints: {
-          320: { slidesPerView: 2 },
-          576: { slidesPerView: 3 },
-          768: { slidesPerView: 4 },
-          992: { slidesPerView: 5 },
-        },
-      });
+      // Swiper untuk MOU - SMOOTH CONTINUOUS VERSION
+const mouSwiper = new Swiper('.mouSwiper', {
+  loop: true,
+  slidesPerView: 5,
+  spaceBetween: 20,
+  speed: 4000, // 4 detik untuk satu siklus penuh
+  allowTouchMove: true,
+  grabCursor: true,
+  
+  // Continuous autoplay
+  autoplay: {
+    delay: 0,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: false,
+    waitForTransition: true,
+    stopOnLastSlide: false, // penting: jangan berhenti di slide terakhir
+  },
+  
+  // Efek gerakan linear
+  freeMode: {
+    enabled: true,
+    momentum: false,
+    sticky: false,
+    minimumVelocity: 0.02,
+  },
+  
+  breakpoints: {
+    320: { 
+      slidesPerView: 2,
+      spaceBetween: 10,
+      speed: 5000 // lebih lambat di mobile
+    },
+    576: { 
+      slidesPerView: 3,
+      spaceBetween: 15,
+      speed: 4500
+    },
+    768: { 
+      slidesPerView: 4,
+      spaceBetween: 18,
+      speed: 4000
+    },
+    992: { 
+      slidesPerView: 5,
+      spaceBetween: 20,
+      speed: 3500
+    },
+  },
+  
+  // Event untuk menjaga kontinuitas
+  on: {
+    init: function() {
+      console.log('MOU Swiper initialized - Continuous mode');
+      
+      // Force linear animation
+      this.wrapperEl.style.transitionTimingFunction = 'linear';
+      
+      // Clone slides untuk efek seamless yang lebih baik
+      if (this.slides.length > 0) {
+        const wrapper = this.wrapperEl;
+        const originalSlides = Array.from(this.slides);
+        
+        // Clone set pertama
+        originalSlides.forEach(slide => {
+          const clone = slide.cloneNode(true);
+          clone.classList.add('swiper-slide-duplicate');
+          wrapper.appendChild(clone);
+        });
+        
+        // Clone set kedua
+        originalSlides.forEach(slide => {
+          const clone = slide.cloneNode(true);
+          clone.classList.add('swiper-slide-duplicate');
+          wrapper.appendChild(clone);
+        });
+      }
+    },
+    
+    // Reset position saat hampir selesai untuk efek seamless
+    transitionEnd: function() {
+      if (this && this.progress > 0.66) { // Reset di 2/3 progress
+        this.slideTo(0, 0, false); // Reset ke slide 0 tanpa animasi
+      }
+    },
+    
+    // Restart autoplay jika terhenti
+    autoplayStop: function() {
+      setTimeout(() => {
+        this.autoplay.start();
+      }, 100);
+    }
+  }
+});
+
+// Safety: Restart autoplay setiap 30 detik
+setInterval(() => {
+  if (mouSwiper && !mouSwiper.autoplay.running) {
+    mouSwiper.autoplay.start();
+  }
+}, 30000);
 
       // Efek Navbar saat Scroll
       document.addEventListener("scroll", function () {
