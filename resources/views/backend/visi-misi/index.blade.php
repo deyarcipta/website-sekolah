@@ -28,7 +28,7 @@
         <!-- Tabs Navigation -->
         <div class="card-header bg-white px-4 pt-0 pb-3 border-bottom">
             <div class="nav-tabs-wrapper">
-                <ul class="nav nav-tabs" id="visiMisiTab" role="tablist">
+                <ul class="nav nav-tabs justify-content-center" id="visiMisiTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="paragraf-tab" data-bs-toggle="tab" data-bs-target="#paragraf" type="button"
                                 title="Paragraf Pembuka">
@@ -643,86 +643,45 @@
         color: #6b02b1 !important;
     }
     
-        .nav-tabs-wrapper {
-        position: relative;
-        width: 100%;
-    }
-
-    .nav-tabs {
-        border-bottom: 2px solid #dee2e6;
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        justify-content: center !important; /* PERUBAHAN: center bukan space-between */
-        padding-left: 0;
-        margin-bottom: 0;
-        list-style: none;
-        width: 100% !important;
-    }
-
-    /* Hide scrollbar on desktop */
-    .nav-tabs::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-    }
-
-    .nav-tabs {
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
-    }
-
-    .nav-tabs .nav-item {
-        flex: 0 0 auto !important; /* PERUBAHAN: tidak stretch, ukuran auto */
-        text-align: center;
-    }
-
-    .nav-tabs .nav-link {
-        color: #495057;
-        font-weight: 500;
-        border: none;
-        border-bottom: 3px solid transparent;
-        padding: 12px 24px !important; /* PERUBAHAN: padding lebih besar */
-        transition: all 0.3s ease;
+    /* ================= TABS NAVIGATION STYLE (SAMA DENGAN JURUSAN) ================= */
+    .nav-tabs-wrapper {
+        overflow-x: auto;
         white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-tabs {
+        flex-wrap: nowrap;
+    }
+    
+    .nav-tabs .nav-link {
+        min-width: 140px;
         text-align: center;
-        font-size: 0.9rem !important; /* PERUBAHAN: sedikit lebih besar */
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        background-color: transparent;
-        cursor: pointer;
-        min-height: 70px;
-        min-width: 130px; /* PERUBAHAN: minimum width untuk desktop */
+        border-radius: 0;
+        border-bottom: 3px solid transparent;
+        padding: 12px 8px !important;
+        transition: all 0.3s ease;
     }
-
-    .nav-tabs .nav-link:hover {
-        color: #6b02b1;
-        border-bottom-color: rgba(107, 2, 177, 0.3);
-        background-color: rgba(107, 2, 177, 0.05);
-    }
-
+    
     .nav-tabs .nav-link.active {
-        color: #6b02b1;
-        background-color: transparent;
         border-bottom-color: #6b02b1;
         font-weight: 600;
+        color: #6b02b1;
     }
-
+    
+    .nav-tabs .nav-link:hover {
+        border-bottom-color: rgba(107, 2, 177, 0.3);
+    }
+    
     .nav-tabs .nav-link .tab-text {
-        display: block !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
-        white-space: nowrap;
         font-size: 0.85rem;
     }
-
+    
     .nav-tabs .nav-link i {
-        font-size: 1.3rem; /* PERUBAHAN: sedikit lebih besar */
+        font-size: 1.2rem;
         margin-bottom: 5px;
     }
+    /* ================= END TABS NAVIGATION STYLE ================= */
     
     /* Image preview placeholder */
     .image-preview-placeholder {

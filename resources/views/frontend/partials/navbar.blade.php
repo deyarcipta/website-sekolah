@@ -31,7 +31,7 @@
           </li>
 
           <!-- Dropdown Program -->
-          <li class="nav-item dropdown">
+          {{-- <li class="nav-item dropdown">
             <button class="nav-link" id="programDropdown" role="button" aria-expanded="false">
               Program
             </button>
@@ -39,6 +39,21 @@
               <li><a class="dropdown-item" href="/perhotelan">Perhotelan</a></li>
               <li><a class="dropdown-item" href="/kuliner">Kuliner</a></li>
               <li><a class="dropdown-item" href="/tkj">TKJ</a></li>
+            </ul>
+          </li> --}}
+          {{-- Di navbar atau sidebar --}}
+          <li class="nav-item dropdown">
+            <button class="nav-link" id="programDropdown" role="button" aria-expanded="false">
+              Program
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="programDropdown">
+              @foreach(\App\Models\Major::where('is_active', true)->orderBy('order')->get() as $major)
+              <li>
+                <a class="dropdown-item" href="{{ route('frontend.show', $major->slug) }}">
+                  {{ $major->name }}
+                </a>
+              </li>
+              @endforeach
             </ul>
           </li>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Frontend\SambutanController;
 use App\Http\Controllers\Frontend\VisiMisiController;
 use App\Http\Controllers\Frontend\SarprasController;
 use App\Http\Controllers\Frontend\GuruStaffController;
+use App\Http\Controllers\Frontend\MajorController;
 use App\Http\Controllers\Frontend\TKJController;
 use App\Http\Controllers\Frontend\PerhotelanController;
 use App\Http\Controllers\Frontend\KulinerController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\Backend\VisiMisiBackendController;
 use App\Http\Controllers\Backend\SarprasBackendController;
 use App\Http\Controllers\Backend\MouPartnerBackendController;
 use App\Http\Controllers\Backend\GuruStaffBackendController;
+use App\Http\Controllers\Backend\MajorBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -34,6 +36,10 @@ Route::get('/informasi', [InformasiController::class, 'index'])->name('frontend.
 Route::get('/detail-informasi/{slug}', [DetailInformasiController::class, 'show'])->name('frontend.detail-informasi');
 
 // Halaman program keahlian
+Route::prefix('program')->group(function () {
+    Route::get('/', [MajorController::class, 'index'])->name('frontend.index');
+    Route::get('/{slug}', [MajorController::class, 'show'])->name('frontend.show');
+});
 Route::get('/tkj', [TKJController::class, 'index'])->name('frontend.tkj');
 Route::get('/perhotelan', [PerhotelanController::class, 'index'])->name('frontend.perhotelan');
 Route::get('/kuliner', [KulinerController::class, 'index'])->name('frontend.kuliner');
@@ -139,6 +145,38 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         // Tambahkan route untuk deskripsi
         Route::get('/deskripsi', [GuruStaffBackendController::class, 'getDeskripsi'])->name('deskripsi');
         Route::post('/deskripsi', [GuruStaffBackendController::class, 'storeDeskripsi'])->name('store.deskripsi');
+    });
+
+    // Backend Routes
+    Route::prefix('majors')->name('backend.majors.')->group(function () {
+        // Main CRUD
+        Route::get('/', [MajorBackendController::class, 'index'])->name('index');
+        Route::get('/create', [MajorBackendController::class, 'create'])->name('create');
+        Route::post('/', [MajorBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [MajorBackendController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [MajorBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [MajorBackendController::class, 'destroy'])->name('destroy');
+        
+        // Teachers Management
+        Route::get('/{id}/teachers', [MajorBackendController::class, 'manageTeachers'])->name('teachers');
+        Route::post('/{id}/teachers', [MajorBackendController::class, 'storeTeacher'])->name('store.teacher');
+        Route::put('/teachers/{teacherId}', [MajorBackendController::class, 'updateTeacher'])->name('update.teacher');
+        Route::delete('/teachers/{teacherId}', [MajorBackendController::class, 'destroyTeacher'])->name('destroy.teacher');
+        Route::post('/{id}/teachers/reorder', [MajorBackendController::class, 'reorderTeachers'])->name('teachers.reorder');
+        
+        // Achievements Management
+        Route::get('/{id}/achievements', [MajorBackendController::class, 'manageAchievements'])->name('achievements');
+        Route::post('/{id}/achievements', [MajorBackendController::class, 'storeAchievement'])->name('store.achievement');
+        Route::put('/achievements/{achievementId}', [MajorBackendController::class, 'updateAchievement'])->name('update.achievement');
+        Route::delete('/achievements/{achievementId}', [MajorBackendController::class, 'destroyAchievement'])->name('destroy.achievement');
+        Route::post('/{achievementId}/achievements/reorder', [MajorBackendController::class, 'reorderAchievements'])->name('achievement.reorder');
+        
+        // Image Deletion Routes
+        Route::delete('/{id}/remove-logo', [MajorBackendController::class, 'removeLogo'])->name('remove.logo');
+        Route::delete('/{id}/remove-hero-image', [MajorBackendController::class, 'removeHeroImage'])->name('remove.hero');
+        Route::delete('/{id}/remove-overview-image', [MajorBackendController::class, 'removeOverviewImage'])->name('remove.overview');
+        Route::delete('/{id}/remove-vision-mission-image', [MajorBackendController::class, 'removeVisionMissionImage'])->name('remove.vision-mission');
+        Route::delete('/{id}/remove-learning-image', [MajorBackendController::class, 'removeLearningImage'])->name('remove.learning');
     });
     
     // Tambahkan route backend lainnya di sini...

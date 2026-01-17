@@ -25,10 +25,10 @@
 
     <!-- Main Card with Tabs -->
     <div class="card shadow border-0">
-        <!-- Tabs Navigation -->
+        <!-- Tabs Navigation - SAMA PERSIS DENGAN VISI MISI -->
         <div class="card-header bg-white px-4 pt-0 pb-3 border-bottom">
             <div class="nav-tabs-wrapper">
-                <ul class="nav nav-tabs" id="sarprasTab" role="tablist">
+                <ul class="nav nav-tabs justify-content-center" id="sarprasTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="paragraf-tab" data-bs-toggle="tab" data-bs-target="#paragraf" type="button"
                                 title="Paragraf Pembuka">
@@ -649,87 +649,45 @@
         color: #6b02b1 !important;
     }
     
-    /* Nav tabs styling - DEFAULT FOR DESKTOP (CENTERED) */
+    /* ================= TABS NAVIGATION STYLE (SAMA PERSIS DENGAN VISI MISI) ================= */
     .nav-tabs-wrapper {
-        position: relative;
-        width: 100%;
-    }
-
-    .nav-tabs {
-        border-bottom: 2px solid #dee2e6;
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        justify-content: center !important; /* PERUBAHAN: center bukan space-between */
-        padding-left: 0;
-        margin-bottom: 0;
-        list-style: none;
-        width: 100% !important;
-    }
-
-    /* Hide scrollbar on desktop */
-    .nav-tabs::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-    }
-
-    .nav-tabs {
-        scrollbar-width: none !important;
-        -ms-overflow-style: none !important;
-    }
-
-    .nav-tabs .nav-item {
-        flex: 0 0 auto !important; /* PERUBAHAN: tidak stretch, ukuran auto */
-        text-align: center;
-    }
-
-    .nav-tabs .nav-link {
-        color: #495057;
-        font-weight: 500;
-        border: none;
-        border-bottom: 3px solid transparent;
-        padding: 12px 24px !important; /* PERUBAHAN: padding lebih besar */
-        transition: all 0.3s ease;
+        overflow-x: auto;
         white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-tabs {
+        flex-wrap: nowrap;
+    }
+    
+    .nav-tabs .nav-link {
+        min-width: 140px;
         text-align: center;
-        font-size: 0.9rem !important; /* PERUBAHAN: sedikit lebih besar */
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        background-color: transparent;
-        cursor: pointer;
-        min-height: 70px;
-        min-width: 130px; /* PERUBAHAN: minimum width untuk desktop */
+        border-radius: 0;
+        border-bottom: 3px solid transparent;
+        padding: 12px 8px !important;
+        transition: all 0.3s ease;
     }
-
-    .nav-tabs .nav-link:hover {
-        color: #6b02b1;
-        border-bottom-color: rgba(107, 2, 177, 0.3);
-        background-color: rgba(107, 2, 177, 0.05);
-    }
-
+    
     .nav-tabs .nav-link.active {
-        color: #6b02b1;
-        background-color: transparent;
         border-bottom-color: #6b02b1;
         font-weight: 600;
+        color: #6b02b1;
     }
-
+    
+    .nav-tabs .nav-link:hover {
+        border-bottom-color: rgba(107, 2, 177, 0.3);
+    }
+    
     .nav-tabs .nav-link .tab-text {
-        display: block !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
-        white-space: nowrap;
         font-size: 0.85rem;
     }
-
+    
     .nav-tabs .nav-link i {
-        font-size: 1.3rem; /* PERUBAHAN: sedikit lebih besar */
+        font-size: 1.2rem;
         margin-bottom: 5px;
     }
+    /* ================= END TABS NAVIGATION STYLE ================= */
     
     /* Image preview placeholder */
     .image-preview-placeholder {
@@ -805,61 +763,16 @@
         transform: scale(1.1);
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .nav-tabs-wrapper {
-            overflow-x: auto !important;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
-            scrollbar-color: #6b02b1 #f8f9fa;
-            padding-bottom: 5px;
-        }
-        
-        .nav-tabs-wrapper::-webkit-scrollbar {
-            height: 4px;
-            display: block !important;
-        }
-        
-        .nav-tabs-wrapper::-webkit-scrollbar-track {
-            background: #f8f9fa;
-            border-radius: 3px;
-        }
-        
-        .nav-tabs-wrapper::-webkit-scrollbar-thumb {
-            background-color: #6b02b1;
-            border-radius: 3px;
-        }
-        
-        .nav-tabs {
-            justify-content: flex-start !important; /* Mulai dari kiri untuk mobile */
-            min-width: min-content; /* Lebar minimal sesuai konten untuk scroll */
-        }
-        
-        .nav-tabs .nav-item {
-            flex: 0 0 auto !important; /* Tetap auto untuk mobile */
-        }
-        
-        .nav-tabs .nav-link {
-            padding: 10px 15px !important;
-            font-size: 0.85rem !important;
-            min-width: 110px; /* Lebih kecil untuk mobile */
-            min-height: 65px;
-        }
-        
-        .nav-tabs .nav-link i {
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-        }
-        
-        .nav-tabs .nav-link .tab-text {
-            font-size: 0.8rem;
-        }
+    /* ================= RESPONSIVE ADJUSTMENTS ================= */
 
+    /* Tablet & Mobile */
+    @media (max-width: 768px) {
+        /* TinyMCE */
         .tox-tinymce {
             height: 250px !important;
         }
 
+        /* Page header */
         .page-header {
             flex-direction: column;
             align-items: stretch !important;
@@ -890,27 +803,13 @@
         }
     }
 
-    @media (max-width: 576px) {    
-        .nav-tabs .nav-link {
-            padding: 8px 12px !important;
-            font-size: 0.8rem !important;
-            min-width: 95px;
-            min-height: 60px;
-        }
-        
-        .nav-tabs .nav-link i {
-            font-size: 1rem;
-            margin-bottom: 3px;
-        }
-        
-        .nav-tabs .nav-link .tab-text {
-            font-size: 0.75rem;
-        }
-
+    /* Mobile kecil */
+    @media (max-width: 576px) {
         .tox-tinymce {
             height: 200px !important;
         }
 
+        /* Footer button stack */
         .card-footer .d-flex {
             flex-direction: column;
             gap: 10px;
