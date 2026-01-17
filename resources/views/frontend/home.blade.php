@@ -437,70 +437,39 @@
 </section>
 
 <section id="testimoni">
-  <div class="container">
-    <div class="swiper alumniSwiper">
-      <div class="swiper-wrapper">
+    <div class="container">
+        <div class="swiper alumniSwiper">
+            <div class="swiper-wrapper">
+                @foreach($testimoniAlumni as $testimoni)
+                    <div class="swiper-slide">
+                        <div class="row align-items-center">
+                            <!-- Kiri: Text -->
+                            <div class="col-md-7 textAlumni">
+                                <h4 class="fw-bold mb-3">Apa Kata Alumni?</h4>
+                                <p class="mb-3">
+                                    {{ $testimoni->testimoni }}
+                                </p>
+                                <p class="fw-medium">
+                                    {{ $testimoni->nama }} 
+                                    @if($testimoni->program_studi)
+                                        ({{ $testimoni->program_studi }})
+                                    @endif
+                                </p>
+                            </div>
+                            <!-- Kanan: Gambar -->
+                            <div class="col-md-5 d-flex align-items-center justify-content-center">
+                                <img src="{{ $testimoni->foto_url }}" 
+                                     alt="{{ $testimoni->nama }}"
+                                     class="img-fluid rounded-4 shadow">
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
 
-        <!-- Slide 1 -->
-        <div class="swiper-slide">
-          <div class="row align-items-center">
-            <!-- Kiri: Text -->
-            <div class="col-md-7 textAlumni">
-              <h4 class="fw-bold mb-3">Apa Kata Alumni?</h4>
-              <p class="mb-3">
-                SMK Wisata Indonesia mengajarkanku lebih dari sekadar teori—pengalaman magang di hotel bintang 5 membentukku menjadi profesional siap kerja. Terima kasih, guru-guruku!
-              </p>
-              <p class="fw-medium">Ilham Muhammad Alamsyah (SMK Wisata Indonesia)</p>
-            </div>
-            <!-- Kanan: Gambar -->
-            <div class="col-md-5 d-flex align-items-center justify-content-center">
-              <img src="{{ asset('assets/img/team-1.jpg') }}" alt="Ilham Muhammad Alamsyah"
-                class="img-fluid rounded-4 shadow" >
-            </div>
-          </div>
+            <!-- Optional pagination -->
+            <div class="swiper-pagination"></div>
         </div>
-
-        <!-- Slide 2 -->
-        <div class="swiper-slide">
-          <div class="row align-items-center">
-            <div class="col-md-7 textAlumni">
-              <h4 class="fw-bold mb-3">Apa Kata Alumni?</h4>
-              <p class="mb-3">
-                Pembelajaran di SMK WI membuat saya percaya diri menghadapi dunia kerja. Banyak praktik nyata yang saya alami langsung.
-              </p>
-              <p class="fw-medium">Putri Anjani (SMK WI - Perhotelan)</p>
-            </div>
-            <div class="col-md-5 text-center">
-              <img src="{{ asset('assets/img/team-2.jpg') }}" alt="Putri Anjani"
-                class="img-fluid rounded-4 shadow">
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="swiper-slide">
-          <div class="row align-items-center">
-            <div class="col-md-7 textAlumni">
-              <h4 class="fw-bold mb-3">Apa Kata Alumni?</h4>
-              <p class="mb-3">
-                Pembelajaran di SMK WI membuat saya percaya diri menghadapi dunia kerja. Banyak praktik nyata yang saya alami langsung.
-              </p>
-              <p class="fw-medium">Putri Anjani (SMK WI - Perhotelan)</p>
-            </div>
-            <div class="col-md-5 text-center">
-              <img src="{{ asset('assets/img/team-3.jpg') }}" alt="Putri Anjani"
-                class="img-fluid rounded-4 shadow">
-            </div>
-          </div>
-        </div>
-
-        <!-- Tambah slide lain jika perlu -->
-
-      </div>
-
-      <!-- Optional pagination -->
-      <div class="swiper-pagination"></div>
     </div>
-  </div>
 </section>
 @endsection

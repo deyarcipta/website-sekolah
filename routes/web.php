@@ -24,6 +24,7 @@ use App\Http\Controllers\Backend\SarprasBackendController;
 use App\Http\Controllers\Backend\MouPartnerBackendController;
 use App\Http\Controllers\Backend\GuruStaffBackendController;
 use App\Http\Controllers\Backend\MajorBackendController;
+use App\Http\Controllers\Backend\TestimoniAlumniBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -178,6 +179,16 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         Route::delete('/{id}/remove-vision-mission-image', [MajorBackendController::class, 'removeVisionMissionImage'])->name('remove.vision-mission');
         Route::delete('/{id}/remove-learning-image', [MajorBackendController::class, 'removeLearningImage'])->name('remove.learning');
     });
+
+    // Backend routes
+        Route::prefix('testimoni-alumni')->name('backend.testimoni-alumni.')->group(function () {
+            Route::get('/', [TestimoniAlumniBackendController::class, 'index'])->name('index');
+            Route::post('/', [TestimoniAlumniBackendController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [TestimoniAlumniBackendController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [TestimoniAlumniBackendController::class, 'update'])->name('update');
+            Route::delete('/{id}', [TestimoniAlumniBackendController::class, 'destroy'])->name('destroy');
+            Route::post('/update-urutan', [TestimoniAlumniBackendController::class, 'updateUrutan'])->name('update-urutan');
+        });
     
     // Tambahkan route backend lainnya di sini...
 });

@@ -208,8 +208,8 @@
                 Rombongan Belajar
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li class="nav-item {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('backend.testimoni-alumni.index') }}">
                 <i class="fas fa-user-graduate text-xs opacity-6 me-2"></i>
                 Data Alumni
               </a>

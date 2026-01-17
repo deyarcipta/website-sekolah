@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Helpers\SettingHelper;
 use App\Models\KeunggulanSekolah;
 use App\Models\Major;
+use App\Models\TestimoniAlumni;
 
 class HomeController extends Controller
 {
@@ -21,6 +22,8 @@ class HomeController extends Controller
             ->orderBy('order')
             ->get();
 
-        return view('frontend.home', compact('keunggulan', 'majors'));
+        $testimoniAlumni = TestimoniAlumni::active()->ordered()->get();
+
+        return view('frontend.home', compact('keunggulan', 'majors', 'testimoniAlumni'));
     }
 }
