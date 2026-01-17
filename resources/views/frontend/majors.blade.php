@@ -49,10 +49,6 @@
         <p class="mb-2 fw-semibold">
           {!! $major->overview_content !!}
         </p>
-      @else
-        <p class="mb-2 fw-semibold">
-          Teknik Jaringan Komputer dan Telekomunikasi merupakan kompetensi keahlian yang berfokus pada jaringan, komputer, dan server.
-        </p>
       @endif
       
       <div class="features-list">
@@ -170,72 +166,21 @@
       @endfor
       
     @else
-      <!-- Tampilan default prestasi -->
-      <!-- === 3 Kotak Sejajar: 2 kotak square kiri + 1 kotak rectangular kanan === -->
-      <div class="row g-3 mt-4">
-        <!-- Kotak 1 (square) -->
-        <div class="col-12 col-md-3">
-          <div class="image-card card-square"
-               style="background-image: url('{{ asset('assets/img/prestasi-kotak.png') }}');">
-            <div class="overlay d-flex align-items-center justify-content-center">
-              <h5 class="card-label mb-0">Juara Harapan 1 LKS</h5>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kotak 2 (square) -->
-        <div class="col-12 col-md-3">
-          <div class="image-card card-square"
-               style="background-image: url('{{ asset('assets/img/prestasi-kotak.png') }}');">
-            <div class="overlay d-flex align-items-center justify-content-center">
-              <h5 class="card-label mb-0">Juara Harapan 1 LKS</h5>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kotak 3 (rectangular, lebih lebar) -->
-        <div class="col-12 col-md-6">
-          <div class="image-card card-rect"
-               style="background-image: url('{{ asset('assets/img/prestasi.png') }}');">
-            <div class="overlay d-flex align-items-center justify-content-center">
-              <h5 class="card-label mb-0">Juara Harapan 1 LKS</h5>
+      <!-- Pesan jika tidak ada prestasi -->
+      <div class="text-center py-5">
+        <div class="alert alert-info" role="alert" style="max-width: 600px; margin: 0 auto;">
+          <div class="d-flex align-items-center justify-content-center">
+            <i class="fas fa-trophy me-3" style="font-size: 1.5rem;"></i>
+            <div>
+              <h6 class="alert-heading mb-2">Belum Ada Data Prestasi</h6>
+              <p class="mb-0">
+                Data prestasi untuk jurusan ini sedang dalam proses pengumpulan oleh admin. 
+                Informasi akan segera tersedia.
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <!-- === akhir 3 kotak === -->
-      <!-- === 3 Kotak Sejajar: 2 kotak square kiri + 1 kotak rectangular kanan === -->
-      <div class="row g-3 mt-4">
-        <!-- Kotak 3 (rectangular, lebih lebar) -->
-        <div class="col-12 col-md-6">
-          <div class="image-card card-rect"
-               style="background-image: url('{{ asset('assets/img/prestasi.png') }}');">
-            <div class="overlay d-flex align-items-center justify-content-center">
-              <h5 class="card-label mb-0">Juara Harapan 1 LKS</h5>
-            </div>
-          </div>
-        </div>
-        <!-- Kotak 1 (square) -->
-        <div class="col-12 col-md-3">
-          <div class="image-card card-square"
-               style="background-image: url('{{ asset('assets/img/prestasi-kotak.png') }}');">
-            <div class="overlay d-flex align-items-center justify-content-center">
-              <h5 class="card-label mb-0">Juara Harapan 1 LKS</h5>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kotak 2 (square) -->
-        <div class="col-12 col-md-3">
-          <div class="image-card card-square"
-               style="background-image: url('{{ asset('assets/img/prestasi-kotak.png') }}');">
-            <div class="overlay d-flex align-items-center justify-content-center">
-              <h5 class="card-label mb-0">Juara Harapan 1 LKS</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- === akhir 3 kotak === -->
     @endif
   </div>
 </section>
@@ -261,11 +206,19 @@
           <span style="font-size: 10px; margin-top: 0px; line-height: 1;">{{ $major->quote_position ?? '' }}</span>
         </div>
         @else
-        <p class="text-quote">Karakter utama dari orang yang sukses adalah keberanian dan komitmen mereka untuk terus maju tanpa takut halangan. Tidak ada jaminan sebuah kesuksesan bagi seorang yang tidak keluar dari zona nyamannya dan takut mengambil risiko.</p>
-        <hr class="purple-line purple-line-left mb-3">
-        <div>
-          <h4 class="fw-semibold mb-0" style="line-height: 1;">Mark Zuckerberg</h4>
-          <span style="font-size: 10px; margin-top: 0px; line-height: 1;">CEO Meta</span>
+         <div class="text-center py-5">
+          <div class="alert alert-info" role="alert" style="max-width: 600px; margin: 0 auto;">
+            <div class="d-flex align-items-center justify-content-center">
+              <i class="fas fa-quote-left me-3" style="font-size: 1.5rem;"></i>
+              <div>
+                <h6 class="alert-heading mb-2">Belum Ada Data Kutipan Inspiratif</h6>
+                <p class="mb-0">
+                  Data Kutipan Inspiratif ini sedang dalam proses pengumpulan oleh admin. 
+                  Informasi akan segera tersedia.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
         @endif
       </div>
@@ -278,9 +231,18 @@
       @if(isset($major) && $major->vision)
       <p class="mb-2 fw-semibold">{{ $major->vision }}</p>
       @else
-      <p class="mb-2 fw-semibold">
-        Terwujudnya Sumber Daya Manusia yang professional dalam bidang Teknik Informatika sesuai dengan tuntutan dunia industry dengan etos kerja yang tinggi dengan dilandasi akhlak yang baik.
-      </p>
+      <div class="alert alert-info" role="alert">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-eye me-3"></i>
+          <div>
+            <h6 class="alert-heading mb-1">Visi Belum Tersedia</h6>
+            <p class="mb-0">
+              Visi jurusan ini sedang dalam proses penyusunan oleh admin. 
+              Silakan kembali beberapa waktu lagi.
+            </p>
+          </div>
+        </div>
+      </div>
       @endif
       
       <div class="features-list">
@@ -305,16 +267,31 @@
               @endif
             @endforeach
           </ul>
+          @else
+          <div class="alert alert-info" role="alert">
+            <div class="d-flex align-items-center">
+              <i class="fas fa-bullseye me-3"></i>
+              <div>
+                <h6 class="alert-heading mb-1">Misi Belum Tersedia</h6>
+                <p class="mb-0">
+                  Misi jurusan ini sedang dalam proses penyusunan oleh admin.
+                </p>
+              </div>
+            </div>
+          </div>
           @endif
         @else
-        <ul class="bullet-list">
-          <li>Menghasilkan tamatan yang berkualitas, terampil dan potensial di bidang Teknik Komputer dan Jaringan.</li>
-          <li>Menyelenggarakan program pendidikan profesional di bidang IT dan mampu menjawab tantangan serta perubahan kemajuan ilmu dan teknologi.</li>
-          <li>Meningkatkan kerjasama dengan DU/DI di bidang Teknik Komputer dan Jaringan.</li>
-          <li>Menjadikan peserta didik memiliki kreativitas dan inovasi sehingga dapat mengembangkan diri dalam bidang IT.</li>
-          <li>Mengembangkan fasilitas dan alat media pembelajaran berbasis PBL (Project Based Learning).</li>
-          <li>Menghasilkan lulusan tepat waktu yang mampu bersaing di dunia industri.</li>
-        </ul>
+        <div class="alert alert-info" role="alert">
+          <div class="d-flex align-items-center">
+            <i class="fas fa-bullseye me-3"></i>
+            <div>
+              <h6 class="alert-heading mb-1">Misi Belum Tersedia</h6>
+              <p class="mb-0">
+                Misi jurusan ini sedang dalam proses penyusunan oleh admin.
+              </p>
+            </div>
+          </div>
+        </div>
         @endif
       </div>
     </div>
@@ -334,7 +311,7 @@
         @if(isset($major) && $major->teachers_content)
           {!! nl2br(e($major->teachers_content)) !!}
         @else
-          Teknik jaringan komputer dan telekomunikasi memiliki tim pengajar yang profesional untuk<br>melahirkan siswa yang unggul dan siap bersaing di dunia industri.
+          {{-- Teknik jaringan komputer dan telekomunikasi memiliki tim pengajar yang profesional untuk<br>melahirkan siswa yang unggul dan siap bersaing di dunia industri. --}}
         @endif
       </p>
     
@@ -357,33 +334,17 @@
           </div>
           @endforeach
         @else
-          <!-- Default teachers -->
-          <div class="col-md-4 col-lg-3 d-flex">
-            <div class="card text-center kepala-card shadow-sm flex-fill">
-              <img src="/assets/img/pengajar-jurusan.png" class="card-img-top" alt="Wakil Kepala Sekolah 1">
-              <div class="card-body">
-                <h5 class="card-title mb-1">Siti Rahmawati, S.Kom.</h5>
-                <p class="card-text mb-0">Wakil Kepala Sekolah Kurikulum</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4 col-lg-3 d-flex">
-            <div class="card text-center kepala-card shadow-sm flex-fill">
-              <img src="/assets/img/pengajar-jurusan.png" class="card-img-top" alt="Wakil Kepala Sekolah 2">
-              <div class="card-body">
-                <h5 class="card-title mb-1 fw-bold">Andi Prasetyo, S.Pd.</h5>
-                <p class="card-text mb-0">Wakil Kepala Sekolah Bidang Kesiswaan</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4 col-lg-3 d-flex">
-            <div class="card text-center kepala-card shadow-sm flex-fill">
-              <img src="/assets/img/pengajar-jurusan.png" class="card-img-top" alt="Wakil Kepala Sekolah 3">
-              <div class="card-body">
-                <h5 class="card-title mb-1 fw-bold">Lina Marlina, S.Pd.</h5>
-                <p class="card-text mb-0">Wakil Kepala Sekolah Bidangan Sarana & Prasarana</p>
+          <!-- Pesan jika tidak ada data pengajar -->
+          <div class="text-center py-5">
+            <div class="alert alert-info" role="alert" style="max-width: 600px; margin: 0 auto;">
+              <div class="d-flex align-items-center justify-content-center">
+                <i class="fas fa-chalkboard-teacher me-3" style="font-size: 1.5rem;"></i>
+                <div>
+                  <h6 class="alert-heading mb-2">Data Tim Pengajar Belum Tersedia</h6>
+                  <p class="mb-0">
+                    Data tim pengajar untuk jurusan ini sedang dalam proses pendataan oleh admin.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -403,23 +364,24 @@
         @if(isset($major) && $major->learning_title)
           {{ $major->learning_title }}
         @else
-          Pembelajaran di TJKT
+          Pembelajaran di {{$major->name}}
         @endif
       </h1>
       
       {{-- TAMPILKAN LANGSUNG learning_content --}}
       @if(isset($major) && $major->learning_content)
-        {!! $major->learning_content !!}
+        <div class="learning-content">
+          {!! $major->learning_content !!}
+        </div>
       @else
         {{-- Jika tidak ada data pembelajaran --}}
-        <div class="alert alert-info" role="alert">
-          <div class="d-flex align-items-center">
-            <i class="fas fa-info-circle me-3"></i>
+        <div class="alert alert-warning" role="alert">
+          <div class="d-flex align-items-start">
+            <i class="fas fa-exclamation-triangle me-3 mt-1" style="font-size: 1.2rem;"></i>
             <div>
-              <h6 class="alert-heading mb-1">Informasi Pembelajaran</h6>
-              <p class="mb-0">
-                Materi pembelajaran untuk jurusan ini sedang dalam proses pengembangan. 
-                Silakan hubungi bagian administrasi untuk informasi lebih detail.
+              <h6 class="alert-heading mb-2">Data Pembelajaran Belum Diinput</h6>
+              <p class="mb-2">
+                Informasi detail tentang pembelajaran jurusan ini belum tersedia karena belum diinput oleh admin.
               </p>
             </div>
           </div>
@@ -473,7 +435,7 @@
            class="accordion-collapse collapse {{ $index === 0 ? 'show' : '' }}" 
            data-bs-parent="#programAccordion">
         <div class="accordion-body">
-          {!! $item['content'] ?? '' !!}
+          {!! $item['content'] !!}
         </div>
       </div>
     </div>
@@ -678,6 +640,41 @@
   font-size: 0.8rem;
 }
 
+/* Style untuk placeholder content */
+.placeholder-content {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #6B02B1;
+}
+
+.placeholder-content .card {
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.placeholder-content .card:hover {
+  transform: translateY(-3px);
+}
+
+.learning-content {
+  line-height: 1.7;
+}
+
+.learning-content p {
+  margin-bottom: 1rem;
+}
+
+.learning-content ul,
+.learning-content ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.learning-content li {
+  margin-bottom: 0.5rem;
+}
+
 /* Responsif */
 @media (max-width: 767.98px) {
   .custom-img {
@@ -693,6 +690,10 @@
 
   .kepala-card img {
     height: 200px;
+  }
+  
+  .placeholder-content {
+    padding: 15px;
   }
 }
 
@@ -715,6 +716,16 @@
 
   .pembelajaran .photo-down {
     margin-top: 20px; /* hilangkan margin top di versi mobile */
+  }
+  
+  .placeholder-content .row {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+  
+  .placeholder-content .col-md-6 {
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }
 </style>

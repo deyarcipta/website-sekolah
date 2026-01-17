@@ -130,8 +130,15 @@
 <section id="programs">
     <div class="container">
         @foreach($majors as $index => $major)
-        <div class="row gx-md-5 gx-2 mb-5 @if($index % 2 == 1) flex-md-row-reverse @endif">
-            <div class="col-md-6 @if($index % 2 == 1) order-md-2 @endif">
+        @php
+            $isEven = $index % 2 == 0;
+        @endphp
+        
+        <div class="row mb-5 align-items-center">
+            <!-- Layout untuk index genap (teks kiri, gambar kanan) -->
+            @if($isEven)
+            <!-- Kolom teks (kiri) -->
+            <div class="col-md-5 pe-md-2">
                 <h1>{{ $major->name }}</h1>
                 <p>{{ $major->description }}</p>
                 
@@ -139,13 +146,11 @@
                 <div class="accordion" id="accordionExample{{ $index }}">
                     @foreach($major->accordion_items as $accordionIndex => $item)
                     @php
-                        // PERUBAHAN DISINI: Gunakan icon dari database jika ada
                         if (is_array($item)) {
                             $itemTitle = $item['title'] ?? 'Item';
                             $itemContent = $item['content'] ?? 'Content not available';
-                            $itemIcon = $item['icon'] ?? 'fas fa-cog'; // Ambil icon dari database
+                            $itemIcon = $item['icon'] ?? 'fas fa-cog';
                         } else {
-                            // Jika item adalah string (format lama)
                             $itemTitle = $item;
                             $itemContent = 'Content for ' . $item;
                             $itemIcon = 'fas fa-cog';
@@ -159,7 +164,6 @@
                                     data-bs-target="#collapse{{ $accordionIndex }}{{ $index }}" 
                                     aria-expanded="{{ $accordionIndex === 0 ? 'true' : 'false' }}" 
                                     aria-controls="collapse{{ $accordionIndex }}{{ $index }}">
-                                <!-- PERUBAHAN DISINI: Gunakan $itemIcon dari database -->
                                 <i class="{{ $itemIcon }} me-2 text-danger custom-icon"></i>
                                 {{ $itemTitle }}
                             </button>
@@ -176,47 +180,90 @@
                     @endforeach
                 </div>
                 @else
-                <!-- Fallback accordion jika tidak ada data -->
+                <div class="alert alert-info d-flex align-items-center">
+                    <i class="fas fa-info-circle me-3 fs-4"></i>
+                    <div>
+                        <strong>Data materi pembelajaran belum tersedia</strong>
+                        <p class="mb-0 small">Admin akan segera mengupload data untuk jurusan ini.</p>
+                    </div>
+                </div>
+                @endif
+            </div>
+            
+            <!-- Gap tengah -->
+            <div class="col-md-1 order-md-2 d-none d-md-flex justify-content-center align-items-center">
+            </div>
+            
+            <!-- Kolom gambar (kanan) -->
+            <div class="col-md-6">
+                <div class="position-relative">
+                    @if($major->accordion_image)
+                    <img src="{{ asset('storage/' . $major->accordion_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
+                    @elseif($major->overview_image)
+                    <img src="{{ asset('storage/' . $major->overview_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
+                    @elseif($major->hero_image)
+                    <img src="{{ asset('storage/' . $major->hero_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
+                    @else
+                    <div class="border rounded p-4 text-center bg-light">
+                        <div class="mb-3">
+                            <i class="fas fa-image fa-3x text-muted"></i>
+                        </div>
+                        <h5 class="text-muted mb-2">Gambar Belum Diupload</h5>
+                        <p class="text-muted small mb-0">
+                            Gambar untuk jurusan {{ $major->name }} akan segera diupload oleh admin.
+                        </p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+            
+            <!-- Layout untuk index ganjil (gambar kiri, teks kanan) -->
+            @else
+            <!-- Kolom gambar (kiri) -->
+            <div class="col-md-6 order-md-1">
+                <div class="position-relative">
+                    @if($major->accordion_image)
+                    <img src="{{ asset('storage/' . $major->accordion_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
+                    @elseif($major->overview_image)
+                    <img src="{{ asset('storage/' . $major->overview_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
+                    @elseif($major->hero_image)
+                    <img src="{{ asset('storage/' . $major->hero_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
+                    @else
+                    <div class="border rounded p-4 text-center bg-light">
+                        <div class="mb-3">
+                            <i class="fas fa-image fa-3x text-muted"></i>
+                        </div>
+                        <h5 class="text-muted mb-2">Gambar Belum Diupload</h5>
+                        <p class="text-muted small mb-0">
+                            Gambar untuk jurusan {{ $major->name }} akan segera diupload oleh admin.
+                        </p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+            
+            <!-- Gap tengah -->
+            <div class="col-md-1 order-md-2 d-none d-md-flex justify-content-center align-items-center">
+            </div>
+            
+            <!-- Kolom teks (kanan) -->
+            <div class="col-md-5 order-md-3 ps-md-2">
+                <h1>{{ $major->name }}</h1>
+                <p>{{ $major->description }}</p>
+                
+                @if($major->accordion_items && count($major->accordion_items) > 0)
                 <div class="accordion" id="accordionExample{{ $index }}">
+                    @foreach($major->accordion_items as $accordionIndex => $item)
                     @php
-                        // Data fallback berdasarkan nama jurusan
-                        $fallbackAccordions = [
-                            'Kuliner' => [
-                                ['title' => 'Dasar Memasak', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu mengolah berbagai jenis makanan dan minuman sesuai standar industri kuliner.'],
-                                ['title' => 'Manajemen Dapur Profesional', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu mengolah berbagai jenis makanan dan minuman sesuai standar industri kuliner.'],
-                                ['title' => 'Kesempatan Kerja', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu mengolah berbagai jenis makanan dan minuman sesuai standar industri kuliner.']
-                            ],
-                            'Perhotelan' => [
-                                ['title' => 'Manajemen Hotel', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu melakukan Pelayanan dan pengelolaan operasional hotel berbasis standar industri'],
-                                ['title' => 'House Keeping', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu mengolah berbagai jenis makanan dan minuman sesuai standar industri kuliner.'],
-                                ['title' => 'Kesempatan Kerja', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu mengolah berbagai jenis makanan dan minuman sesuai standar industri kuliner.']
-                            ],
-                            'Teknik Komputer dan Jaringan' => [
-                                ['title' => 'Dasar Teknik Komputer & Jaringan', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu mengolah berbagai jenis makanan dan minuman sesuai standar industri kuliner.'],
-                                ['title' => 'Administrasi Server', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu mengolah berbagai jenis makanan dan minuman sesuai standar industri kuliner.'],
-                                ['title' => 'Kesempatan Kerja', 'content' => 'Siswa nantinya akan belajar dan dituntut untuk mampu mengolah berbagai jenis makanan dan minuman sesuai standar industri kuliner.']
-                            ]
-                        ];
-                        
-                        $fallbackData = $fallbackAccordions[$major->name] ?? [
-                            ['title' => 'Pembelajaran', 'content' => 'Konten pembelajaran akan diisi kemudian.'],
-                            ['title' => 'Praktik', 'content' => 'Konten praktik akan diisi kemudian.'],
-                            ['title' => 'Peluang Karir', 'content' => 'Konten peluang karir akan diisi kemudian.']
-                        ];
-                    @endphp
-                    
-                    @foreach($fallbackData as $accordionIndex => $item)
-                    @php
-                        $accordionIcons = [
-                            'fas fa-bowl-rice',
-                            'fas fa-cake-candles',
-                            'fas fa-briefcase',
-                            'fas fa-hotel',
-                            'fas fa-bed',
-                            'fas fa-network-wired',
-                            'fas fa-desktop'
-                        ];
-                        $icon = $accordionIcons[$accordionIndex % count($accordionIcons)] ?? 'fas fa-info-circle';
+                        if (is_array($item)) {
+                            $itemTitle = $item['title'] ?? 'Item';
+                            $itemContent = $item['content'] ?? 'Content not available';
+                            $itemIcon = $item['icon'] ?? 'fas fa-cog';
+                        } else {
+                            $itemTitle = $item;
+                            $itemContent = 'Content for ' . $item;
+                            $itemIcon = 'fas fa-cog';
+                        }
                     @endphp
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="heading{{ $accordionIndex }}{{ $index }}">
@@ -226,8 +273,8 @@
                                     data-bs-target="#collapse{{ $accordionIndex }}{{ $index }}" 
                                     aria-expanded="{{ $accordionIndex === 0 ? 'true' : 'false' }}" 
                                     aria-controls="collapse{{ $accordionIndex }}{{ $index }}">
-                                <i class="{{ $icon }} me-2 text-danger custom-icon"></i>
-                                {{ $item['title'] }}
+                                <i class="{{ $itemIcon }} me-2 text-danger custom-icon"></i>
+                                {{ $itemTitle }}
                             </button>
                         </h2>
                         <div id="collapse{{ $accordionIndex }}{{ $index }}" 
@@ -235,37 +282,33 @@
                              aria-labelledby="heading{{ $accordionIndex }}{{ $index }}" 
                              data-bs-parent="#accordionExample{{ $index }}">
                             <div class="accordion-body">
-                                {{ $item['content'] }}
+                                {{ $itemContent }}
                             </div>
                         </div>
                     </div>
                     @endforeach
                 </div>
+                @else
+                <div class="alert alert-info d-flex align-items-center">
+                    <i class="fas fa-info-circle me-3 fs-4"></i>
+                    <div>
+                        <strong>Data materi pembelajaran belum tersedia</strong>
+                        <p class="mb-0 small">Admin akan segera mengupload data untuk jurusan ini.</p>
+                    </div>
+                </div>
                 @endif
             </div>
-            
-            <div class="col-md-6 @if($index % 2 == 1) order-md-1 @endif d-none d-md-block position-relative p-0">
-                <!-- PERUBAHAN DISINI: UTAMAKAN accordion_image -->
-                @if($major->accordion_image)
-                <img src="{{ asset('storage/' . $major->accordion_image) }}" alt="{{ $major->name }}" class="img-fluid">
-                @elseif($major->overview_image)
-                <img src="{{ asset('storage/' . $major->overview_image) }}" alt="{{ $major->name }}" class="img-fluid">
-                @elseif($major->hero_image)
-                <img src="{{ asset('storage/' . $major->hero_image) }}" alt="{{ $major->name }}" class="img-fluid">
-                @else
-                <!-- Fallback images berdasarkan nama jurusan -->
-                @php
-                    $fallbackImages = [
-                        'Kuliner' => 'assets/img/kuliner-program.png',
-                        'Perhotelan' => 'assets/img/perhotelan-program.png',
-                        'Teknik Komputer dan Jaringan' => 'assets/img/tkj-program.png'
-                    ];
-                    $fallbackImage = $fallbackImages[$major->name] ?? 'assets/img/default-program.png';
-                @endphp
-                <img src="{{ asset($fallbackImage) }}" alt="{{ $major->name }}" class="img-fluid">
-                @endif
+            @endif
+        </div>
+        
+        <!-- Divider untuk kecuali yang terakhir -->
+        @if($index < count($majors) - 1)
+        <div class="row">
+            <div class="col-12">
+                <hr class="my-4 opacity-25">
             </div>
         </div>
+        @endif
         @endforeach
     </div>
 </section>
