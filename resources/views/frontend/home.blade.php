@@ -130,15 +130,9 @@
 <section id="programs">
     <div class="container">
         @foreach($majors as $index => $major)
-        @php
-            $isEven = $index % 2 == 0;
-        @endphp
-        
-        <div class="row mb-5 align-items-center">
-            <!-- Layout untuk index genap (teks kiri, gambar kanan) -->
-            @if($isEven)
-            <!-- Kolom teks (kiri) -->
-            <div class="col-md-5 pe-md-2">
+        <div class="row gx-md-5 gx-3 gy-4 mb-5 align-items-center">
+            <!-- Teks di kiri untuk index genap (0, 2, 4...), di kanan untuk index ganjil (1, 3, 5...) -->
+            <div class="col-md-6 @if($index % 2 == 1) order-md-2 @endif">
                 <h1>{{ $major->name }}</h1>
                 <p>{{ $major->description }}</p>
                 
@@ -180,6 +174,7 @@
                     @endforeach
                 </div>
                 @else
+                <!-- Info jika tidak ada data accordion -->
                 <div class="alert alert-info d-flex align-items-center">
                     <i class="fas fa-info-circle me-3 fs-4"></i>
                     <div>
@@ -190,12 +185,8 @@
                 @endif
             </div>
             
-            <!-- Gap tengah -->
-            <div class="col-md-1 order-md-2 d-none d-md-flex justify-content-center align-items-center">
-            </div>
-            
-            <!-- Kolom gambar (kanan) -->
-            <div class="col-md-6">
+            <!-- Gambar di kanan untuk index genap, di kiri untuk index ganjil -->
+            <div class="col-md-6 @if($index % 2 == 1) order-md-1 @endif">
                 <div class="position-relative">
                     @if($major->accordion_image)
                     <img src="{{ asset('storage/' . $major->accordion_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
@@ -204,6 +195,7 @@
                     @elseif($major->hero_image)
                     <img src="{{ asset('storage/' . $major->hero_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
                     @else
+                    <!-- Info jika tidak ada gambar -->
                     <div class="border rounded p-4 text-center bg-light">
                         <div class="mb-3">
                             <i class="fas fa-image fa-3x text-muted"></i>
@@ -216,99 +208,7 @@
                     @endif
                 </div>
             </div>
-            
-            <!-- Layout untuk index ganjil (gambar kiri, teks kanan) -->
-            @else
-            <!-- Kolom gambar (kiri) -->
-            <div class="col-md-6 order-md-1">
-                <div class="position-relative">
-                    @if($major->accordion_image)
-                    <img src="{{ asset('storage/' . $major->accordion_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
-                    @elseif($major->overview_image)
-                    <img src="{{ asset('storage/' . $major->overview_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
-                    @elseif($major->hero_image)
-                    <img src="{{ asset('storage/' . $major->hero_image) }}" alt="{{ $major->name }}" class="img-fluid rounded shadow">
-                    @else
-                    <div class="border rounded p-4 text-center bg-light">
-                        <div class="mb-3">
-                            <i class="fas fa-image fa-3x text-muted"></i>
-                        </div>
-                        <h5 class="text-muted mb-2">Gambar Belum Diupload</h5>
-                        <p class="text-muted small mb-0">
-                            Gambar untuk jurusan {{ $major->name }} akan segera diupload oleh admin.
-                        </p>
-                    </div>
-                    @endif
-                </div>
-            </div>
-            
-            <!-- Gap tengah -->
-            <div class="col-md-1 order-md-2 d-none d-md-flex justify-content-center align-items-center">
-            </div>
-            
-            <!-- Kolom teks (kanan) -->
-            <div class="col-md-5 order-md-3 ps-md-2">
-                <h1>{{ $major->name }}</h1>
-                <p>{{ $major->description }}</p>
-                
-                @if($major->accordion_items && count($major->accordion_items) > 0)
-                <div class="accordion" id="accordionExample{{ $index }}">
-                    @foreach($major->accordion_items as $accordionIndex => $item)
-                    @php
-                        if (is_array($item)) {
-                            $itemTitle = $item['title'] ?? 'Item';
-                            $itemContent = $item['content'] ?? 'Content not available';
-                            $itemIcon = $item['icon'] ?? 'fas fa-cog';
-                        } else {
-                            $itemTitle = $item;
-                            $itemContent = 'Content for ' . $item;
-                            $itemIcon = 'fas fa-cog';
-                        }
-                    @endphp
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading{{ $accordionIndex }}{{ $index }}">
-                            <button class="accordion-button {{ $accordionIndex === 0 ? '' : 'collapsed' }}" 
-                                    type="button" 
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapse{{ $accordionIndex }}{{ $index }}" 
-                                    aria-expanded="{{ $accordionIndex === 0 ? 'true' : 'false' }}" 
-                                    aria-controls="collapse{{ $accordionIndex }}{{ $index }}">
-                                <i class="{{ $itemIcon }} me-2 text-danger custom-icon"></i>
-                                {{ $itemTitle }}
-                            </button>
-                        </h2>
-                        <div id="collapse{{ $accordionIndex }}{{ $index }}" 
-                             class="accordion-collapse collapse {{ $accordionIndex === 0 ? 'show' : '' }}" 
-                             aria-labelledby="heading{{ $accordionIndex }}{{ $index }}" 
-                             data-bs-parent="#accordionExample{{ $index }}">
-                            <div class="accordion-body">
-                                {{ $itemContent }}
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-                @else
-                <div class="alert alert-info d-flex align-items-center">
-                    <i class="fas fa-info-circle me-3 fs-4"></i>
-                    <div>
-                        <strong>Data materi pembelajaran belum tersedia</strong>
-                        <p class="mb-0 small">Admin akan segera mengupload data untuk jurusan ini.</p>
-                    </div>
-                </div>
-                @endif
-            </div>
-            @endif
         </div>
-        
-        <!-- Divider untuk kecuali yang terakhir -->
-        @if($index < count($majors) - 1)
-        <div class="row">
-            <div class="col-12">
-                <hr class="my-4 opacity-25">
-            </div>
-        </div>
-        @endif
         @endforeach
     </div>
 </section>
