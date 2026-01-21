@@ -218,77 +218,69 @@
     <div class="row">
       <!-- Section Berita Sekolah (8 kolom) -->
       <div class="col-md-8 mb-4 mb-md-0">
-        <section id="berita-sekolah" class="p-4 bg-light rounded">
-          <h1 class="mb-3">Berita Sekolah</h1>
-          <hr class="garis">
-          <div class="row">
-            <!-- Card 1 -->
-            <div class="col-md-6 mb-3">
-              <a href="#">
-              <div class="card berita-card text-white mb-3">
-                <div class="berita-img" style="background-image: url('{{ asset('assets/img/home-decor-1.jpg') }}');">
-                  <div class="berita-overlay d-flex align-items-end p-3">
-                    <div>
-                      <h5 class="card-title">Judul Berita 1</h5>
-                      <p class="card-text">Isi singkat berita pertama yang akan ditampilkan kepada pengunjung.</p>
+    <section id="berita-sekolah" class="p-4 bg-light rounded">
+        <h1 class="mb-3">Berita Sekolah</h1>
+        <hr class="garis">
+        
+        @if($berita->count() > 0)
+            <div class="row">
+                @foreach($berita as $item)
+                    <div class="col-md-6 mb-3">
+                        <a href="{{ route('detail-informasi.show', $item->slug) }}">
+                            <div class="card berita-card text-white mb-3">
+                                <div class="berita-img" 
+                                     style="background-image: url('{{ $item->gambar_thumbnail ? asset('storage/' . $item->gambar_thumbnail) : ($item->gambar ? asset('storage/' . $item->gambar) : asset('assets/img/default-news.jpg')) }}'); 
+                                            background-size: cover; 
+                                            background-position: center;
+                                            height: 250px;
+                                            position: relative;">
+                                    <div class="berita-overlay d-flex align-items-end p-3" 
+                                         style="position: absolute; 
+                                                bottom: 0; 
+                                                left: 0; 
+                                                right: 0; 
+                                                background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);">
+                                        <div>
+                                            <!-- Kategori Badge -->
+                                            @if($item->kategori)
+                                                <span class="badge bg-primary mb-2">
+                                                    {{ $item->kategori->nama }}
+                                                </span>
+                                            @endif
+                                            
+                                            <h5 class="card-title mb-1" style="font-size: 1.1rem; line-height: 1.4;">
+                                                {{ Str::limit($item->judul, 60) }}
+                                            </h5>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                                <small class="text-white-50">
+                                                    <i class="fas fa-calendar-alt me-1"></i>
+                                                    {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
+                                                </small>
+                                                <small class="text-white-50">
+                                                    <i class="fas fa-eye me-1"></i> {{ $item->views }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                  </div>
-                </div>
-              </div>
-              </a>
+                @endforeach
             </div>
-
-            <!-- Card 2 -->
-            <div class="col-md-6 mb-3">
-              <a href="#">
-              <div class="card berita-card text-white mb-3">
-                <div class="berita-img" style="background-image: url('{{ asset('assets/img/home-decor-1.jpg') }}');">
-                  <div class="berita-overlay d-flex align-items-end p-3">
-                    <div>
-                      <h5 class="card-title">Judul Berita 2</h5>
-                      <p class="card-text">Isi singkat berita kedua yang akan ditampilkan kepada pengunjung.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </a>
+            
+        @else
+            <div class="text-center py-5">
+                <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+                <h5 class="text-muted">Belum ada berita</h5>
+                <p class="text-muted">Berita akan segera ditambahkan</p>
             </div>
-
-            <!-- Card 3 -->
-            <div class="col-md-6 mb-3">.
-              <a href="#">
-              <div class="card berita-card text-white mb-3">
-                <div class="berita-img" style="background-image: url('{{ asset('assets/img/home-decor-1.jpg') }}');">
-                  <div class="berita-overlay d-flex align-items-end p-3">
-                    <div>
-                      <h5 class="card-title">Judul Berita 3</h5>
-                      <p class="card-text">Isi singkat berita ketiga yang akan ditampilkan kepada pengunjung.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </a>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="col-md-6 mb-3">.
-              <a href="#">
-              <div class="card berita-card text-white mb-3">
-                <div class="berita-img" style="background-image: url('{{ asset('assets/img/home-decor-1.jpg') }}');">
-                  <div class="berita-overlay d-flex align-items-end p-3">
-                    <div>
-                      <h5 class="card-title">Judul Berita 3</h5>
-                      <p class="card-text">Isi singkat berita ketiga yang akan ditampilkan kepada pengunjung.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </a>
-            </div>
-          </div>
-          <a href="#" class="btn all-berita">Lihat Semua Berita</a>
-        </section>
-      </div>
+        @endif
+        
+        <a href="{{ route('detail-informasi.index') }}" class="btn all-berita">Lihat Semua Berita</a>
+    </section>
+</div>
 
       <!-- Section Agenda Sekolah (4 kolom) -->
       <div class="col-md-4">
@@ -440,31 +432,57 @@
     <div class="container">
         <div class="swiper alumniSwiper">
             <div class="swiper-wrapper">
-                @foreach($testimoniAlumni as $testimoni)
+                @if($testimoniAlumni && count($testimoniAlumni) > 0)
+                    @foreach($testimoniAlumni as $testimoni)
+                        <div class="swiper-slide">
+                            <div class="row align-items-center">
+                                <!-- Kiri: Text -->
+                                <div class="col-md-7 textAlumni">
+                                    <h4 class="fw-bold mb-3">Apa Kata Alumni?</h4>
+                                    <p class="mb-3">
+                                        {{ $testimoni->testimoni }}
+                                    </p>
+                                    <p class="fw-medium">
+                                        {{ $testimoni->nama }} 
+                                        @if($testimoni->program_studi)
+                                            ({{ $testimoni->program_studi }})
+                                        @endif
+                                    </p>
+                                </div>
+                                <!-- Kanan: Gambar -->
+                                <div class="col-md-5 d-flex align-items-center justify-content-center">
+                                    <img src="{{ $testimoni->foto_url }}" 
+                                         alt="{{ $testimoni->nama }}"
+                                         class="img-fluid rounded-4 shadow">
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <!-- Fallback ketika tidak ada data -->
                     <div class="swiper-slide">
                         <div class="row align-items-center">
-                            <!-- Kiri: Text -->
-                            <div class="col-md-7 textAlumni">
-                                <h4 class="fw-bold mb-3">Apa Kata Alumni?</h4>
-                                <p class="mb-3">
-                                    {{ $testimoni->testimoni }}
-                                </p>
-                                <p class="fw-medium">
-                                    {{ $testimoni->nama }} 
-                                    @if($testimoni->program_studi)
-                                        ({{ $testimoni->program_studi }})
-                                    @endif
-                                </p>
-                            </div>
-                            <!-- Kanan: Gambar -->
-                            <div class="col-md-5 d-flex align-items-center justify-content-center">
-                                <img src="{{ $testimoni->foto_url }}" 
-                                     alt="{{ $testimoni->nama }}"
-                                     class="img-fluid rounded-4 shadow">
+                            <div class="col-md-12 text-center">
+                                <div class="alert alert-info" role="alert">
+                                    <div class="d-flex flex-column align-items-center py-4">
+                                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                                        <h4 class="fw-bold mb-2">Apa Kata Alumni?</h4>
+                                        <p class="mb-3">
+                                            Testimoni dari alumni akan ditampilkan di sini. 
+                                            Admin sedang mempersiapkan konten terbaik untuk Anda.
+                                        </p>
+                                        <p class="text-muted mb-0">
+                                            <small>
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                Bagikan pengalaman Anda setelah lulus dari SMK Wisata Indonesia
+                                            </small>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @endif
             </div>
 
             <!-- Optional pagination -->

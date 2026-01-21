@@ -25,6 +25,8 @@ use App\Http\Controllers\Backend\MouPartnerBackendController;
 use App\Http\Controllers\Backend\GuruStaffBackendController;
 use App\Http\Controllers\Backend\MajorBackendController;
 use App\Http\Controllers\Backend\TestimoniAlumniBackendController;
+use App\Http\Controllers\Backend\KategoriBeritaBackendController;
+use App\Http\Controllers\Backend\BeritaBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -34,7 +36,11 @@ Route::get('/sarpras', [SarprasController::class, 'index'])->name('frontend.sarp
 Route::get('/gurustaff', [GuruStaffController::class, 'index'])->name('frontend.gurustaff');
 Route::get('/kontak', [KontakController::class, 'index'])->name('frontend.kontak');
 Route::get('/informasi', [InformasiController::class, 'index'])->name('frontend.informasi');
-Route::get('/detail-informasi/{slug}', [DetailInformasiController::class, 'show'])->name('frontend.detail-informasi');
+Route::prefix('detail-informasi')->name('detail-informasi.')->group(function () {
+    Route::get('/', [DetailInformasiController::class, 'index'])->name('index');
+    Route::get('/{slug}', [DetailInformasiController::class, 'show'])->name('show');
+    Route::get('/kategori/{slug}', [DetailInformasiController::class, 'kategori'])->name('kategori');
+});
 
 // Halaman program keahlian
 Route::prefix('program')->group(function () {
@@ -181,15 +187,40 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
     });
 
     // Backend routes
-        Route::prefix('testimoni-alumni')->name('backend.testimoni-alumni.')->group(function () {
-            Route::get('/', [TestimoniAlumniBackendController::class, 'index'])->name('index');
-            Route::post('/', [TestimoniAlumniBackendController::class, 'store'])->name('store');
-            Route::get('/{id}/edit', [TestimoniAlumniBackendController::class, 'edit'])->name('edit');
-            Route::put('/{id}', [TestimoniAlumniBackendController::class, 'update'])->name('update');
-            Route::delete('/{id}', [TestimoniAlumniBackendController::class, 'destroy'])->name('destroy');
-            Route::post('/update-urutan', [TestimoniAlumniBackendController::class, 'updateUrutan'])->name('update-urutan');
-        });
-    
+    Route::prefix('testimoni-alumni')->name('backend.testimoni-alumni.')->group(function () {
+        Route::get('/', [TestimoniAlumniBackendController::class, 'index'])->name('index');
+        Route::post('/', [TestimoniAlumniBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [TestimoniAlumniBackendController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [TestimoniAlumniBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [TestimoniAlumniBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/update-urutan', [TestimoniAlumniBackendController::class, 'updateUrutan'])->name('update-urutan');
+    });
+
+    // Kategori Berita
+    Route::prefix('kategori-berita')->name('backend.kategori-berita.')->group(function () {
+        Route::get('/', [KategoriBeritaBackendController::class, 'index'])->name('index');
+        Route::post('/', [KategoriBeritaBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [KategoriBeritaBackendController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [KategoriBeritaBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [KategoriBeritaBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/update-urutan', [KategoriBeritaBackendController::class, 'updateUrutan'])->name('update-urutan');
+    });
+
+    // Berita
+    Route::prefix('berita')->name('backend.berita.')->group(function () {
+        Route::get('/', [BeritaBackendController::class, 'index'])->name('index');
+        Route::post('/', [BeritaBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [BeritaBackendController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [BeritaBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [BeritaBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/update-urutan', [BeritaBackendController::class, 'updateUrutan'])->name('update-urutan');
+        Route::post('/{id}/archive', [BeritaBackendController::class, 'archive'])->name('archive');
+        Route::post('/{id}/restore', [BeritaBackendController::class, 'restore'])->name('restore');
+        Route::post('/{id}/toggle/{status}', [BeritaBackendController::class, 'toggleStatus'])->name('toggle-status');
+        Route::post('/generate-slug', [BeritaBackendController::class, 'generateSlug'])->name('generate-slug');
+        Route::post('/upload-image', [BeritaBackendController::class, 'uploadImage'])->name('upload-image');
+    });
+        
     // Tambahkan route backend lainnya di sini...
 });
 

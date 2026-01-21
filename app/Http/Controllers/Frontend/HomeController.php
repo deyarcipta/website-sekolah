@@ -8,6 +8,7 @@ use App\Helpers\SettingHelper;
 use App\Models\KeunggulanSekolah;
 use App\Models\Major;
 use App\Models\TestimoniAlumni;
+use App\Models\Berita;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,13 @@ class HomeController extends Controller
 
         $testimoniAlumni = TestimoniAlumni::active()->ordered()->get();
 
-        return view('frontend.home', compact('keunggulan', 'majors', 'testimoniAlumni'));
+        $berita = Berita::where('is_published', true)
+            ->whereNull('archived_at')
+            ->with('kategori')
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
+
+        return view('frontend.home', compact('keunggulan', 'majors', 'testimoniAlumni', 'berita'));
     }
 }

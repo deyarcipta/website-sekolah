@@ -93,14 +93,36 @@
           </a>
         </li>
 
-        {{-- Berita --}}
+        {{-- Berita & Artikel --}}
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link {{ 
+              request()->routeIs('backend.berita.index') || 
+              request()->routeIs('backend.kategori-berita.index') 
+              ? 'active' : '' 
+            }}" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-newspaper text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Berita & Artikel</span>
           </a>
+
+          <ul class="nav flex-column ps-4">
+            <li class="nav-item">
+              <a class="nav-link {{ request()->routeIs('backend.berita.index') ? 'active' : '' }}" 
+                href="{{ route('backend.berita.index') }}">
+                <i class="fas fa-newspaper text-xs opacity-6 me-2"></i>
+                Semua Berita
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link {{ request()->routeIs('backend.kategori-berita.index') ? 'active' : '' }}" 
+                href="{{ route('backend.kategori-berita.index') }}">
+                <i class="fas fa-tags text-xs opacity-6 me-2"></i>
+                Kategori Berita
+              </a>
+            </li>
+          </ul>
         </li>
 
         {{-- Pengumuman --}}
@@ -189,7 +211,7 @@
 
         {{-- Siswa --}}
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-user-graduate text-dark text-sm opacity-10"></i>
             </div>
@@ -197,19 +219,19 @@
           </a>
           <ul class="nav flex-column ps-4">
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-list text-xs opacity-6 me-2"></i>
-                Data Siswa
-              </a>
-            </li>
-            <li class="nav-item">
              <a class="nav-link" href="#">
                 <i class="fas fa-school text-xs opacity-6 me-2"></i>
                 Rombongan Belajar
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-list text-xs opacity-6 me-2"></i>
+                Data Siswa
+              </a>
+            </li>
             <li class="nav-item {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}">
-              <a class="nav-link" href="{{ route('backend.testimoni-alumni.index') }}">
+              <a class="nav-link {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}" href="{{ route('backend.testimoni-alumni.index') }}">
                 <i class="fas fa-user-graduate text-xs opacity-6 me-2"></i>
                 Data Alumni
               </a>
