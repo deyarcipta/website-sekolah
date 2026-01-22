@@ -27,6 +27,7 @@ use App\Http\Controllers\Backend\MajorBackendController;
 use App\Http\Controllers\Backend\TestimoniAlumniBackendController;
 use App\Http\Controllers\Backend\KategoriBeritaBackendController;
 use App\Http\Controllers\Backend\BeritaBackendController;
+use App\Http\Controllers\Backend\AnnouncementBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -220,6 +221,17 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         Route::post('/generate-slug', [BeritaBackendController::class, 'generateSlug'])->name('generate-slug');
         Route::post('/upload-image', [BeritaBackendController::class, 'uploadImage'])->name('upload-image');
     });
+
+    // Backend Announcement Routes
+    Route::prefix('announcements')->name('backend.announcements.')->group(function () {
+        Route::get('/', [AnnouncementBackendController::class, 'index'])->name('index');
+        Route::post('/', [AnnouncementBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit-data', [AnnouncementBackendController::class, 'editData'])->name('edit-data');
+        Route::put('/{id}', [AnnouncementBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AnnouncementBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/update-urutan', [AnnouncementBackendController::class, 'updateUrutan'])->name('update-urutan');
+        Route::post('/upload-image', [AnnouncementBackendController::class, 'uploadImage'])->name('upload-image');
+    });
         
     // Tambahkan route backend lainnya di sini...
 });
@@ -228,3 +240,4 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
 Route::get('/test-route', function () {
     return 'Test route berhasil!';
 });
+

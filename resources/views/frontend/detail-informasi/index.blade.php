@@ -163,8 +163,8 @@
             @if(request('search'))
               <p class="text-muted mb-4">Tidak ditemukan berita dengan kata kunci "{{ request('search') }}"</p>
             @endif
-            <a href="{{ route('detail-informasi.index') }}" class="btn btn-primary">
-              <i class="fas fa-arrow-left me-2"></i> Kembali ke Semua Berita
+            <a href="{{ route('frontend.home') }}" class="btn btn-primary">
+              <i class="fas fa-arrow-left me-2"></i> Kembali ke Beranda
             </a>
           </div>
         @endif
