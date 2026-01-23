@@ -73,6 +73,7 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
     Route::prefix('settings')->name('backend.settings.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::put('/', [SettingController::class, 'update'])->name('update');
+        Route::post('/upload-image', [SettingsController::class, 'uploadImage'])->name('upload.image');
     });
 
     Route::post('/upload-image', [App\Http\Controllers\Backend\UploadController::class, 'tinymceUpload'])

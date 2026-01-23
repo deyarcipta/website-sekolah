@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-6 .col-lg-6 d-flex flex-column justify-content-center">
         <div class="hero-imgs">
-          <img src="{{ asset('assets/img/hero.png') }}" alt="Hero Image" class="w-100 h-100" style="object-fit: cover;" />
+          <img src="{{ asset($settings->hero_image) }}" alt="Hero Image" class="w-100 h-100" style="object-fit: cover;" />
         </div>
       </div>
     </div>

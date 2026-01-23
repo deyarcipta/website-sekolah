@@ -83,13 +83,31 @@
                                     <i class="fas fa-images me-2"></i> Logo & Favicon
                                 </h6>
                             </div>
-                            
+
+                            {{-- HERO IMAGE (TAMBAHKAN INI) --}}
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Hero Image (Header)</label>
+                                <div class="mb-2">
+                                    @if($settings->hero_image)
+                                        <img src="{{ asset($settings->hero_image) }}" alt="Hero Image" 
+                                            class="img-thumbnail" style="max-height: 100px; object-fit: cover;">
+                                    @else
+                                        <div class="bg-light p-4 text-center rounded">
+                                            <i class="fas fa-image fa-2x text-muted"></i>
+                                            <p class="mt-2 mb-0 text-sm">Belum ada hero image</p>
+                                        </div>
+                                    @endif
+                                </div>
+                                <input type="file" name="hero_image" class="form-control" accept="image/*">
+                                <small class="text-muted">Ukuran rekomendasi: 1920x600px (JPG/PNG)</small>
+                            </div>
+
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Logo Sekolah</label>
                                 <div class="mb-2">
                                     @if($settings->site_logo)
                                         <img src="{{ asset($settings->site_logo) }}" alt="Logo" 
-                                             class="img-thumbnail" style="max-height: 100px;">
+                                            class="img-thumbnail" style="max-height: 100px;">
                                     @else
                                         <div class="bg-light p-4 text-center rounded">
                                             <i class="fas fa-image fa-2x text-muted"></i>
@@ -100,13 +118,13 @@
                                 <input type="file" name="site_logo" class="form-control" accept="image/*">
                                 <small class="text-muted">Ukuran rekomendasi: 200x60px (PNG/JPG)</small>
                             </div>
-                            
+
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Favicon</label>
                                 <div class="mb-2">
                                     @if($settings->site_favicon)
                                         <img src="{{ asset($settings->site_favicon) }}" alt="Favicon" 
-                                             class="img-thumbnail" style="width: 64px; height: 64px;">
+                                            class="img-thumbnail" style="width: 64px; height: 64px;">
                                     @else
                                         <div class="bg-light p-4 text-center rounded">
                                             <i class="fas fa-image fa-2x text-muted"></i>
@@ -117,13 +135,14 @@
                                 <input type="file" name="site_favicon" class="form-control" accept="image/x-icon,image/png">
                                 <small class="text-muted">Ukuran: 32x32px atau 64x64px (ICO/PNG)</small>
                             </div>
-                            
+
+                            {{-- KEPALA SEKOLAH FOTO --}}
                             <div class="col-md-4 mb-3">
                                 <label class="form-label">Foto Kepala Sekolah</label>
                                 <div class="mb-2">
                                     @if($settings->headmaster_photo)
                                         <img src="{{ asset($settings->headmaster_photo) }}" alt="Kepala Sekolah" 
-                                             class="img-thumbnail" style="max-height: 100px;">
+                                            class="img-thumbnail" style="max-height: 100px;">
                                     @else
                                         <div class="bg-light p-4 text-center rounded">
                                             <i class="fas fa-user fa-2x text-muted"></i>

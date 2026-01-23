@@ -36,6 +36,7 @@ class SettingController extends Controller
             'site_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'site_favicon' => 'nullable|image|mimes:ico,png|max:1024',
             'headmaster_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             
             'facebook' => 'nullable|url|max:255',
             'instagram' => 'nullable|url|max:255',
@@ -111,7 +112,21 @@ class SettingController extends Controller
                 unlink(public_path($oldSettings->headmaster_photo));
             }
         }
-        
+
+        // Handle hero image upload
+        if ($request->hasFile('hero_image')) {
+            $heroImage = $request->file('hero_image');
+            $heroImageName = 'hero-' . time() . '.' . $heroImage->getClientOriginalExtension();
+            $heroImagePath = $heroImage->storeAs('uploads/settings', $heroImageName, 'public');
+            $data['hero_image'] = 'storage/' . $heroImagePath;
+
+            // Delete old hero image if exists
+            $oldSettings = WebsiteSetting::getSettings();
+            if ($oldSettings->hero_image && file_exists(public_path($oldSettings->hero_image))) {
+                unlink(public_path($oldSettings->hero_image));
+            }
+        }
+
         // Handle maintenance mode
         $data['maintenance_mode'] = $request->has('maintenance_mode') ? true : false;
         

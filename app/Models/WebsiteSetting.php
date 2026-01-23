@@ -19,6 +19,7 @@ class WebsiteSetting extends Model
         'site_phone',
         'site_whatsapp',
         'site_address',
+        'hero_image',
         'facebook',
         'instagram',
         'twitter',
