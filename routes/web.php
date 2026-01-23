@@ -28,6 +28,7 @@ use App\Http\Controllers\Backend\TestimoniAlumniBackendController;
 use App\Http\Controllers\Backend\KategoriBeritaBackendController;
 use App\Http\Controllers\Backend\BeritaBackendController;
 use App\Http\Controllers\Backend\AnnouncementBackendController;
+use App\Http\Controllers\Backend\AgendaSekolahBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -231,6 +232,17 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         Route::delete('/{id}', [AnnouncementBackendController::class, 'destroy'])->name('destroy');
         Route::post('/update-urutan', [AnnouncementBackendController::class, 'updateUrutan'])->name('update-urutan');
         Route::post('/upload-image', [AnnouncementBackendController::class, 'uploadImage'])->name('upload-image');
+    });
+
+    // Backend Agenda Sekolah Routes
+    Route::prefix('agenda-sekolah')->name('backend.agenda-sekolah.')->group(function () {
+        Route::get('/', [AgendaSekolahBackendController::class, 'index'])->name('index');
+        Route::post('/', [AgendaSekolahBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [AgendaSekolahBackendController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AgendaSekolahBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AgendaSekolahBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/update-urutan', [AgendaSekolahBackendController::class, 'updateUrutan'])->name('update-urutan');
+        Route::post('/{id}/toggle-status/{status}', [AgendaSekolahBackendController::class, 'toggleStatus'])->name('toggle-status');
     });
         
     // Tambahkan route backend lainnya di sini...

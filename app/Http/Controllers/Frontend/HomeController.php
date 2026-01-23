@@ -10,6 +10,7 @@ use App\Models\Major;
 use App\Models\TestimoniAlumni;
 use App\Models\Berita;
 use App\Models\Announcement;
+use App\Models\AgendaSekolah;
 
 class HomeController extends Controller
 {
@@ -34,14 +35,6 @@ class HomeController extends Controller
                 ->orderBy('sort_order', 'asc')
                 ->orderBy('created_at', 'desc')
                 ->first();
-            
-            // Log untuk debugging
-            // if ($activeModalAnnouncement) {
-            //     \Log::info('Homepage modal announcement found', [
-            //         'id' => $activeModalAnnouncement->id,
-            //         'title' => $activeModalAnnouncement->title
-            //     ]);
-            // }
             
             return $activeModalAnnouncement;
             
@@ -73,18 +66,20 @@ class HomeController extends Controller
         // Get homepage modal announcement
         $activeAnnouncementModal = $this->getHomepageModalAnnouncement();
         
-        // Log untuk debugging
-        // \Log::info('Home page loaded with announcement', [
-        //     'has_announcement' => !is_null($activeAnnouncementModal),
-        //     'announcement_id' => $activeAnnouncementModal ? $activeAnnouncementModal->id : null
-        // ]);
+        $agendaSekolah = AgendaSekolah::where('is_published', true)
+            ->orderBy('tanggal', 'desc')  // Tanggal terbaru di atas
+            ->orderBy('waktu', 'desc')    // Jika tanggal sama, waktu terbaru di atas
+            ->orderBy('urutan', 'asc')    // Kemudian urutan manual
+            ->take(5)
+            ->get();
 
         return view('frontend.home', compact(
             'keunggulan', 
             'majors', 
             'testimoniAlumni', 
             'berita', 
-            'activeAnnouncementModal'
+            'activeAnnouncementModal',
+            'agendaSekolah'
         ));
     }
 }

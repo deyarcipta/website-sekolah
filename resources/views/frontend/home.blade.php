@@ -218,144 +218,135 @@
     <div class="row">
       <!-- Section Berita Sekolah (8 kolom) -->
       <div class="col-md-8 mb-4 mb-md-0">
-    <section id="berita-sekolah" class="p-4 bg-light rounded">
-        <h1 class="mb-3">Berita Sekolah</h1>
-        <hr class="garis">
-        
-        @if($berita->count() > 0)
-            <div class="row">
-                @foreach($berita as $item)
-                    <div class="col-md-6 mb-3">
-                        <a href="{{ route('detail-informasi.show', $item->slug) }}">
-                            <div class="card berita-card text-white mb-3">
-                                <div class="berita-img" 
-                                     style="background-image: url('{{ $item->gambar_thumbnail ? asset('storage/' . $item->gambar_thumbnail) : ($item->gambar ? asset('storage/' . $item->gambar) : asset('assets/img/default-news.jpg')) }}'); 
-                                            background-size: cover; 
-                                            background-position: center;
-                                            height: 250px;
-                                            position: relative;">
-                                    <div class="berita-overlay d-flex align-items-end p-3" 
-                                         style="position: absolute; 
-                                                bottom: 0; 
-                                                left: 0; 
-                                                right: 0; 
-                                                background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);">
-                                        <div>
-                                            <!-- Kategori Badge -->
-                                            @if($item->kategori)
-                                                <span class="badge bg-primary mb-2">
-                                                    {{ $item->kategori->nama }}
-                                                </span>
-                                            @endif
-                                            
-                                            <h5 class="card-title mb-1" style="font-size: 1.1rem; line-height: 1.4;">
-                                                {{ Str::limit($item->judul, 60) }}
-                                            </h5>
-                                            
-                                            <div class="d-flex justify-content-between align-items-center mt-2">
-                                                <small class="text-white-50">
-                                                    <i class="fas fa-calendar-alt me-1"></i>
-                                                    {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
-                                                </small>
-                                                <small class="text-white-50">
-                                                    <i class="fas fa-eye me-1"></i> {{ $item->views }}
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
-            </div>
-            
-        @else
-            <div class="text-center py-5">
-                <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
-                <h5 class="text-muted">Belum ada berita</h5>
-                <p class="text-muted">Berita akan segera ditambahkan</p>
-            </div>
-        @endif
-        
-        <a href="{{ route('detail-informasi.index') }}" class="btn all-berita">Lihat Semua Berita</a>
-    </section>
-</div>
+          <section id="berita-sekolah" class="p-4 bg-light rounded">
+              <h1 class="mb-3">Berita Sekolah</h1>
+              <hr class="garis">
+              
+              @if($berita->count() > 0)
+                  <div class="row">
+                      @foreach($berita as $item)
+                          <div class="col-md-6 mb-3">
+                              <a href="{{ route('detail-informasi.show', $item->slug) }}">
+                                  <div class="card berita-card text-white mb-3">
+                                      <div class="berita-img" 
+                                          style="background-image: url('{{ $item->gambar_thumbnail ? asset('storage/' . $item->gambar_thumbnail) : ($item->gambar ? asset('storage/' . $item->gambar) : asset('assets/img/default-news.jpg')) }}'); 
+                                                  background-size: cover; 
+                                                  background-position: center;
+                                                  height: 250px;
+                                                  position: relative;">
+                                          <div class="berita-overlay d-flex align-items-end p-3" 
+                                              style="position: absolute; 
+                                                      bottom: 0; 
+                                                      left: 0; 
+                                                      right: 0; 
+                                                      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);">
+                                              <div>
+                                                  <!-- Kategori Badge -->
+                                                  @if($item->kategori)
+                                                      <span class="badge bg-primary mb-2">
+                                                          {{ $item->kategori->nama }}
+                                                      </span>
+                                                  @endif
+                                                  
+                                                  <h5 class="card-title mb-1" style="font-size: 1.1rem; line-height: 1.4;">
+                                                      {{ Str::limit($item->judul, 60) }}
+                                                  </h5>
+                                                  
+                                                  <div class="d-flex justify-content-between align-items-center mt-2">
+                                                      <small class="text-white-50">
+                                                          <i class="fas fa-calendar-alt me-1"></i>
+                                                          {{ \Carbon\Carbon::parse($item->tanggal_publish)->translatedFormat('d F Y') }}
+                                                      </small>
+                                                      <small class="text-white-50">
+                                                          <i class="fas fa-eye me-1"></i> {{ $item->views }}
+                                                      </small>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </a>
+                          </div>
+                      @endforeach
+                  </div>
+                  
+              @else
+                  <div class="text-center py-5">
+                      <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+                      <h5 class="text-muted">Belum ada berita</h5>
+                      <p class="text-muted">Berita akan segera ditambahkan</p>
+                  </div>
+              @endif
+              
+              <a href="{{ route('detail-informasi.index') }}" class="btn all-berita">Lihat Semua Berita</a>
+          </section>
+      </div>
 
       <!-- Section Agenda Sekolah (4 kolom) -->
       <div class="col-md-4">
-        <section id="agenda-sekolah" class="p-4 bg-white border rounded h-100">
-          <h1 class="mb-3">Agenda Sekolah</h1>
-          <hr class="garis">
+          <section id="agenda-sekolah" class="p-4 bg-white border rounded h-100">
+              <h1 class="mb-3">Agenda Sekolah</h1>
+              <hr class="garis">
 
-          <ul class="list-unstyled">
-            <!-- Item Agenda -->
-            <li class="d-flex gap-3 mb-4">
-              <!-- Kotak Tanggal -->
-              <div class="agenda-date flex-shrink-0">
-                <div class="agenda-month">Jun 2025</div>
-                <div class="agenda-day">15</div>
-              </div>
+              <ul class="list-unstyled">
+                  @foreach($agendaSekolah as $agenda)
+                      <!-- Item Agenda -->
+                      <li class="mb-4">
+                          <div class="d-flex gap-3 align-items-start">
+                              <!-- Tanggal -->
+                              <div class="agenda-date flex-shrink-0" style="color: {{ $agenda->warna }};">
+                                  <div class="agenda-month" style="background-color: {{ $agenda->warna }}; color: white;">
+                                      {{ $agenda->bulan }}
+                                  </div>
+                                  <div class="agenda-day">{{ $agenda->hari }}</div>
+                              </div>
 
-              <!-- Teks Agenda -->
-              <div class="agenda-content">
-                <strong>Assessment Sumatif Akhir Sekolah yang judulnya sangat panjang dan bisa dua baris atau lebih tapi tetap sejajar atas</strong>
-              </div>
-            </li>
+                              <!-- KONTEN -->
+                              <div class="agenda-content d-flex flex-column">
+                                  <!-- Judul -->
+                                  <strong class="agenda-title mb-1">
+                                      {{ $agenda->judul }}
+                                  </strong>
 
-            <li class="d-flex gap-3 mb-4">
-              <!-- Kotak Tanggal -->
-              <div class="agenda-date flex-shrink-0">
-                <div class="agenda-month">Jun 2025</div>
-                <div class="agenda-day">15</div>
-              </div>
+                                  <!-- Detail (PASTI DI BAWAH) -->
+                                  <div class="agenda-detail">
+                                      @if($agenda->deskripsi)
+                                          <div class="small text-muted mb-1">
+                                              {{ Str::limit($agenda->deskripsi, 100) }}
+                                          </div>
+                                      @endif
 
-              <!-- Teks Agenda -->
-              <div class="agenda-content">
-                <strong>Assessment Sumatif Akhir Sekolah yang judulnya sangat panjang dan bisa dua baris atau lebih tapi tetap sejajar atas</strong>
-              </div>
-            </li>
+                                      @if($agenda->waktu || $agenda->lokasi)
+                                          <div class="small text-muted">
+                                              @if($agenda->waktu)
+                                                  <span class="me-2">
+                                                      <i class="fas fa-clock me-1"></i>
+                                                      {{ date('H:i', strtotime($agenda->waktu)) }}
+                                                  </span>
+                                              @endif
 
-            <li class="d-flex gap-3 mb-4">
-              <!-- Kotak Tanggal -->
-              <div class="agenda-date flex-shrink-0">
-                <div class="agenda-month">Jun 2025</div>
-                <div class="agenda-day">15</div>
-              </div>
-
-              <!-- Teks Agenda -->
-              <div class="agenda-content">
-                <strong>Assessment Sumatif Akhir Sekolah</strong>
-              </div>
-            </li>
-
-            <li class="d-flex gap-3 mb-4">
-              <!-- Kotak Tanggal -->
-              <div class="agenda-date flex-shrink-0">
-                <div class="agenda-month">Jun 2025</div>
-                <div class="agenda-day">15</div>
-              </div>
-
-              <!-- Teks Agenda -->
-              <div class="agenda-content">
-                <strong>Assessment Sumatif Akhir Sekolah</strong>
-              </div>
-            </li>
-
-            <li class="d-flex gap-3 mb-4">
-              <!-- Kotak Tanggal -->
-              <div class="agenda-date flex-shrink-0">
-                <div class="agenda-month">Jun 2025</div>
-                <div class="agenda-day">15</div>
-              </div>
-
-              <!-- Teks Agenda -->
-              <div class="agenda-content">
-                <strong>Assessment Sumatif Akhir Sekolah yang judulnya sangat panjang dan bisa dua baris atau lebih tapi tetap sejajar atas</strong>
-              </div>
-            </li>
-          </ul>
-        </section>
+                                              @if($agenda->lokasi)
+                                                  <span>
+                                                      <i class="fas fa-map-marker-alt me-1"></i>
+                                                      {{ $agenda->lokasi }}
+                                                  </span>
+                                              @endif
+                                          </div>
+                                      @endif
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                  @endforeach
+                  
+                  @if($agendaSekolah->isEmpty())
+                      <li class="text-center py-3 text-muted">
+                          <i class="fas fa-calendar-alt fa-2x mb-2"></i>
+                          <p>Tidak ada agenda untuk saat ini</p>
+                      </li>
+                  @endif
+              </ul>
+          </section>
       </div>
     </div>
   </div>
