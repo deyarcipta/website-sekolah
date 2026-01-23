@@ -298,7 +298,7 @@
                                   <div class="agenda-month" style="background-color: {{ $agenda->warna }}; color: white;">
                                       {{ $agenda->bulan }}
                                   </div>
-                                  <div class="agenda-day">{{ $agenda->hari }}</div>
+                                  <div class="agenda-day" style="color: {{ $agenda->warna }};">{{ $agenda->hari }}</div>
                               </div>
 
                               <!-- KONTEN -->
