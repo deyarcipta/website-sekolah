@@ -159,7 +159,7 @@
               {{-- Kembali ke Daftar Berita (Tengah) --}}
               <div class="col-md-4 mb-3 mb-md-0 text-center">
                 <a href="{{ route('detail-informasi.index') }}" class="btn-back">
-                  <i class="fas fa-arrow-left me-2"></i> Kembali ke Daftar Berita
+                  <i class="fas fa-newspaper me-2"></i> Kembali ke Daftar Berita
                 </a>
               </div>
               

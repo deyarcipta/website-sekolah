@@ -27,6 +27,7 @@
               <li><a class="dropdown-item" href="/visi-misi">Visi & Misi</a></li>
               <li><a class="dropdown-item" href="/sarpras">Sarana Prasarana</a></li>
               <li><a class="dropdown-item" href="/gurustaff">Guru & Staff</a></li>
+              <li><a class="dropdown-item" href="/gallery">Gallery</a></li>
             </ul>
           </li>
 

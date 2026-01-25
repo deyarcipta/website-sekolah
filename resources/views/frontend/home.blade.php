@@ -353,71 +353,92 @@
 </section>
 
 <section id="galery" class="py-5 bg-purple">
-  <div class="container-fluid px-0">
-    <div class="section-title text-center mb-4">
-      <h2>Yuk, Lihat lebih dekat aktifitas dari wistin</h2>
-      <h1>Galeri Foto Aktivitas Wistin</h1>
+    <div class="container-fluid px-0">
+        <div class="section-title text-center mb-4">
+            <h2>Yuk, Lihat lebih dekat aktifitas dari wistin</h2>
+            <h1>Galeri Foto Aktivitas Wistin</h1>
+        </div>
+
+        <!-- Swiper -->
+        <div class="swiper galerySwiper">
+          <div class="swiper-wrapper">
+
+              {{-- SLIDE ASLI --}}
+              @foreach($galleries as $gallery)
+                  <div class="swiper-slide">
+                      <a href="{{ route('frontend.gallery.show', $gallery->slug) }}"
+                        class="image-overlay-wrapper">
+                        {{-- ganti href jika nanti mau ke detail --}}
+                        {{-- href="{{ route('gallery.show', $gallery->slug) }}" --}}
+
+                          <img
+                              src="{{ asset('storage/' . $gallery->cover_image) }}"
+                              class="img-fluid gallery-image"
+                              alt="{{ $gallery->judul }}">
+
+                          <div class="overlay">
+                              <div class="overlay-text">
+                                  {{ $gallery->judul }}
+                              </div>
+                          </div>
+                      </a>
+                  </div>
+              @endforeach
+
+              {{-- DUPLIKASI --}}
+              @foreach($galleries as $gallery)
+                  <div class="swiper-slide">
+                      <a href="#"
+                        class="image-overlay-wrapper">
+
+                          <img
+                              src="{{ asset('storage/' . $gallery->cover_image) }}"
+                              class="img-fluid gallery-image"
+                              alt="{{ $gallery->judul }}">
+
+                          <div class="overlay">
+                              <div class="overlay-text">
+                                  {{ $gallery->judul }}
+                              </div>
+                          </div>
+                      </a>
+                  </div>
+              @endforeach
+
+              {{-- DUPLIKASI TAMBAHAN JIKA DATA SEDIKIT --}}
+              @if($galleries->count() < 6)
+                  @foreach($galleries as $gallery)
+                      <div class="swiper-slide">
+                          <a href="#"
+                            class="image-overlay-wrapper">
+
+                              <img
+                                  src="{{ asset('storage/' . $gallery->cover_image) }}"
+                                  class="img-fluid gallery-image"
+                                  alt="{{ $gallery->judul }}">
+
+                              <div class="overlay">
+                                  <div class="overlay-text">
+                                      {{ $gallery->judul }}
+                                  </div>
+                              </div>
+                          </a>
+                      </div>
+                  @endforeach
+              @endif
+
+          </div>
+
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- Navigation -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
     </div>
-
-    <!-- Swiper -->
-    <div class="swiper galerySwiper">
-      <div class="swiper-wrapper">
-        <!-- Slide 1 -->
-        <div class="swiper-slide">
-          <a href="" class="image-overlay-wrapper">
-            <img src="{{ asset('assets/img/carousel-1.jpg') }}" class="img-fluid w-100" alt="Gallery 1">
-            <div class="overlay">
-              <div class="overlay-text">Judul Gambar 1</div>
-            </div>
-          </a>
-        </div>
-        <!-- Slide 2 -->
-        <div class="swiper-slide">
-          <a href="" class="image-overlay-wrapper">
-            <img src="{{ asset('assets/img/carousel-2.jpg') }}" class="img-fluid w-100" alt="Gallery 1">
-            <div class="overlay">
-              <div class="overlay-text">Judul Gambar 2</div>
-            </div>
-          </a>
-        </div>
-        <!-- Slide 3 -->
-        <div class="swiper-slide">
-          <a href="" class="image-overlay-wrapper">
-            <img src="{{ asset('assets/img/carousel-3.jpg') }}" class="img-fluid w-100" alt="Gallery 1">
-            <div class="overlay">
-              <div class="overlay-text">Judul Gambar 3</div>
-            </div>
-          </a>
-        </div>
-        <!-- Slide 4 -->
-        <div class="swiper-slide">
-          <a href="" class="image-overlay-wrapper">
-            <img src="{{ asset('assets/img/home-decor-1.jpg') }}" class="img-fluid w-100" alt="Gallery 1">
-            <div class="overlay">
-              <div class="overlay-text">Judul Gambar 4</div>
-            </div>
-          </a>
-        </div>
-        <div class="swiper-slide">
-          <a href="" class="image-overlay-wrapper">
-            <img src="{{ asset('assets/img/home-decor-2.jpg') }}" class="img-fluid w-100" alt="Gallery 1">
-            <div class="overlay">
-              <div class="overlay-text">Judul Gambar 5</div>
-            </div>
-          </a>
-        </div>
-        <!-- Tambah slide lainnya -->
-      </div>
-
-      <!-- Pagination -->
-      <div class="swiper-pagination"></div>
-
-      <!-- Navigation -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-    </div>
-  </div>
 </section>
+
 
 <section id="testimoni">
     <div class="container">

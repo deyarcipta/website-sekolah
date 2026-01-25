@@ -24,10 +24,10 @@
       <div class="col-md-3 mb-4">
         <h4 class="fw-bold">Menu Utama</h4>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-dark text-decoration-none">Beranda</a></li>
+          <li><a href="/" class="text-dark text-decoration-none">Beranda</a></li>
           <li><a href="#" class="text-dark text-decoration-none">Program Keahlian</a></li>
-          <li><a href="#" class="text-dark text-decoration-none">PPDB</a></li>
-          <li><a href="#" class="text-dark text-decoration-none">Tentang Kami</a></li>
+          <li><a href="https://ppdb.smkwisataindonesia.sch.id" class="text-dark text-decoration-none" target="_blank">PPDB</a></li>
+          <li><a href="/kontak" class="text-dark text-decoration-none">Tentang Kami</a></li>
           <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
         </ul>
         <h4 class="fw-bold mt-3">Aplikasi Siswa</h4>
@@ -41,10 +41,10 @@
       <div class="col-md-4 mb-4">
         <h4 class="fw-bold">Statistik</h4>
         <h3 class="mb-1"><strong>Website Wistin</strong></h3>
-        <p class="mb-1">Pageview Hari Ini : 496</p>
-        <p class="mb-1">Visitor Hari Ini : 505</p>
-        <p class="mb-1">Visitor Bulan Ini : 2321</p>
-        <p class="mb-3">Total Visitor : 1207213</p>
+        <p class="mb-1">Pageview Hari Ini : {{ $pageviewHariIni }}</p>
+        <p class="mb-1">Visitor Hari Ini : {{ $visitorHariIni }}</p>
+        <p class="mb-1">Visitor Bulan Ini : {{ $visitorBulanIni }}</p>
+        <p class="mb-3">Total Visitor : {{ $totalVisitor }}</p>
 
         <h4 class="fw-bold">Our Social Media</h4>
         <div class="d-flex gap-2 flex-wrap">

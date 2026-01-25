@@ -799,6 +799,10 @@ li {
     color: #ddd;
 }
 
+.galerySwiper .swiper-wrapper {
+    transition-timing-function: linear !important;
+}
+
 /* Akhir Setting Galery */
 
 /* Setting Testimoni */

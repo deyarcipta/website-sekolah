@@ -65,80 +65,49 @@
             <div class="row g-4">
               @foreach($berita as $item)
                 <div class="col-md-6">
-                  <article class="news-card card border-0 shadow-sm h-100 overflow-hidden">
-                    <!-- Featured Badge -->
-                    @if($item->is_featured)
-                      <div class="featured-badge">
-                        <i class="fas fa-star me-1"></i> Featured
-                      </div>
-                    @endif
-                    
-                    <!-- Image with Overlay -->
+                  <div class="news-card">
+                    <!-- Image -->
                     <div class="news-image position-relative">
                       <img src="{{ $item->gambar_thumbnail ? asset('storage/' . $item->gambar_thumbnail) : ($item->gambar ? asset('storage/' . $item->gambar) : asset('assets/img/default-news.jpg')) }}" 
-                           class="img-fluid w-100" 
                            alt="{{ $item->judul }}"
-                           style="height: 220px; object-fit: cover;">
+                           class="img-fluid w-100"
+                           style="height: 240px; object-fit: cover;">
                       
-                      <!-- Category Badge -->
-                      @if($item->kategori)
-                        <span class="category-badge" style="background-color: {{ $item->kategori->warna ?? '#6B02B1' }};">
-                          {{ $item->kategori->nama }}
+                      <!-- News Badge -->
+                      <div class="position-absolute" style="top: 15px; right: 15px;">
+                        <span class="news-badge" style="background-color: {{ $item->kategori ? ($item->kategori->warna ?? '#7c3aed') : '#7c3aed' }}">
+                          {{ $item->kategori ? $item->kategori->nama : 'NEWS' }}
                         </span>
-                      @endif
-                      
-                      <!-- Date Overlay -->
-                      <div class="date-overlay">
-                        <div class="date-day">{{ \Carbon\Carbon::parse($item->published_at)->format('d') }}</div>
-                        <div class="date-month">{{ \Carbon\Carbon::parse($item->published_at)->format('M') }}</div>
                       </div>
                     </div>
-                    
-                    <!-- Card Content -->
-                    <div class="card-body d-flex flex-column">
-                      <!-- Meta Info -->
-                      <div class="news-meta d-flex align-items-center mb-2">
-                        <div class="d-flex align-items-center me-3">
-                          <i class="fas fa-user-circle me-1 text-primary"></i>
-                          <small class="text-muted">{{ $item->penulis ?? 'Admin SMK WI' }}</small>
-                        </div>
-                        <div class="d-flex align-items-center">
-                          <i class="fas fa-eye me-1 text-primary"></i>
-                          <small class="text-muted">{{ $item->views }} dilihat</small>
-                        </div>
-                      </div>
-                      
-                      <!-- Title -->
-                      <h3 class="news-title mb-3">
-                        <a href="{{ route('detail-informasi.show', $item->slug) }}" 
-                           class="text-decoration-none text-dark">
-                          {{ Str::limit($item->judul, 65) }}
-                        </a>
-                      </h3>
-                      
-                      <!-- Excerpt -->
-                      <p class="news-excerpt text-muted mb-4 flex-grow-1">
-                        {{ Str::limit(strip_tags($item->ringkasan ?: $item->konten), 130) }}
-                      </p>
-                      
-                      <!-- Footer -->
-                      <div class="news-footer d-flex justify-content-between align-items-center mt-auto">
-                        <!-- Tanggal Publikasi -->
-                        <div class="publish-date">
-                          <small class="text-muted">
-                            <i class="fas fa-calendar me-1"></i>
-                            {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('d F Y') }}
-                          </small>
-                        </div>
-                        
-                        <!-- Read More Button -->
-                        <a href="{{ route('detail-informasi.show', $item->slug) }}" 
-                           class="read-more-btn">
-                          Baca <i class="fas fa-arrow-right ms-1"></i>
-                        </a>
-                      </div>
+
+                    <!-- Content -->
+                    <div class="news-content">
+                      <h3 class="news-title">{{ Str::limit($item->judul, 70) }}</h3>
+                      <p class="news-desc">{{ Str::limit(strip_tags($item->ringkasan ?: $item->konten), 150) }}</p>
+                      <a href="{{ route('detail-informasi.show', $item->slug) }}" class="news-link">
+                        Baca Selengkapnya >>
+                      </a>
                     </div>
-                  </article>
+
+                    <!-- Footer -->
+                    <div class="news-footer-border"></div>
+                    <div class="news-footer">
+                      <span class="footer-date">{{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('F d, Y') }}</span>
+                      <span class="footer-separator">•</span>
+                      <span class="footer-views">
+                        <i class="fas fa-eye"></i> {{ $item->views }}
+                      </span>
+                      <span class="footer-separator">•</span>
+                      <span class="footer-comments">
+                        @if($item->komentar_count > 0)
+                          <i class="fas fa-comment"></i> {{ $item->komentar_count }}
+                        @else
+                          <i class="fas fa-comment"></i> 0
+                        @endif
+                      </span>
+                    </div>
+                  </div>
                 </div>
               @endforeach
             </div>
@@ -306,6 +275,168 @@
   --info-color: #17a2b8;
   --warning-color: #ffc107;
   --light-purple: #F3E8FF;
+  --border-gray: #f0f0f0;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+/* === NEW CARD STYLES === */
+.news-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* IMAGE */
+.news-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.news-image img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.news-card:hover .news-image img {
+  transform: scale(1.05);
+}
+
+/* BADGE - POSISI ATAS KANAN SEPERTI GAMBAR KEDUA */
+.news-badge {
+  display: inline-block;
+  background: #7c3aed;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 0 0 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  position: relative;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Efek sudut terpotong seperti pada gambar kedua */
+.news-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 8px 8px;
+  border-color: transparent transparent #5a2bc9 transparent;
+  filter: brightness(0.8);
+}
+
+/* CONTENT */
+.news-content {
+  padding: 22px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-title {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  color: #000;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-desc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* LINK */
+.news-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.news-link:hover {
+  text-decoration: none;
+  color: var(--primary-color);
+  transform: translateX(5px);
+}
+
+/* FOOTER BORDER */
+.news-footer-border {
+  border-top: 1px solid var(--border-gray);
+  margin: 0 22px;
+  opacity: 0.8;
+}
+
+/* FOOTER */
+.news-footer {
+  padding: 12px 22px;
+  font-size: 11px;
+  color: #888;
+  background: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  gap: 8px;
+}
+
+.footer-date,
+.footer-views,
+.footer-comments {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-separator {
+  color: #ccc;
+  font-size: 10px;
+}
+
+.news-footer i {
+  font-size: 10px;
+  color: #aaa;
 }
 
 /* === CONTENT HEADER === */
@@ -350,121 +481,6 @@
   text-decoration: none;
 }
 
-/* === NEWS CARD === */
-.news-card {
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: white;
-}
-
-.news-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15) !important;
-}
-
-.featured-badge {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #000;
-  padding: 0.4rem 0.8rem;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  z-index: 2;
-}
-
-.news-image {
-  overflow: hidden;
-  position: relative;
-}
-
-.news-image img {
-  transition: transform 0.6s ease;
-  width: 100%;
-}
-
-.news-card:hover .news-image img {
-  transform: scale(1.05);
-}
-
-.category-badge {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 0.4rem 0.8rem;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  z-index: 2;
-}
-
-.date-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background: rgba(107, 2, 177, 0.9);
-  color: white;
-  padding: 0.5rem 0.8rem;
-  text-align: center;
-  min-width: 60px;
-}
-
-.date-day {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.date-month {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  opacity: 0.9;
-}
-
-.news-meta {
-  font-size: 0.85rem;
-}
-
-.news-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1.4;
-  transition: color 0.3s;
-}
-
-.news-card:hover .news-title a {
-  color: var(--primary-color) !important;
-}
-
-.news-excerpt {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.publish-date small {
-  font-size: 0.85rem;
-}
-
-.read-more-btn {
-  display: inline-flex;
-  align-items: center;
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all 0.3s;
-}
-
-.read-more-btn:hover {
-  color: var(--primary-dark);
-  transform: translateX(5px);
-}
-
 /* === EMPTY STATE === */
 .empty-state {
   background: linear-gradient(135deg, #F8F9FA, #E9ECEF);
@@ -487,7 +503,7 @@
 }
 
 .bg-gradient-primary {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+  background: linear-gradient(135deg, #6B02B1, #8A2BE2) !important;
 }
 
 .bg-gradient-success {
@@ -496,10 +512,6 @@
 
 .bg-gradient-info {
   background: linear-gradient(135deg, #17a2b8, #0dcaf0) !important;
-}
-
-.bg-gradient-warning {
-  background: linear-gradient(135deg, #ffc107, #ffca2c) !important;
 }
 
 .list-group-item {
@@ -538,17 +550,6 @@
   color: var(--primary-color) !important;
 }
 
-/* === NEWSLETTER FORM === */
-.newsletter-form input {
-  border-radius: 50px;
-  padding: 0.6rem 1rem;
-}
-
-.newsletter-form button {
-  border-radius: 50px;
-  font-weight: 600;
-}
-
 /* === PAGINATION === */
 .pagination-section {
   border-top: 2px solid #f1f3f4;
@@ -573,31 +574,36 @@
     margin-bottom: 1rem;
   }
   
-  .date-overlay {
-    min-width: 50px;
-    padding: 0.3rem 0.5rem;
-  }
-  
-  .date-day {
-    font-size: 1.2rem;
-  }
-  
   .news-title {
-    font-size: 1rem;
+    font-size: 16px;
   }
   
-  .news-excerpt {
-    font-size: 0.9rem;
+  .news-desc {
+    font-size: 13px;
+  }
+  
+  .news-link {
+    font-size: 13px;
   }
   
   .news-footer {
-    flex-direction: column;
-    align-items: flex-start !important;
-    gap: 0.5rem;
+    font-size: 10px;
+    padding: 10px 15px;
   }
   
-  .read-more-btn {
-    align-self: flex-end;
+  .news-footer-border {
+    margin: 0 15px;
+  }
+  
+  .news-badge {
+    padding: 6px 12px;
+    font-size: 10px;
+    min-width: 60px;
+  }
+  
+  .news-badge::before {
+    border-width: 0 0 6px 6px;
+    right: -6px;
   }
 }
 
@@ -703,54 +709,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Newsletter form submission
-  const newsletterForm = document.querySelector('.newsletter-form');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = this.querySelector('input[type="email"]').value;
-      
-      // Simulate subscription
-      const button = this.querySelector('button');
-      const originalText = button.innerHTML;
-      
-      button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Memproses...';
-      button.disabled = true;
-      
-      setTimeout(() => {
-        button.innerHTML = '<i class="fas fa-check me-2"></i>Terdaftar!';
-        button.classList.remove('btn-warning');
-        button.classList.add('btn-success');
-        
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.classList.remove('btn-success');
-          button.classList.add('btn-warning');
-          button.disabled = false;
-          this.reset();
-        }, 2000);
-      }, 1500);
-    });
-  }
-  
-  // Lazy load images
-  const images = document.querySelectorAll('img');
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src || img.src;
-        img.classList.add('loaded');
-        observer.unobserve(img);
-      }
-    });
-  });
-  
-  images.forEach(img => {
-    if (img.complete) return;
-    imageObserver.observe(img);
-  });
-  
   // Smooth scroll for pagination
   document.querySelectorAll('.pagination a').forEach(link => {
     link.addEventListener('click', function(e) {
@@ -763,6 +721,20 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
           window.location.href = this.getAttribute('href');
         }, 300);
+      }
+    });
+  });
+  
+  // News card click enhancement
+  document.querySelectorAll('.news-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Add a small animation before navigation
+      const card = this.closest('.news-card');
+      if (card) {
+        card.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          card.style.transform = '';
+        }, 200);
       }
     });
   });

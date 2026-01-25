@@ -147,6 +147,14 @@
 
         {{-- Galeri --}}
         <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('backend.galleries.index') ? 'active' : '' }}" href="{{ route('backend.galleries.index') }}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-images text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Galeri</span>
+          </a>
+        </li>
+        {{-- <li class="nav-item">
           <a class="nav-link" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-images text-dark text-sm opacity-10"></i>
@@ -167,7 +175,7 @@
               </a>
             </li>
           </ul>
-        </li>
+        </li> --}}
 
         {{-- Kontak & Hubungi Kami --}}
         <li class="nav-item">
@@ -176,6 +184,16 @@
               <i class="fas fa-envelope text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Kontak</span>
+          </a>
+        </li>
+
+        {{-- Statistik Website --}}
+        <li class="nav-item">
+          <a class="nav-link {{ request()->routeIs('backend.website-statistics.index') ? 'active' : '' }}" href="{{ route('backend.website-statistics.index') }}">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-fw fa-chart-bar text-dark text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Statistik Website</span>
           </a>
         </li>
 

@@ -13,6 +13,7 @@ use App\Http\Controllers\Frontend\KulinerController;
 use App\Http\Controllers\Frontend\KontakController;
 use App\Http\Controllers\Frontend\InformasiController;
 use App\Http\Controllers\Frontend\DetailInformasiController;
+use App\Http\Controllers\Frontend\GalleryController;
 
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -29,6 +30,8 @@ use App\Http\Controllers\Backend\KategoriBeritaBackendController;
 use App\Http\Controllers\Backend\BeritaBackendController;
 use App\Http\Controllers\Backend\AnnouncementBackendController;
 use App\Http\Controllers\Backend\AgendaSekolahBackendController;
+use App\Http\Controllers\Backend\GalleryBackendController;
+use App\Http\Controllers\Backend\WebsiteStatisticsBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -42,6 +45,10 @@ Route::prefix('detail-informasi')->name('detail-informasi.')->group(function () 
     Route::get('/', [DetailInformasiController::class, 'index'])->name('index');
     Route::get('/{slug}', [DetailInformasiController::class, 'show'])->name('show');
     Route::get('/kategori/{slug}', [DetailInformasiController::class, 'kategori'])->name('kategori');
+});
+Route::prefix('gallery')->name('frontend.gallery.')->group(function () {
+    Route::get('/', [GalleryController::class, 'index'])->name('index');
+    Route::get('/{slug}', [GalleryController::class, 'show'])->name('show');
 });
 
 // Halaman program keahlian
@@ -245,7 +252,41 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         Route::post('/update-urutan', [AgendaSekolahBackendController::class, 'updateUrutan'])->name('update-urutan');
         Route::post('/{id}/toggle-status/{status}', [AgendaSekolahBackendController::class, 'toggleStatus'])->name('toggle-status');
     });
+
+    // Backend Gallery Routes
+    Route::prefix('galleries')->name('backend.galleries.')->group(function() {
+        Route::get('/', [GalleryBackendController::class, 'index'])->name('index');
+        Route::post('/', [GalleryBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [GalleryBackendController::class, 'edit'])->name('edit');
+        Route::get('/{id}/get', [GalleryBackendController::class, 'getGallery'])->name('get');
+        Route::put('/{id}', [GalleryBackendController::class, 'update'])->name('update');
+        Route::delete('/{id}', [GalleryBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/{id}/toggle-status/{status}', [GalleryBackendController::class, 'toggleStatus'])->name('toggle-status');
+        Route::post('/update-order', [GalleryBackendController::class, 'updateOrder'])->name('update-order');
+        Route::post('/{id}/update-image-order', [GalleryBackendController::class, 'updateImageOrder'])->name('update-image-order');
+    });
+
+    // Backend Website Statistics Routes
+    Route::prefix('website-statistics')->name('backend.website-statistics.')->group(function () {
+    Route::get('/', [WebsiteStatisticsBackendController::class, 'index'])->name('index');
+    Route::post('/', [WebsiteStatisticsBackendController::class, 'store'])->name('store');
+    Route::get('/{websiteStatistic}/edit', [WebsiteStatisticsBackendController::class, 'edit'])->name('edit'); // ← TAMBAH INI
+    Route::put('/{websiteStatistic}', [WebsiteStatisticsBackendController::class, 'update'])->name('update');
+    Route::delete('/{websiteStatistic}', [WebsiteStatisticsBackendController::class, 'destroy'])->name('destroy');
+    
+    Route::post('/{websiteStatistic}/update-value', [WebsiteStatisticsBackendController::class, 'updateValue'])->name('update-value');
+    Route::post('/{websiteStatistic}/increment', [WebsiteStatisticsBackendController::class, 'increment'])->name('increment');
+    Route::post('/{websiteStatistic}/reset', [WebsiteStatisticsBackendController::class, 'reset'])->name('reset');
+    
+    Route::post('/update-order', [WebsiteStatisticsBackendController::class, 'updateOrder'])->name('update-order');
+    
+    Route::get('/visitor-stats', [WebsiteStatisticsBackendController::class, 'visitorStats'])->name('visitor-stats');
+    Route::get('/logs', [WebsiteStatisticsBackendController::class, 'logs'])->name('logs');
+    Route::get('/dashboard-stats', [WebsiteStatisticsBackendController::class, 'dashboardStats'])->name('dashboard-stats');
         
+    Route::get('/export/csv', [WebsiteStatisticsBackendController::class, 'exportCsv'])->name('export.csv'); // ← TAMBAH INI
+    });
+
     // Tambahkan route backend lainnya di sini...
 });
 

@@ -213,6 +213,7 @@
       }
     }
   </style>
+  @stack('styles')
 </head>
 
 <body>
@@ -749,19 +750,28 @@
       // ============ SWIPER ============
       
       // Swiper untuk Galeri
-      const galerySwiper = document.querySelector('.galerySwiper');
-      if (galerySwiper) {
+      const galerySwiperEl = document.querySelector('.galerySwiper');
+
+      if (galerySwiperEl) {
         new Swiper('.galerySwiper', {
           loop: true,
-          autoplay: { delay: 3000 },
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+          },
+
           pagination: {
-            el: '.galery-pagination',
+            el: '.galerySwiper .swiper-pagination',
             clickable: true,
           },
+
           navigation: {
-            nextEl: '.galery-button-next',
-            prevEl: '.galery-button-prev',
+            nextEl: '.galerySwiper .swiper-button-next',
+            prevEl: '.galerySwiper .swiper-button-prev',
           },
+
+          allowTouchMove: true,
+
           breakpoints: {
             320: { slidesPerView: 1 },
             576: { slidesPerView: 2 },

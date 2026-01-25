@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Models\WebsiteSetting;
 use App\Models\MouPartner;
+use App\Models\WebsiteStatistic;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        //    
     }
 
     /**
@@ -48,6 +49,29 @@ class AppServiceProvider extends ServiceProvider
                 ->get();
 
             $view->with('mouPartners', $mouPartners);
+        });
+
+        // Share statistics to all views
+        View::composer('*', function ($view) {
+            $view->with('pageviewHariIni', 
+                WebsiteStatistic::where('name', 'pageview_hari_ini')
+                    ->first()->value ?? 0
+            );
+            
+            $view->with('visitorHariIni',
+                WebsiteStatistic::where('name', 'visitor_hari_ini')
+                    ->first()->value ?? 0
+            );
+            
+            $view->with('visitorBulanIni',
+                WebsiteStatistic::where('name', 'visitor_bulan_ini')
+                    ->first()->value ?? 0
+            );
+            
+            $view->with('totalVisitor',
+                WebsiteStatistic::where('name', 'total_visitor')
+                    ->first()->value ?? 0
+            );
         });
     }
 }
