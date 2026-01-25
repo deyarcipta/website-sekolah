@@ -2,12 +2,17 @@
 
 @section('title', 'Kontak - SMK Wisata Indonesia Jakarta')
 
+@php
+    use App\Models\Kontak;
+    $kontak = Kontak::getData();
+@endphp
+
 @section('content')
 
 {{-- === Hero Section === --}}
 @include('frontend.partials.hero', [
-  'title' => 'Kontak',
-  'backgroundImage' => 'assets/img/foto-gedung.png',
+  'title' => $kontak->hero_title ?? 'Kontak',
+  'backgroundImage' => $kontak->hero_background_url ?? 'assets/img/foto-gedung.png',
   'height' => '200px'
 ])
 
@@ -17,7 +22,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-12">
         <p class="text-center mb-1 mt-4" style="padding: 0px 25px; font-size: 20px;">
-          SMK Wisata Indonesia menyambut Anda atas saran dan masukan yang berharga. Jangan ragu untuk<br>menghubungi kami di alamat yang disebutkan di bawah ini.
+          {!! $kontak->opening_paragraph ?? 'SMK Wisata Indonesia menyambut Anda atas saran dan masukan yang berharga. Jangan ragu untuk<br>menghubungi kami di alamat yang disebutkan di bawah ini.' !!}
         </p>
 
         <div class="line-with-star">
@@ -33,7 +38,7 @@
     <div class="col-lg-4 d-flex justify-content-center position-relative mb-4 mb-lg-0">
       <div class="maps-kontak">
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6338566938543!2d106.83336617402644!3d-6.31173736176519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69edee70aeb597%3A0x3c33aa85fd86d917!2sSMK%20WISATA%20INDONESIA%20%7BSekolah%20Menengah%20Kejuruan%7D!5e0!3m2!1sid!2sid!4v1760179549082!5m2!1sid!2sid" 
+          src="{{ $kontak->map_embed_url ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.6338566938543!2d106.83336617402644!3d-6.31173736176519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69edee70aeb597%3A0x3c33aa85fd86d917!2sSMK%20WISATA%20INDONESIA%20%7BSekolah%20Menengah%20Kejuruan%7D!5e0!3m2!1sid!2sid!4v1760179549082!5m2!1sid!2sid' }}" 
           allowfullscreen="" loading="lazy"
           referrerpolicy="no-referrer-when-downgrade">
         </iframe>
@@ -41,7 +46,7 @@
     </div>
     <div class="col-lg-4 d-flex justify-content-center position-relative mb-4 mb-lg-0">
       <div class="img-kontak">
-        <img src="/assets/img/gambar-kontak.png" alt="Gambar Kontak">
+        <img src="{{ $kontak->contact_image_url ?? '/assets/img/gambar-kontak.png' }}" alt="Gambar Kontak">
       </div>
     </div>
     <div class="col-lg-4 px-5">
@@ -50,24 +55,24 @@
         Berikut merupakan data lengkap alamat dan nomor SMK Wisata Indonesia yang bisa kalian hubungi
       </h4>
       <div class="kontak-sekolah">
-        <h5 class="text-center mt-5 mb-2">SMK Wisata Indonesia</h5>
+        <h5 class="text-center mt-5 mb-2" style="font-weight: 600">{{$settings->site_name}}</h5>
         <div class="info-item">
           <i class="bi bi-geo-alt-fill"></i>
           <span>
-            JL. Raya Lenteng Agung / Jl. Langgar<br>
+            {!! nl2br(e($kontak->address ?? 'JL. Raya Lenteng Agung / Jl. Langgar<br>
             Rt. 009/003 No. 1, Kebagusan,<br>
-            Ps. Minggu, Jakarta Selatan, 12520
+            Ps. Minggu, Jakarta Selatan, 12520')) !!}
           </span>
         </div>        
 
         <div class="info-item">
           <i class="bi bi-telephone-fill"></i>
-          <span>(021) 78830761</span>
+          <span>{{ $kontak->phone ?? '(021) 78830761' }}</span>
         </div>
 
         <div class="info-item">
           <i class="bi bi-envelope-fill"></i>
-          <span>smkwisataindonesia01@gmail.com</span>
+          <span>{{ $kontak->email ?? 'smkwisataindonesia01@gmail.com' }}</span>
         </div>
       </div>
     </div>
@@ -84,34 +89,34 @@
     <div class="row g-5">
       <div class="col-lg-6 d-flex justify-content-end position-relative mb-3 mb-lg-0">
         <div class="card kepala-card shadow-sm">
-          <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Staff 1">
+          <img src="{{ $kontak->staff1_image_url ?? '/assets/img/foto-guru.png' }}" class="card-img-top" alt="Staff 1">
           <div class="card-body d-flex flex-column justify-content-end">
-            <h5 class="card-title mb-1 fw-bold">Dewi Lestari, S.Pd.</h5>
-            <p class="card-text mb-0">Wakil Bid. Kesiswaan & Pembina Osis</p>
+            <h5 class="card-title mb-1 fw-bold">{{ $kontak->staff1_name ?? 'Dewi Lestari, S.Pd.' }}</h5>
+            <p class="card-text mb-0">{{ $kontak->staff1_position ?? 'Wakil Bid. Kesiswaan & Pembina Osis' }}</p>
             <div class="staff-item mt-3">
               <i class="bi bi-telephone-fill"></i>
-              <span>+62 852-1815-0720</span>
+              <span>{{ $kontak->staff1_phone ?? '+62 852-1815-0720' }}</span>
             </div>
             <div class="staff-item">
               <i class="bi bi-envelope-fill"></i>
-              <span>smkwisataindonesia01@gmail.com</span>
+              <span>{{ $kontak->staff1_email ?? 'smkwisataindonesia01@gmail.com' }}</span>
             </div>
           </div>
         </div>
       </div>
       <div class="col-lg-6 d-flex justify-content-start position-relative mb-3 mb-lg-0">
         <div class="card kepala-card shadow-sm">
-          <img src="/assets/img/foto-guru.png" class="card-img-top" alt="Staff 2">
+          <img src="{{ $kontak->staff2_image_url ?? '/assets/img/foto-guru.png' }}" class="card-img-top" alt="Staff 2">
           <div class="card-body d-flex flex-column justify-content-end">
-            <h5 class="card-title mb-1 fw-bold">Dewi Lestari, S.Pd.</h5>
-            <p class="card-text mb-0">Wakil Bid. Kesiswaan & Pembina Osis</p>
+            <h5 class="card-title mb-1 fw-bold">{{ $kontak->staff2_name ?? 'Dewi Lestari, S.Pd.' }}</h5>
+            <p class="card-text mb-0">{{ $kontak->staff2_position ?? 'Wakil Bid. Kesiswaan & Pembina Osis' }}</p>
             <div class="staff-item mt-3">
               <i class="bi bi-telephone-fill"></i>
-              <span>+62 852-1815-0720</span>
+              <span>{{ $kontak->staff2_phone ?? '+62 852-1815-0720' }}</span>
             </div>
             <div class="staff-item">
               <i class="bi bi-envelope-fill"></i>
-              <span>smkwisataindonesia01@gmail.com</span>
+              <span>{{ $kontak->staff2_email ?? 'smkwisataindonesia01@gmail.com' }}</span>
             </div>
           </div>
         </div>
@@ -129,19 +134,39 @@
     </p>
 
     <div class="social-links d-flex justify-content-center gap-2">
-      <a href="https://facebook.com" target="_blank" class="social-icon facebook">
-        <i class="bi bi-facebook"></i>
-      </a>
-      <a href="https://instagram.com" target="_blank" class="social-icon instagram">
-        <i class="bi bi-instagram"></i>
-      </a>
-      <a href="https://youtube.com" target="_blank" class="social-icon youtube">
-        <i class="bi bi-youtube"></i>
-      </a>
+      @if($kontak->facebook_url)
+        <a href="{{ $kontak->facebook_url }}" target="_blank" class="social-icon facebook">
+          <i class="bi bi-facebook"></i>
+        </a>
+      @endif
+      
+      @if($kontak->instagram_url)
+        <a href="{{ $kontak->instagram_url }}" target="_blank" class="social-icon instagram">
+          <i class="bi bi-instagram"></i>
+        </a>
+      @endif
+      
+      @if($kontak->youtube_url)
+        <a href="{{ $kontak->youtube_url }}" target="_blank" class="social-icon youtube">
+          <i class="bi bi-youtube"></i>
+        </a>
+      @endif
+      
+      {{-- Fallback jika tidak ada data --}}
+      @if(!$kontak->facebook_url && !$kontak->instagram_url && !$kontak->youtube_url)
+        <a href="https://facebook.com" target="_blank" class="social-icon facebook">
+          <i class="bi bi-facebook"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="social-icon instagram">
+          <i class="bi bi-instagram"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" class="social-icon youtube">
+          <i class="bi bi-youtube"></i>
+        </a>
+      @endif
     </div>
   </div>
 </section>
-
 
 @endsection
 
@@ -195,13 +220,15 @@
 
 .kontak-sekolah .info-item {
   display: flex;
-  align-items: center;
-  margin-bottom: 8px;
+  align-items: flex-start;
+  margin-bottom: 12px;
 }
 
 .kontak-sekolah .info-item i {
   font-size: 16px;
   margin-right: 8px;
+  margin-top: 3px;
+  color: #6B02B1;
 }
 
 .purple-line {
@@ -247,9 +274,6 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
-  /* text-align: center; */
   width: 100%;
 }
 
@@ -276,6 +300,7 @@
 .staff-item i {
   font-size: 14px;
   margin-right: 15px;
+  color: #6B02B1;
 }
 
 .section-bg-overlay {
@@ -351,7 +376,7 @@
     height: auto;
   }
 
-    .row.g-5 {
+  .row.g-5 {
     justify-content: center !important;
   }
 

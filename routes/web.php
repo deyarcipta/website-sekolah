@@ -32,6 +32,7 @@ use App\Http\Controllers\Backend\AnnouncementBackendController;
 use App\Http\Controllers\Backend\AgendaSekolahBackendController;
 use App\Http\Controllers\Backend\GalleryBackendController;
 use App\Http\Controllers\Backend\WebsiteStatisticsBackendController;
+use App\Http\Controllers\Backend\KontakBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -285,6 +286,17 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
     Route::get('/dashboard-stats', [WebsiteStatisticsBackendController::class, 'dashboardStats'])->name('dashboard-stats');
         
     Route::get('/export/csv', [WebsiteStatisticsBackendController::class, 'exportCsv'])->name('export.csv'); // ← TAMBAH INI
+    });
+
+    // Kontak Routes
+    Route::prefix('backend/kontak')->name('backend.kontak.')->group(function () {
+        Route::get('/', [KontakBackendController::class, 'index'])->name('index');
+        Route::post('/', [KontakBackendController::class, 'store'])->name('store');
+        
+        // Image Deletion Routes
+        Route::delete('/remove-hero-background', [KontakBackendController::class, 'removeHeroBackground'])->name('remove-hero-background');
+        Route::delete('/remove-contact-image', [KontakBackendController::class, 'removeContactImage'])->name('remove-contact-image');
+        Route::delete('/remove-staff-image/{staffNumber}', [KontakBackendController::class, 'removeStaffImage'])->name('remove-staff-image');
     });
 
     // Tambahkan route backend lainnya di sini...
