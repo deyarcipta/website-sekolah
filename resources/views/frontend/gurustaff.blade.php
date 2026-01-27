@@ -125,8 +125,8 @@
             <div class="card-body d-flex flex-column justify-content-end">
               <h5 class="card-title mb-1 fw-bold">{{ $g->nama }}</h5>
               <p class="card-text mb-0">{{ $g->jabatan ?: 'Guru' }}</p>
-              @if($g->pendidikan)
-                <small class="text-muted">{{ $g->pendidikan }}</small>
+              @if($g->bidang)
+                <small class="text-muted">{{ $g->bidang }}</small>
               @endif
             </div>
           </div>
