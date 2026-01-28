@@ -23,13 +23,42 @@ class GuruStaffBackendController extends Controller
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $guruStaff = GuruStaff::orderBy('urutan')->get();
+        $query = GuruStaff::query();
+        
+        // Search
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'LIKE', "%{$search}%")
+                  ->orWhere('jabatan', 'LIKE', "%{$search}%")
+                  ->orWhere('bidang', 'LIKE', "%{$search}%")
+                  ->orWhere('jurusan', 'LIKE', "%{$search}%");
+            });
+        }
+        
+        // Sort
+        $sort = $request->get('sort', 'urutan,asc');
+        list($sortField, $sortDirection) = explode(',', $sort);
+        $query->orderBy($sortField, $sortDirection);
+        
+        // Get data
+        $perPage = $request->get('per_page', 10);
+        $guruStaff = $query->paginate($perPage);
+        
         $tipeOptions = $this->getTipeOptions();
         $guruStaffDescription = GuruStaffDeskripsi::getDeskripsi();
-        
-        return view('backend.guru-staff.index', compact('guruStaff', 'tipeOptions', 'guruStaffDescription'));
+        $totalData = GuruStaff::count();
+        $aktifData = GuruStaff::where('is_active', 1)->count();
+
+        return view('backend.guru-staff.index', compact(
+            'guruStaff', 
+            'tipeOptions', 
+            'guruStaffDescription', 
+            'totalData', 
+            'aktifData'
+        ));
     }
 
     public function store(Request $request)
@@ -170,7 +199,7 @@ class GuruStaffBackendController extends Controller
         ]);
     }
 
-     /**
+    /**
      * Get deskripsi halaman
      */
     public function getDeskripsi()
@@ -207,33 +236,4 @@ class GuruStaffBackendController extends Controller
             'data' => $deskripsi
         ]);
     }
-
-    // Untuk pengaturan teks di atas
-    public function getSettings()
-    {
-        $settings = [
-            'guru_staff_description' => 'Sebuah tim pendidik yang berdedikasi untuk membentuk masa depan cerdas dan berkarakter.'
-        ];
-        
-        return response()->json([
-            'success' => true,
-            'data' => $settings
-        ]);
-    }
-
-    public function updateSettings(Request $request)
-    {
-        // Simpan ke database atau file config
-        // Ini contoh sederhana, sesuaikan dengan kebutuhan
-        $description = $request->input('description');
-        
-        // Simpan ke database jika ada model Settings
-        // Atau ke file config
-        
-        return response()->json([
-            'success' => true,
-            'message' => 'Pengaturan berhasil diperbarui.'
-        ]);
-    }
-
 }

@@ -13,7 +13,6 @@
   <!-- Font Awesome Local -->
   <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
 
-
   <!-- Argon CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/argon-dashboard.css') }}">
 
@@ -27,10 +26,46 @@
         margin-left: 0;
       }
     }
+
+    /* Custom style for password toggle */
+    .password-wrapper {
+      position: relative;
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #8898aa;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .password-toggle:hover {
+      color: #5e72e4;
+    }
+    
+    .password-toggle:focus {
+      outline: none;
+    }
+    
+    /* Adjust input padding to accommodate toggle button */
+    .password-wrapper input {
+      padding-right: 45px;
+    }
   </style>
 </head>
 <body class="">
-  <main class="main-content  mt-0">
+  <main class="main-content mt-0">
     <section>
       <div class="page-header min-vh-100">
         <div class="container">
@@ -50,13 +85,18 @@
                   <form role="form" action="{{ route('backend.login.submit') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                      <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" aria-label="Email">
+                      <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" aria-label="Email" required>
                     </div>
                     <div class="mb-3">
-                      <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" aria-label="Password">
+                      <div class="password-wrapper">
+                        <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" aria-label="Password" required>
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </div>
                     </div>
                     <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="rememberMe">
+                      <input class="form-check-input" type="checkbox" id="rememberMe" name="remember">
                       <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
                     <div class="text-center">
@@ -64,20 +104,14 @@
                     </div>
                   </form>
                 </div>
-                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                  <p class="mb-4 text-sm mx-auto">
-                    Don't have an account?
-                    <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
-                  </p>
-                </div>
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
               <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
           background-size: cover;">
                 <span class="mask bg-gradient-primary opacity-6"></span>
-                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new currency"</h4>
-                <p class="text-white position-relative">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Kesuksesan dimulai dengan langkah pertama"</h4>
+                <p class="text-white position-relative">Semakin besar tantangan, semakin besar pula peluang untuk tumbuh dan berkembang menjadi pribadi yang lebih kuat.</p>
               </div>
             </div>
           </div>
@@ -91,6 +125,23 @@
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script>
+    // Toggle password visibility
+    document.getElementById('passwordToggle').addEventListener('click', function() {
+      const passwordInput = document.getElementById('password');
+      const icon = this.querySelector('i');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    });
+
+    // Original script for sidenav scrollbar
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
       var options = {

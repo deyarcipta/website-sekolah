@@ -28,6 +28,43 @@
         </div>
     </div>
 
+    <!-- Filter Card -->
+    <div class="card shadow mb-4 border-0">
+        <div class="card-body">
+            <form action="{{ route('backend.guru-staff.index') }}" method="GET" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Cari Guru/Staff</label>
+                    <input type="text" class="form-control" name="search" placeholder="Nama, jabatan, atau bidang..." value="{{ request('search') }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Tipe</label>
+                    <select class="form-select" name="tipe">
+                        <option value="">Semua Tipe</option>
+                        @foreach($tipeOptions as $value => $label)
+                            <option value="{{ $value }}" {{ request('tipe') == $value ? 'selected' : '' }}>
+                                {{ $label }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold">Status</label>
+                    <select class="form-select" name="status">
+                        <option value="">Semua Status</option>
+                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Aktif</option>
+                        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Nonaktif</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex flex-column">
+                    <label class="form-label invisible">Filter</label>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-filter me-1"></i> Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Main Card -->
     <div class="card shadow-lg border-0 rounded-5 overflow-hidden">
         <div class="card-body p-0">
@@ -60,7 +97,7 @@
                                 <tr data-id="{{ $item->id }}">
                                     <td class="ps-4">
                                         <i class="fas fa-arrows-alt handle text-secondary me-2"></i>
-                                        {{ $loop->iteration }}
+                                        {{ ($guruStaff->currentPage() - 1) * $guruStaff->perPage() + $loop->iteration }}
                                     </td>
                                     <td class="ps-3">
                                         <div class="foto-wrapper">
@@ -131,6 +168,83 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- PERBAIKAN PAGINATION: Menambahkan card-footer dengan styling yang konsisten -->
+                @if($guruStaff->hasPages())
+                    <div class="card-footer border-0 bg-white py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <!-- Informasi hasil -->
+                            <div class="text-muted small mb-2 mb-md-0">
+                                Menampilkan <strong>{{ $guruStaff->firstItem() }}</strong> - <strong>{{ $guruStaff->lastItem() }}</strong> dari <strong>{{ $guruStaff->total() }}</strong> data
+                            </div>
+                            
+                            <!-- Navigation pagination -->
+                            <div class="d-flex align-items-center">
+                                <!-- Previous Page Link -->
+                                @if($guruStaff->onFirstPage())
+                                    <span class="btn btn-outline-secondary btn-sm disabled me-2 px-3">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                @else
+                                    <a href="{{ $guruStaff->previousPageUrl() }}" class="btn btn-outline-primary btn-sm me-2 px-3">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                @endif
+                                
+                                <!-- Page Numbers -->
+                                <div class="d-none d-md-flex">
+                                    @php
+                                        $current = $guruStaff->currentPage();
+                                        $last = $guruStaff->lastPage();
+                                        $start = max($current - 2, 1);
+                                        $end = min($current + 2, $last);
+                                    @endphp
+                                    
+                                    <!-- First page if not in range -->
+                                    @if($start > 1)
+                                        <a href="{{ $guruStaff->url(1) }}" class="btn btn-outline-secondary btn-sm mx-1">1</a>
+                                        @if($start > 2)
+                                            <span class="btn btn-outline-secondary btn-sm mx-1 disabled">...</span>
+                                        @endif
+                                    @endif
+                                    
+                                    <!-- Page numbers -->
+                                    @for($i = $start; $i <= $end; $i++)
+                                        @if($i == $current)
+                                            <span class="btn btn-primary btn-sm mx-1 px-3">{{ $i }}</span>
+                                        @else
+                                            <a href="{{ $guruStaff->url($i) }}" class="btn btn-outline-secondary btn-sm mx-1 px-3">{{ $i }}</a>
+                                        @endif
+                                    @endfor
+                                    
+                                    <!-- Last page if not in range -->
+                                    @if($end < $last)
+                                        @if($end < $last - 1)
+                                            <span class="btn btn-outline-secondary btn-sm mx-1 disabled">...</span>
+                                        @endif
+                                        <a href="{{ $guruStaff->url($last) }}" class="btn btn-outline-secondary btn-sm mx-1">{{ $last }}</a>
+                                    @endif
+                                </div>
+                                
+                                <!-- Mobile page info -->
+                                <div class="d-md-none text-center mx-2">
+                                    <span class="badge bg-primary">{{ $current }}/{{ $last }}</span>
+                                </div>
+                                
+                                <!-- Next Page Link -->
+                                @if($guruStaff->hasMorePages())
+                                    <a href="{{ $guruStaff->nextPageUrl() }}" class="btn btn-outline-primary btn-sm ms-2 px-3">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                @else
+                                    <span class="btn btn-outline-secondary btn-sm disabled ms-2 px-3">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @endif
         </div>
     </div>
@@ -513,6 +627,49 @@ code {
     font-size: 0.875em;
     color: #d63384;
 }
+
+/* PERBAIKAN PAGINATION: Tambahkan styling untuk pagination yang konsisten */
+.card-footer {
+    border-top: 1px solid rgba(0,0,0,.125) !important;
+}
+
+.btn-outline-primary.btn-sm {
+    border-color: #6b02b1;
+    color: #6b02b1;
+}
+
+.btn-outline-primary.btn-sm:hover {
+    background-color: #6b02b1;
+    border-color: #6b02b1;
+    color: white;
+}
+
+.btn-primary.btn-sm {
+    background-color: #6b02b1;
+    border-color: #6b02b1;
+}
+
+.btn-outline-secondary.btn-sm.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive pagination */
+@media (max-width: 768px) {
+    .card-footer .d-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .card-footer .d-flex > div {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .card-footer .text-muted {
+        text-align: center;
+    }
+}
 </style>
 @endpush
 
@@ -583,7 +740,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tinymceInitialized = false;
     }
     
-    // Initialize Sortable
+    // Initialize Sortable (only for current page items)
     const sortableTable = document.getElementById('sortableTable');
     if (sortableTable) {
         const sortable = new Sortable(sortableTable, {
@@ -597,7 +754,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Update urutan
+    // Update urutan for current page
     function updateUrutan() {
         const rows = document.querySelectorAll('#sortableTable tr');
         const urutan = [];
@@ -620,11 +777,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Update row numbers
+                // Update row numbers for current page
+                const startNumber = {{ ($guruStaff->currentPage() - 1) * $guruStaff->perPage() + 1 }};
                 rows.forEach((row, index) => {
                     const numberCell = row.querySelector('td:first-child');
                     if (numberCell) {
-                        numberCell.innerHTML = `<i class="fas fa-arrows-alt handle text-secondary me-2"></i> ${index + 1}`;
+                        numberCell.innerHTML = `<i class="fas fa-arrows-alt handle text-secondary me-2"></i> ${startNumber + index}`;
                     }
                 });
                 
@@ -673,20 +831,26 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnEditText')?.addEventListener('click', openDeskripsiForm);
     
     // Edit button
-    document.querySelectorAll('.btn-edit').forEach(button => {
-        button.addEventListener('click', function() {
-            const id = this.dataset.id;
-            editData(id);
-        });
-    });
-    
-    // Hapus button
-    document.querySelectorAll('.btn-hapus').forEach(button => {
-        button.addEventListener('click', function() {
-            const id = this.dataset.id;
-            const name = this.dataset.name;
-            hapusData(id, name);
-        });
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-edit') || e.target.closest('.btn-edit')) {
+            e.preventDefault();
+            const button = e.target.classList.contains('btn-edit') ? e.target : e.target.closest('.btn-edit');
+            if (button) {
+                const id = button.dataset.id;
+                editData(id);
+            }
+        }
+        
+        // Hapus button
+        if (e.target.classList.contains('btn-hapus') || e.target.closest('.btn-hapus')) {
+            e.preventDefault();
+            const button = e.target.classList.contains('btn-hapus') ? e.target : e.target.closest('.btn-hapus');
+            if (button) {
+                const id = button.dataset.id;
+                const name = button.dataset.name;
+                hapusData(id, name);
+            }
+        }
     });
     
     // Open form for create
@@ -903,7 +1067,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     timer: 1500,
                     showConfirmButton: false
                 }).then(() => {
-                    location.reload();
+                    // Reload with current pagination parameters
+                    window.location.reload();
                 });
             } else {
                 if (data.errors) {
@@ -1062,7 +1227,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             timer: 1500,
                             showConfirmButton: false
                         }).then(() => {
-                            location.reload();
+                            // Reload with current pagination parameters
+                            window.location.reload();
                         });
                     } else {
                         Swal.fire({

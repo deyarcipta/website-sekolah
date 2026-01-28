@@ -119,7 +119,8 @@
                         <option value="headline" {{ request('status') == 'headline' ? 'selected' : '' }}>Headline</option>
                     </select>
                 </div>
-                <div class="col-md-2 d-flex align-items-end">
+                <div class="col-md-2 d-flex flex-column">
+                    <label class="form-label invisible">Filter</label>
                     <button type="submit" class="btn btn-primary w-100">
                         <i class="fas fa-filter me-1"></i> Filter
                     </button>
@@ -322,15 +323,78 @@
                     </table>
                 </div>
                 
-                <!-- Pagination -->
+                <!-- PERBAIKAN PAGINATION: Menambahkan card-footer dengan styling yang lebih baik -->
                 @if($berita->hasPages())
-                    <div class="card-footer border-0">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="text-muted small">
-                                Menampilkan {{ $berita->firstItem() }} - {{ $berita->lastItem() }} dari {{ $berita->total() }} berita
+                    <div class="card-footer border-0 bg-white py-3 px-4">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <!-- Informasi hasil -->
+                            <div class="text-muted small mb-2 mb-md-0">
+                                Menampilkan <strong>{{ $berita->firstItem() }}</strong> - <strong>{{ $berita->lastItem() }}</strong> dari <strong>{{ $berita->total() }}</strong> berita
                             </div>
-                            <div>
-                                {{ $berita->links() }}
+                            
+                            <!-- Navigation pagination -->
+                            <div class="d-flex align-items-center">
+                                <!-- Previous Page Link -->
+                                @if($berita->onFirstPage())
+                                    <span class="btn btn-outline-secondary btn-sm disabled me-2 px-3">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                @else
+                                    <a href="{{ $berita->previousPageUrl() }}" class="btn btn-outline-primary btn-sm me-2 px-3">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                @endif
+                                
+                                <!-- Page Numbers -->
+                                <div class="d-none d-md-flex">
+                                    @php
+                                        $current = $berita->currentPage();
+                                        $last = $berita->lastPage();
+                                        $start = max($current - 2, 1);
+                                        $end = min($current + 2, $last);
+                                    @endphp
+                                    
+                                    <!-- First page if not in range -->
+                                    @if($start > 1)
+                                        <a href="{{ $berita->url(1) }}" class="btn btn-outline-secondary btn-sm mx-1">1</a>
+                                        @if($start > 2)
+                                            <span class="btn btn-outline-secondary btn-sm mx-1 disabled">...</span>
+                                        @endif
+                                    @endif
+                                    
+                                    <!-- Page numbers -->
+                                    @for($i = $start; $i <= $end; $i++)
+                                        @if($i == $current)
+                                            <span class="btn btn-primary btn-sm mx-1 px-3">{{ $i }}</span>
+                                        @else
+                                            <a href="{{ $berita->url($i) }}" class="btn btn-outline-secondary btn-sm mx-1 px-3">{{ $i }}</a>
+                                        @endif
+                                    @endfor
+                                    
+                                    <!-- Last page if not in range -->
+                                    @if($end < $last)
+                                        @if($end < $last - 1)
+                                            <span class="btn btn-outline-secondary btn-sm mx-1  disabled">...</span>
+                                        @endif
+                                        <a href="{{ $berita->url($last) }}" class="btn btn-outline-secondary btn-sm mx-1">{{ $last }}</a>
+                                    @endif
+                                </div>
+                                
+                                <!-- Mobile page info -->
+                                <div class="d-md-none text-center mx-2">
+                                    <span class="badge bg-primary">{{ $current }}/{{ $last }}</span>
+                                </div>
+                                
+                                <!-- Next Page Link -->
+                                @if($berita->hasMorePages())
+                                    <a href="{{ $berita->nextPageUrl() }}" class="btn btn-outline-primary btn-sm ms-2 px-3">
+                                    <i class="fas fa-chevron-right "></i>
+                                    </a>
+                                @else
+                                    <span class="btn btn-outline-secondary btn-sm disabled ms-2 px-3">
+                                    <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -778,6 +842,45 @@
 @media (max-width: 1400px) {
     .table-responsive {
         min-width: 1200px;
+    }
+}
+
+/* Untuk button pagination custom */
+.btn-outline-primary.btn-sm {
+    border-color: #6b02b1;
+    color: #6b02b1;
+}
+
+.btn-outline-primary.btn-sm:hover {
+    background-color: #6b02b1;
+    border-color: #6b02b1;
+    color: white;
+}
+
+.btn-primary.btn-sm {
+    background-color: #6b02b1;
+    border-color: #6b02b1;
+}
+
+.btn-outline-secondary.btn-sm.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive pagination */
+@media (max-width: 768px) {
+    .card-footer .d-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .card-footer .d-flex > div {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .card-footer .text-muted {
+        text-align: center;
     }
 }
 </style>

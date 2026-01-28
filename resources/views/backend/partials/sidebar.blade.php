@@ -312,16 +312,8 @@
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-users-cog text-dark text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Manajemen User</span>
+            <span class="nav4-link-text ms-1">Manajemen User</span>
           </a>
-          <ul class="nav flex-column ps-4">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-user-shield text-xs opacity-6 me-2"></i>
-                Admin
-              </a>
-            </li>
-          </ul>
         </li>
 
         {{-- Backup & Restore --}}
