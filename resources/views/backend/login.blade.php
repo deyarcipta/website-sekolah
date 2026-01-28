@@ -3,10 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', 'Dashboard')</title>
+  <title>@yield('title', 'Login Admin Website SMK Wisata Indonesia')</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ asset($settings->site_logo ?? 'assets/img/logo.png') }}">
 
   <!-- Icons -->
   <link rel="stylesheet" href="{{ asset('assets/css/nucleo.css') }}">

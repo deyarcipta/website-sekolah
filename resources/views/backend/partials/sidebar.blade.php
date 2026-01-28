@@ -154,28 +154,6 @@
             <span class="nav-link-text ms-1">Galeri</span>
           </a>
         </li>
-        {{-- <li class="nav-item">
-          <a class="nav-link" href="#">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fas fa-images text-dark text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Galeri</span>
-          </a>
-          <ul class="nav flex-column ps-4">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="fas fa-camera text-xs opacity-6 me-2"></i>
-                Foto
-              </a>
-            </li>
-            <li class="nav-item">
-             <a class="nav-link" href="#">
-                <i class="fas fa-video text-xs opacity-6 me-2"></i>
-                Video
-              </a>
-            </li>
-          </ul>
-        </li> --}}
 
         {{-- Kontak & Hubungi Kami --}}
         <li class="nav-item">
@@ -214,7 +192,6 @@
             <span class="nav-link-text ms-1">Program / Jurusan</span>
           </a>
         </li>
-
 
         {{-- Guru & Staff --}}
         <li class="nav-item">
@@ -268,6 +245,8 @@
         </li>
 
         {{-- ================= PENGATURAN ================= --}}
+        {{-- Tampilkan hanya untuk superadmin --}}
+        @if(auth()->user()->role === 'superadmin')
         <li class="nav-item mt-2">
           <h6 class="ps-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-1">
             Pengaturan
@@ -308,11 +287,11 @@
 
         {{-- Manajemen User --}}
         <li class="nav-item">
-         <a class="nav-link" href="#">
+         <a class="nav-link {{ request()->routeIs('backend.users.index') ? 'active' : '' }}" href="{{ route('backend.users.index') }}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-users-cog text-dark text-sm opacity-10"></i>
             </div>
-            <span class="nav4-link-text ms-1">Manajemen User</span>
+            <span class="nav-link-text ms-1">Manajemen User</span>
           </a>
         </li>
 
@@ -335,6 +314,7 @@
             <span class="nav-link-text ms-1">Log Aktivitas Sistem</span>
           </a>
         </li>
+        @endif
 
       </ul>
     </div>

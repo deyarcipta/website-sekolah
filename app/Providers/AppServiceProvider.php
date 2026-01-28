@@ -43,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with('settings', $settings);
         });
 
+
+
         View::composer('frontend.partials.mou', function ($view) {
             $mouPartners = MouPartner::active()
                 ->orderBy('sort_order')

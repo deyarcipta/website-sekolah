@@ -33,6 +33,8 @@ use App\Http\Controllers\Backend\AgendaSekolahBackendController;
 use App\Http\Controllers\Backend\GalleryBackendController;
 use App\Http\Controllers\Backend\WebsiteStatisticsBackendController;
 use App\Http\Controllers\Backend\KontakBackendController;
+use App\Http\Controllers\Backend\UserBackendController;
+use App\Http\Controllers\Backend\ProfileBackendController;
 
 // ================= FRONTEND ROUTES =================
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
@@ -297,6 +299,22 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
         Route::delete('/remove-hero-background', [KontakBackendController::class, 'removeHeroBackground'])->name('remove-hero-background');
         Route::delete('/remove-contact-image', [KontakBackendController::class, 'removeContactImage'])->name('remove-contact-image');
         Route::delete('/remove-staff-image/{staffNumber}', [KontakBackendController::class, 'removeStaffImage'])->name('remove-staff-image');
+    });
+
+    // User Management Routes
+Route::prefix('users')->name('backend.users.')->group(function () {
+    Route::get('/', [UserBackendController::class, 'index'])->name('index');
+    Route::post('/', [UserBackendController::class, 'store'])->name('store');
+    Route::get('/{user}/edit', [UserBackendController::class, 'edit'])->name('edit'); // Menggunakan {user} bukan {id}
+    Route::put('/{user}', [UserBackendController::class, 'update'])->name('update'); // Menggunakan {user} dan PUT
+    Route::delete('/{user}', [UserBackendController::class, 'destroy'])->name('destroy');
+    Route::post('/{user}/toggle-status', [UserBackendController::class, 'toggleStatus'])->name('toggle-status');
+    Route::post('/check-email', [UserBackendController::class, 'checkEmail'])->name('check-email');
+});
+
+    // Profile Routes
+    Route::prefix('profile')->name('backend.profile.')->group(function () {
+        Route::put('/update', [ProfileBackendController::class, 'update'])->name('update');
     });
 
     // Tambahkan route backend lainnya di sini...
