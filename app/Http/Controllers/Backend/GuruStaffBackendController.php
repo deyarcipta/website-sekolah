@@ -26,23 +26,23 @@ class GuruStaffBackendController extends Controller
     public function index(Request $request)
     {
         $query = GuruStaff::query();
-        
-        // Search
-        if ($request->has('search') && $request->search != '') {
+
+        // Filter pencarian
+        if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('nama', 'LIKE', "%{$search}%")
-                  ->orWhere('jabatan', 'LIKE', "%{$search}%")
-                  ->orWhere('bidang', 'LIKE', "%{$search}%")
-                  ->orWhere('jurusan', 'LIKE', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                ->orWhere('jabatan', 'like', "%{$search}%")
+                ->orWhere('bidang', 'like', "%{$search}%")
+                ->orWhere('jurusan', 'like', "%{$search}%");
             });
         }
-        
-        // Sort
-        $sort = $request->get('sort', 'urutan,asc');
-        list($sortField, $sortDirection) = explode(',', $sort);
-        $query->orderBy($sortField, $sortDirection);
-        
+
+        // Filter tipe
+        if ($request->filled('tipe')) {
+            $query->where('tipe', $request->tipe);
+        }
+                
         // Get data
         $perPage = $request->get('per_page', 10);
         $guruStaff = $query->paginate($perPage);
