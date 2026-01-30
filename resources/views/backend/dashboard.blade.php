@@ -260,14 +260,16 @@
         </div>
         <div class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-muted">Halaman Populer</span>
-          <span class="badge bg-info">Beranda</span>
+          <span class="badge bg-{{ $popularPage['badge_color'] ?? 'info' }}">
+                    {{ $popularPage['title'] ?? 'Beranda' }}
+                </span>
         </div>
         <div class="progress mb-3" style="height: 6px;">
-          <div class="progress-bar bg-primary" role="progressbar" style="width: 75%"></div>
+          <div class="progress-bar bg-primary" role="progressbar" style="width: {{ $visitTrend['value'] ?? 0 }}%"></div>
         </div>
         <small class="text-muted d-flex justify-content-between align-items-center">
-          <span>Tren kunjungan meningkat 15%</span>
-          <span class="text-primary" id="stat-update-time">{{ now()->format('H:i') }}</span>
+          <span>{{ $visitTrend['message'] ?? 'Tidak ada data tren kunjungan' }}</span>
+          <span class="text-primary" id="stat-update-time">{{ $sessionDuration->format('H:i') }}</span>
         </small>
       </div>
     </div>
@@ -332,7 +334,7 @@
             </a>
           </div>
           <div class="col-md-3 col-6">
-            <a href="{{ route('backend.dashboard.buat-gallery') }}" class="card action-card border-0 text-center h-100 text-decoration-none">
+            <a href="{{ route('backend.dashboard.tambah-galeri') }}" class="card action-card border-0 text-center h-100 text-decoration-none">
               <div class="card-body py-4">
                 <div class="icon-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" 
                     style="width: 60px; height: 60px; border-radius: 50%;">
@@ -344,7 +346,7 @@
             </a>
           </div>
           <div class="col-md-3 col-6">
-            <a href="{{ route('backend.dashboard.buat-pengumuman') }}" class="card action-card border-0 text-center h-100 text-decoration-none">
+            <a href="{{ route('backend.dashboard.tambah-pengumuman') }}" class="card action-card border-0 text-center h-100 text-decoration-none">
               <div class="card-body py-4">
                 <div class="icon-circle bg-warning bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" 
                     style="width: 60px; height: 60px; border-radius: 50%;">

@@ -86,15 +86,19 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
     // Refresh dashboard cache
     Route::post('/dashboard/refresh-cache', [DashboardController::class, 'refreshCache'])
         ->name('backend.dashboard.refresh-cache');
-
+    
+    // Redirect dengan modal flags
     Route::get('/dashboard/tambah-berita', [DashboardController::class, 'redirectToBeritaWithModal'])
-    ->name('backend.dashboard.tambah-berita');
-
-    Route::get('/dashboard/buat-pengumuman', [DashboardController::class, 'redirectToPengumumanWithModal'])
-        ->name('backend.dashboard.buat-pengumuman');
-
-    Route::get('/dashboard/buat-galerry', [DashboardController::class, 'redirectToGalleryWithModal'])
-        ->name('backend.dashboard.buat-gallery');
+        ->name('backend.dashboard.tambah-berita');
+    
+    Route::get('/dashboard/tambah-pengumuman', [DashboardController::class, 'redirectToPengumumanWithModal'])
+        ->name('backend.dashboard.tambah-pengumuman');
+    
+    Route::get('/dashboard/tambah-galeri', [DashboardController::class, 'redirectToGalleryWithModal'])
+        ->name('backend.dashboard.tambah-galeri');
+    
+    Route::get('/dashboard/tambah-agenda', [DashboardController::class, 'redirectToAgendaWithModal'])
+        ->name('backend.dashboard.tambah-agenda');
     
     // Logout (POST method)
     Route::post('/logout', [AuthController::class, 'logout'])->name('backend.logout');
