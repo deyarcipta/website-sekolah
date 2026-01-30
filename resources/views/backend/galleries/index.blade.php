@@ -566,6 +566,19 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing gallery management...');
+
+    // Cek session flash
+    @if(session('show_gallery_modal'))
+        console.log('Auto-show modal from session');
+        setTimeout(function() {
+            const btnTambah = document.getElementById('btnTambah') || 
+                             document.getElementById('btnTambahEmpty');
+            if (btnTambah) {
+                btnTambah.click();
+            }
+        }, 500);
+    @endif
+
     
     // Elements
     const modalElement = document.getElementById('modalForm');

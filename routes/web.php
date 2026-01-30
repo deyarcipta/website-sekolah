@@ -75,6 +75,26 @@ Route::post('/w1s4t4/login', [AuthController::class, 'login'])->name('backend.lo
 Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('backend.dashboard');
+    // API untuk statistik realtime
+    Route::get('/dashboard/statistics', [DashboardController::class, 'getStatistics'])
+        ->name('backend.dashboard.statistics');
+    
+    // API untuk dashboard summary
+    Route::get('/dashboard/summary', [DashboardController::class, 'getDashboardSummary'])
+        ->name('backend.dashboard.summary');
+    
+    // Refresh dashboard cache
+    Route::post('/dashboard/refresh-cache', [DashboardController::class, 'refreshCache'])
+        ->name('backend.dashboard.refresh-cache');
+
+    Route::get('/dashboard/tambah-berita', [DashboardController::class, 'redirectToBeritaWithModal'])
+    ->name('backend.dashboard.tambah-berita');
+
+    Route::get('/dashboard/buat-pengumuman', [DashboardController::class, 'redirectToPengumumanWithModal'])
+        ->name('backend.dashboard.buat-pengumuman');
+
+    Route::get('/dashboard/buat-galerry', [DashboardController::class, 'redirectToGalleryWithModal'])
+        ->name('backend.dashboard.buat-gallery');
     
     // Logout (POST method)
     Route::post('/logout', [AuthController::class, 'logout'])->name('backend.logout');
@@ -302,15 +322,15 @@ Route::prefix('w1s4t4')->middleware(['auth', 'role:admin,superadmin'])->group(fu
     });
 
     // User Management Routes
-Route::prefix('users')->name('backend.users.')->group(function () {
-    Route::get('/', [UserBackendController::class, 'index'])->name('index');
-    Route::post('/', [UserBackendController::class, 'store'])->name('store');
-    Route::get('/{user}/edit', [UserBackendController::class, 'edit'])->name('edit'); // Menggunakan {user} bukan {id}
-    Route::put('/{user}', [UserBackendController::class, 'update'])->name('update'); // Menggunakan {user} dan PUT
-    Route::delete('/{user}', [UserBackendController::class, 'destroy'])->name('destroy');
-    Route::post('/{user}/toggle-status', [UserBackendController::class, 'toggleStatus'])->name('toggle-status');
-    Route::post('/check-email', [UserBackendController::class, 'checkEmail'])->name('check-email');
-});
+    Route::prefix('users')->name('backend.users.')->group(function () {
+        Route::get('/', [UserBackendController::class, 'index'])->name('index');
+        Route::post('/', [UserBackendController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [UserBackendController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [UserBackendController::class, 'update'])->name('update'); // PERBAIKAN: PUT untuk update
+        Route::delete('/{id}', [UserBackendController::class, 'destroy'])->name('destroy');
+        Route::post('/toggle-status/{id}', [UserBackendController::class, 'toggleStatus'])->name('toggle-status');
+        Route::post('/check-email', [UserBackendController::class, 'checkEmail'])->name('check-email');
+    });
 
     // Profile Routes
     Route::prefix('profile')->name('backend.profile.')->group(function () {

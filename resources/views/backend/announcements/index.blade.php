@@ -581,6 +581,18 @@ function getEditorContent() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    @if(session('show_pengumuman_modal'))
+        console.log('Auto-show modal from session');
+        setTimeout(function() {
+            const btnTambah = document.getElementById('btnTambah') || 
+                             document.getElementById('btnTambahEmpty');
+            if (btnTambah) {
+                btnTambah.click();
+            }
+        }, 500);
+    @endif
+
     const modal = new bootstrap.Modal('#modalForm');
     const form = document.getElementById('formAnnouncement');
     const showAsModalCheckbox = document.getElementById('show_as_modal');

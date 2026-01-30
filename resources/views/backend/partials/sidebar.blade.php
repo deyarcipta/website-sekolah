@@ -204,8 +204,16 @@
           </a>
         </li>
 
+        {{--Data Alumni --}}
+        <li class="nav-item {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}">
+              <a class="nav-link {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}" href="{{ route('backend.testimoni-alumni.index') }}">
+                <i class="fas fa-user-graduate text-xs opacity-6 me-2"></i>
+                Data Alumni
+              </a>
+            </li>
+
         {{-- Siswa --}}
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-user-graduate text-dark text-sm opacity-10"></i>
@@ -225,24 +233,18 @@
                 Data Siswa
               </a>
             </li>
-            <li class="nav-item {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}">
-              <a class="nav-link {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}" href="{{ route('backend.testimoni-alumni.index') }}">
-                <i class="fas fa-user-graduate text-xs opacity-6 me-2"></i>
-                Data Alumni
-              </a>
-            </li>
           </ul>
-        </li>
+        </li> --}}
 
         {{-- Kurikulum --}}
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-book-open text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Kurikulum</span>
           </a>
-        </li>
+        </li> --}}
 
         {{-- ================= PENGATURAN ================= --}}
         {{-- Tampilkan hanya untuk superadmin --}}
@@ -255,15 +257,14 @@
 
         {{-- Pengaturan Website --}}
         <li class="nav-item">
-          <a class="nav-link {{ request()->is('w1s4t4/settings*') ? 'active' : '' }}" href="#">
+          <a class="nav-link {{ request()->is('w1s4t4/settings*') ? 'active' : '' }}" href="{{ route('backend.settings.index') }}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-cogs text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Pengaturan Website</span>
           </a>
-          <ul class="nav flex-column ps-4">
+          {{-- <ul class="nav flex-column ps-4">
             <li class="nav-item">
-              {{-- Di sidebar --}}
               <a class="nav-link {{ request()->is('w1s4t4/settings*') ? 'active' : '' }}"
                 href="{{ route('backend.settings.index') }}">
                 <i class="fas fa-cogs"></i>
@@ -282,7 +283,7 @@
                 Media Sosial
               </a>
             </li>
-          </ul>
+          </ul> --}}
         </li>
 
         {{-- Manajemen User --}}
@@ -296,24 +297,24 @@
         </li>
 
         {{-- Backup & Restore --}}
-        <li class="nav-item">
+        {{-- <li class="nav-item">
          <a class="nav-link" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-database text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Backup & Restore</span>
           </a>
-        </li>
+        </li> --}}
 
         {{-- Log Aktifitas --}}
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a class="nav-link" href="#">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-history text-dark text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Log Aktivitas Sistem</span>
           </a>
-        </li>
+        </li> --}}
         @endif
 
       </ul>

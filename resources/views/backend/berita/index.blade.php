@@ -1062,6 +1062,18 @@ function isEditorReady() {
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing berita management...');
+
+    // Cek session flash
+    @if(session('show_berita_modal'))
+        console.log('Auto-show modal from session');
+        setTimeout(function() {
+            const btnTambah = document.getElementById('btnTambah') || 
+                             document.getElementById('btnTambahEmpty');
+            if (btnTambah) {
+                btnTambah.click();
+            }
+        }, 500);
+    @endif
     
     const modalElement = document.getElementById('modalForm');
     const modal = new bootstrap.Modal(modalElement, {
