@@ -207,7 +207,7 @@
         {{--Data Alumni --}}
         <li class="nav-item {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}">
               <a class="nav-link {{ request()->routeIs('backend.testimoni-alumni.index') ? 'active' : '' }}" href="{{ route('backend.testimoni-alumni.index') }}">
-                <i class="fas fa-user-graduate text-xs opacity-6 me-2"></i>
+                <i class="fas fa-user-graduate text-dark text-sm opacity-10"></i>
                 Data Alumni
               </a>
             </li>
